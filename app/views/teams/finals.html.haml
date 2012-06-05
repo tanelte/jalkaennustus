@@ -2,19 +2,23 @@
 
 = form_tag finals_teams_path, :method => :post do
   Võitja: 
-  =select :result, 'F1', @teams.collect{|p| [p.name, p.id]}, :selected => "#{@userTeamF1 == nil ? nil : @userTeamF1.team_id}"
+  =select :result, 'F1', @teams.collect{|p| [p.name, p.id]}, 
+    {:selected => "#{@userTeamF1 == nil ? nil : @userTeamF1.team_id}", :prompt => '- vali -'}
   %br
   %br
   Teine koht: 
-  =select :result, 'F2', @teams.collect{|p| [p.name, p.id]}, :selected => "#{@userTeamF2 == nil ? nil : @userTeamF2.team_id}"
+  =select :result, 'F2', @teams.collect{|p| [p.name, p.id]}, 
+    {:selected => "#{@userTeamF2 == nil ? nil : @userTeamF2.team_id}", :prompt => '- vali -'}
   %br
   %br
   Kolmas koht: 
-  =select :result, 'F3', @teams.collect{|p| [p.name, p.id]}, :selected => "#{@userTeamF3 == nil ? nil : @userTeamF3.team_id}"
+  =select :result, 'F3', @teams.collect{|p| [p.name, p.id]}, 
+    {:selected => "#{@userTeamF3 == nil ? nil : @userTeamF3.team_id}", :prompt => '- vali -'}
   %br
   %br
   Neljas koht: 
-  =select :result, 'F4', @teams.collect{|p| [p.name, p.id]}, :selected => "#{@userTeamF4 == nil ? nil : @userTeamF4.team_id}"
+  =select :result, 'F4', @teams.collect{|p| [p.name, p.id]}, 
+    {:selected => "#{@userTeamF4 == nil ? nil : @userTeamF4.team_id}", :prompt => '- vali -'}
   %br
   %br
   = hidden_field_tag "user_id", @user_id

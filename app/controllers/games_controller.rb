@@ -13,13 +13,15 @@ class GamesController < ApplicationController
     user_id = params[:user_id]
     userGames = UserGame.find_all_by_user_id user_id
     result.map do |k,v|
-       existingGames = userGames == nil ? nil : userGames.select{|userGame| k.to_i == userGame.game_id}
-       if existingGames == nil || existingGames.empty?
-         UserGame.create!(:user_id => user_id, :game_id => k, :result => v)
-       else
-         existingGame = existingGames[0]
-         existingGame.update_attribute(:result, v)
-       end
+      if v != nil && !v.empty?
+        existingGames = userGames == nil ? nil : userGames.select{|userGame| k.to_i == userGame.game_id}
+        if existingGames == nil || existingGames.empty?
+          UserGame.create!(:user_id => user_id, :game_id => k, :result => v)
+        else
+          existingGame = existingGames[0]
+          existingGame.update_attribute(:result, v)
+        end
+      end 
     end
     redirect_to user_path(user_id)
   end

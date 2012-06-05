@@ -2,21 +2,58 @@
 
 = form_tag quarterfinals_teams_path, :method => :post do
   A1 - B2: 
-  =select :result, 'Q1', ['1A','2A','1B','2B'], :selected => "#{@userTeamQ1 == nil ? nil : @userTeamQ1.result}"
+  =select :result, 'Q1', 
+    [['A1 võidab normaalajal','1A'],
+    ['B2 võidab normaalajal','1B'],
+    ['A1 võidab lisaajal või penaltitega','2A'],
+    ['B2 võidab lisaajal või penaltitega','2B']], 
+    {:selected => "#{@userTeamQ1 == nil ? nil : @userTeamQ1.result}", :prompt => '- vali -'}
   %br
   %br
   B1 - A2: 
-  =select :result, 'Q2', ['1A','2A','1B','2B'], :selected => "#{@userTeamQ2 == nil ? nil : @userTeamQ2.result}"
+  =select :result, 'Q2', 
+    [['B1 võidab normaalajal','1A'],
+    ['A2 võidab normaalajal','1B'],
+    ['B1 võidab lisaajal või penaltitega','2A'],
+    ['A2 võidab lisaajal või penaltitega','2B']], 
+    {:selected => "#{@userTeamQ2 == nil ? nil : @userTeamQ2.result}", :prompt => '- vali -'}
   %br
   %br
   C1 - D2: 
-  =select :result, 'Q3', ['1A','2A','1B','2B'], :selected => "#{@userTeamQ3 == nil ? nil : @userTeamQ3.result}"
+  =select :result, 'Q3', 
+    [['C1 võidab normaalajal','1A'],
+    ['D2 võidab normaalajal','1B'],
+    ['C1 võidab lisaajal või penaltitega','2A'],
+    ['D2 võidab lisaajal või penaltitega','2B']], 
+    {:selected => "#{@userTeamQ3 == nil ? nil : @userTeamQ3.result}", :prompt => '- vali -'}
   %br
   %br
   D1 - C2: 
-  =select :result, 'Q4', ['1A','2A','1B','2B'], :selected => "#{@userTeamQ4 == nil ? nil : @userTeamQ4.result}"
+  =select :result, 'Q4', 
+    [['D1 võidab normaalajal','1A'],
+    ['C2 võidab normaalajal','1B'],
+    ['D1 võidab lisaajal või penaltitega','2A'],
+    ['C2 võidab lisaajal või penaltitega','2B']], 
+    {:selected => "#{@userTeamQ4 == nil ? nil : @userTeamQ4.result}", :prompt => '- vali -'}
   %br
   %br
   = hidden_field_tag "user_id", @user_id
   = submit_tag 'Salvesta'
 = button_to 'Tagasi', user_path(@user_id), :method => :get
+
+%br
+%br
+%br
+%h2 Alagrupid
+%table#groups
+  %thead
+    %tr
+      %th A
+      %th B
+      %th C
+      %th D
+  %tbody
+    - @teamsByGroup.each do |teams|
+      %tr
+        - teams.each do |t|
+          %td= "#{t.name}"

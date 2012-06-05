@@ -39,6 +39,9 @@ table {
   width: 100%;
   border-bottom: 2px solid black;
 }
+table#groups {
+  width: 70%
+}
 table th {
   border: 2px solid white;
   font-weight: bold;
@@ -61,4 +64,10 @@ form label {
   line-height: 25px;
   font-weight: bold;
   color: maroon;
+}
+select.games {
+  width:350px;
+}
+select.group {
+  width:120px;
 }

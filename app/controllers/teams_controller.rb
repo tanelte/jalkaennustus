@@ -28,6 +28,12 @@ class TeamsController < ApplicationController
     @userTeamQ2 = UserTeam.find_by_user_and_criteria @user_id, :Q2
     @userTeamQ3 = UserTeam.find_by_user_and_criteria @user_id, :Q3
     @userTeamQ4 = UserTeam.find_by_user_and_criteria @user_id, :Q4
+    
+    groupA = Team.find_all_by_group 'A'
+    groupB = Team.find_all_by_group 'B'
+    groupC = Team.find_all_by_group 'C'
+    groupD = Team.find_all_by_group 'D'
+    @teamsByGroup = [0, 1, 2, 3].collect{|n|[groupA[n], groupB[n], groupC[n], groupD[n]]}
   end
   
   def createQuarterfinals
@@ -59,22 +65,26 @@ class TeamsController < ApplicationController
   end
   
   def add_or_update_user_team team_id, criteria
-    user_id = params[:user_id]
-    user_team = UserTeam.find_by_user_and_criteria user_id, criteria
-    if user_team == nil
-       UserTeam.create!(:user_id => user_id, :team_id => team_id, :criteria => criteria)
-    else
-       user_team.update_attribute(:team_id, team_id)
+    if team_id != nil && !team_id.empty?
+      user_id = params[:user_id]
+      user_team = UserTeam.find_by_user_and_criteria user_id, criteria
+      if user_team == nil
+         UserTeam.create!(:user_id => user_id, :team_id => team_id, :criteria => criteria)
+      else
+         user_team.update_attribute(:team_id, team_id)
+      end
     end
   end
   
   def add_or_update_user_team_with_result result, criteria
-    user_id = params[:user_id]
-    user_team = UserTeam.find_by_user_and_criteria user_id, criteria
-    if user_team == nil
-       UserTeam.create!(:user_id => user_id, :result => result, :criteria => criteria)
-    else
-       user_team.update_attribute(:result, result)
+    if result != nil && !result.empty?
+      user_id = params[:user_id]
+      user_team = UserTeam.find_by_user_and_criteria user_id, criteria
+      if user_team == nil
+         UserTeam.create!(:user_id => user_id, :result => result, :criteria => criteria)
+      else
+         user_team.update_attribute(:result, result)
+      end
     end
   end
 

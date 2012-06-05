@@ -1,16 +1,20 @@
 %h2 Kasutaja #{@user.name} jalkaennustuse leht
-
+%br
 %h3 Vali ennustuse osa:
-
-= link_to 'Esimene osa', games_path(:user_id => @user.id)
 %br
-= link_to 'Teine osa', group_teams_path(:user_id => @user.id)
+= link_to 'Esimene osa - ennusta alagrupimängude tulemused', games_path(:user_id => @user.id)
 %br
-= link_to 'Kolmas osa', quarterfinals_teams_path(:user_id => @user.id)
 %br
-= link_to 'Neljas osa', finals_teams_path(:user_id => @user.id)
+= link_to 'Teine osa - ennusta alagruppide kolmandad kohad', group_teams_path(:user_id => @user.id)
 %br
-= link_to 'Viies osa', user_questions_path(:user_id => @user.id)
+%br
+= link_to 'Kolmas osa - ennusta veerandfinaalide võitjad', quarterfinals_teams_path(:user_id => @user.id)
+%br
+%br
+= link_to 'Neljas osa - ennusta neli parimat', finals_teams_path(:user_id => @user.id)
+%br
+%br
+= link_to 'Viies osa - lisaküsimused', user_questions_path(:user_id => @user.id)
 %br
 %br
 %br

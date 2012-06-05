@@ -13,7 +13,15 @@
           %tr
             %td= game.group
             %td= "#{@teams.select{|team| team.id == game.team1_id}[0].name} - #{@teams.select{|team| team.id == game.team2_id}[0].name}"
-            %td= select :result, "#{game.id}", ['1A','1B','2A','2B','X'], :selected => "#{@userGames == nil || @userGames.empty? ? '1A' : @userGames.select{|userGame| game.id == userGame.game_id}[0].result}"
+            %td= select :result, "#{game.id}",
+              [["#{@teams.select{|team| team.id == game.team1_id}[0].name} võidab kuni kahe väravaga",'1A'],
+              ["#{@teams.select{|team| team.id == game.team1_id}[0].name} võidab vähemalt kolme väravaga",'1B'],
+              ["#{@teams.select{|team| team.id == game.team2_id}[0].name} võidab kuni kahe väravaga",'2A'],
+              ["#{@teams.select{|team| team.id == game.team2_id}[0].name} võidab vähemalt kolme väravaga",'2B'],
+              ['Mäng lõppeb viigiga','X']], 
+              {:selected => "#{@userGames == nil || @userGames.empty? || @userGames.select{|userGame| game.id == userGame.game_id}.empty? ? '' : @userGames.select{|userGame| game.id == userGame.game_id}[0].result}", 
+               :prompt => '- vali -'}, 
+               {:class=>"games"}
   = hidden_field_tag "user_id", @user.id
   = submit_tag 'Salvesta'
   = button_to 'Tagasi', user_path(@user.id), :method => :get

@@ -2,19 +2,27 @@
 
 = form_tag group_teams_path, :method => :post do
   Grupp A: 
-  =select :result, 'A3', @groupA.collect{|p| [p.name, p.id]}, :selected => "#{@userTeamA == nil ? nil : @userTeamA.team_id}"
+  =select :result, 'A3', @groupA.collect{|p| [p.name, p.id]}, 
+    {:selected => "#{@userTeamA == nil ? nil : @userTeamA.team_id}", :prompt => '- vali -'}, 
+    {:class=>"group"}
   %br
   %br
   Grupp B: 
-  =select :result, 'B3', @groupB.collect{|p| [p.name, p.id]}, :selected => "#{@userTeamB == nil ? nil : @userTeamB.team_id}"
+  =select :result, 'B3', @groupB.collect{|p| [p.name, p.id]}, 
+    {:selected => "#{@userTeamB == nil ? nil : @userTeamB.team_id}", :prompt => '- vali -'}, 
+    {:class=>"group"}
   %br
   %br
   Grupp C: 
-  =select :result, 'C3', @groupC.collect{|p| [p.name, p.id]}, :selected => "#{@userTeamC == nil ? nil : @userTeamC.team_id}"
+  =select :result, 'C3', @groupC.collect{|p| [p.name, p.id]}, 
+    {:selected => "#{@userTeamC == nil ? nil : @userTeamC.team_id}", :prompt => '- vali -'}, 
+    {:class=>"group"}
   %br
   %br
   Grupp D: 
-  =select :result, 'D3', @groupD.collect{|p| [p.name, p.id]}, :selected => "#{@userTeamD == nil ? nil : @userTeamD.team_id}"
+  =select :result, 'D3', @groupD.collect{|p| [p.name, p.id]}, 
+    {:selected => "#{@userTeamD == nil ? nil : @userTeamD.team_id}", :prompt => '- vali -'}, 
+    {:class=>"group"}
   %br
   %br
   = hidden_field_tag "user_id", @user_id
