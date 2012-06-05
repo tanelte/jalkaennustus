@@ -65,6 +65,12 @@ form label {
   font-weight: bold;
   color: maroon;
 }
+.button_to {
+  display: inline;
+}
+.button_to div {
+  display: inline;
+}
 select.games {
   width:350px;
 }
