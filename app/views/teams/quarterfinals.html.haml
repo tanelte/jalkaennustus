@@ -1,0 +1,22 @@
+%h2 Ennusta veerandfinaalide võitjad
+
+= form_tag quarterfinals_teams_path, :method => :post do
+  A1 - B2: 
+  =select :result, 'Q1', ['1A','2A','1B','2B'], :selected => "#{@userTeamQ1 == nil ? nil : @userTeamQ1.result}"
+  %br
+  %br
+  B1 - A2: 
+  =select :result, 'Q2', ['1A','2A','1B','2B'], :selected => "#{@userTeamQ2 == nil ? nil : @userTeamQ2.result}"
+  %br
+  %br
+  C1 - D2: 
+  =select :result, 'Q3', ['1A','2A','1B','2B'], :selected => "#{@userTeamQ3 == nil ? nil : @userTeamQ3.result}"
+  %br
+  %br
+  D1 - C2: 
+  =select :result, 'Q4', ['1A','2A','1B','2B'], :selected => "#{@userTeamQ4 == nil ? nil : @userTeamQ4.result}"
+  %br
+  %br
+  = hidden_field_tag "user_id", @user_id
+  = submit_tag 'Salvesta'
+= button_to 'Tagasi', user_path(@user_id), :method => :get

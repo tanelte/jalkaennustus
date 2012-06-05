@@ -1,0 +1,18 @@
+%h2 Kasutaja #{@user.name} jalkaennustuse leht
+
+%h3 Vali ennustuse osa:
+
+= link_to 'Esimene osa', games_path(:user_id => @user.id)
+%br
+= link_to 'Teine osa', group_teams_path(:user_id => @user.id)
+%br
+= link_to 'Kolmas osa', quarterfinals_teams_path(:user_id => @user.id)
+%br
+= link_to 'Neljas osa', finals_teams_path(:user_id => @user.id)
+%br
+= link_to 'Viies osa', user_questions_path(:user_id => @user.id)
+%br
+%br
+%br
+= button_to 'Kustuta kasutaja', user_path(@user), :method => :delete, :confirm => 'Kas oled kindel et soovid kasutaja kustutada?'
+= button_to 'Kasutajate nimekirja', users_path

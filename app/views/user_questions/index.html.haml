@@ -1,0 +1,15 @@
+%h2 Vasta järgmistele lisaküsimustele:
+
+= form_tag user_questions_path, :method => :post do
+  - @questions.each do |question|
+    = "#{question.question}"
+    %br
+    %br
+    Vastus: 
+    = text_field :answers, "#{question.id}", :value => "#{@user_questions == nil || @user_questions.empty? ? nil : @user_questions.select{|uq| question.id == uq.question_id}[0].answer}"
+    %br
+    %br
+    %br
+  = hidden_field_tag "user_id", @user_id
+  = submit_tag 'Salvesta'
+  = button_to 'Tagasi', user_path(@user_id), :method => :get

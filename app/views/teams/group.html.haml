@@ -1,0 +1,22 @@
+%h2 Ennusta alagruppide kolmandad kohad
+
+= form_tag group_teams_path, :method => :post do
+  Grupp A: 
+  =select :result, 'A3', @groupA.collect{|p| [p.name, p.id]}, :selected => "#{@userTeamA == nil ? nil : @userTeamA.team_id}"
+  %br
+  %br
+  Grupp B: 
+  =select :result, 'B3', @groupB.collect{|p| [p.name, p.id]}, :selected => "#{@userTeamB == nil ? nil : @userTeamB.team_id}"
+  %br
+  %br
+  Grupp C: 
+  =select :result, 'C3', @groupC.collect{|p| [p.name, p.id]}, :selected => "#{@userTeamC == nil ? nil : @userTeamC.team_id}"
+  %br
+  %br
+  Grupp D: 
+  =select :result, 'D3', @groupD.collect{|p| [p.name, p.id]}, :selected => "#{@userTeamD == nil ? nil : @userTeamD.team_id}"
+  %br
+  %br
+  = hidden_field_tag "user_id", @user_id
+  = submit_tag 'Salvesta'
+= button_to 'Tagasi', user_path(@user_id), :method => :get

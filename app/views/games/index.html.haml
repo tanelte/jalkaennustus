@@ -1,0 +1,19 @@
+%h2 Ennusta mängude tulemused
+
+= form_tag games_path, :method => :post do
+  %table#users
+    %thead
+      %tr
+        %th Alagrupp
+        %th Mäng
+        %th Tulemus
+    %tbody
+      - @games.each do |game|
+        = fields_for :game, game do |g|
+          %tr
+            %td= game.group
+            %td= "#{@teams.select{|team| team.id == game.team1_id}[0].name} - #{@teams.select{|team| team.id == game.team2_id}[0].name}"
+            %td= select :result, "#{game.id}", ['1A','1B','2A','2B','X'], :selected => "#{@userGames == nil || @userGames.empty? ? '1A' : @userGames.select{|userGame| game.id == userGame.game_id}[0].result}"
+  = hidden_field_tag "user_id", @user.id
+  = submit_tag 'Salvesta'
+  = button_to 'Tagasi', user_path(@user.id), :method => :get

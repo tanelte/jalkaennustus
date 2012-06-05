@@ -1,0 +1,19 @@
+-#  This file is app/views/users/index.html.haml
+%h2 Kasutajad
+
+%table#users
+  %thead
+    %tr
+      %th Nimi
+      %th Punktid
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td= link_to "#{user.name}", user_path(user)
+        %td= user.points
+%br
+%br
+= form_tag users_path do
+  = label :user, :name, 'Nimi:'
+  = text_field :user, 'name'
+  = submit_tag 'Lisa uus kasutaja'
