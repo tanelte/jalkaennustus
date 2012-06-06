@@ -19,6 +19,10 @@ class TeamsController < ApplicationController
     add_or_update_user_team params[:result][:B3], :B3
     add_or_update_user_team params[:result][:C3], :C3
     add_or_update_user_team params[:result][:D3], :D3
+    user = User.find_by_id user_id
+    if user.name == 'tegelikud tulemused'
+      User.calculate_points
+    end
     redirect_to user_path(user_id)
   end
   
@@ -42,6 +46,10 @@ class TeamsController < ApplicationController
     add_or_update_user_team_with_result params[:result][:Q2], :Q2
     add_or_update_user_team_with_result params[:result][:Q3], :Q3
     add_or_update_user_team_with_result params[:result][:Q4], :Q4
+    user = User.find_by_id user_id
+    if user.name == 'tegelikud tulemused'
+      User.calculate_points
+    end
     redirect_to user_path(user_id)
   end
   
@@ -61,6 +69,10 @@ class TeamsController < ApplicationController
     add_or_update_user_team params[:result][:F2], :F2
     add_or_update_user_team params[:result][:F3], :F3
     add_or_update_user_team params[:result][:F4], :F4
+    user = User.find_by_id user_id
+    if user.name == 'tegelikud tulemused'
+      User.calculate_points
+    end
     redirect_to user_path(user_id)
   end
   

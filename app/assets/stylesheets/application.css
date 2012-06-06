@@ -77,3 +77,6 @@ select.games {
 select.group {
   width:120px;
 }
+ .bold {
+  font-weight:bold;
+}

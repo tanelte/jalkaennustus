@@ -11,8 +11,8 @@
       - @games.each do |game|
         = fields_for :game, game do |g|
           %tr
-            %td= game.group
-            %td= "#{@teams.select{|team| team.id == game.team1_id}[0].name} - #{@teams.select{|team| team.id == game.team2_id}[0].name}"
+            %td{:class => "#{game.double_points == 1 ? 'bold' : ''}"}= game.group
+            %td{:class => "#{game.double_points == 1 ? 'bold' : ''}"}= "#{@teams.select{|team| team.id == game.team1_id}[0].name} - #{@teams.select{|team| team.id == game.team2_id}[0].name}"
             %td= select :result, "#{game.id}",
               [["#{@teams.select{|team| team.id == game.team1_id}[0].name} võidab kuni kahe väravaga",'1A'],
               ["#{@teams.select{|team| team.id == game.team1_id}[0].name} võidab vähemalt kolme väravaga",'1B'],
@@ -22,6 +22,9 @@
               {:selected => "#{@userGames == nil || @userGames.empty? || @userGames.select{|userGame| game.id == userGame.game_id}.empty? ? '' : @userGames.select{|userGame| game.id == userGame.game_id}[0].result}", 
                :prompt => '- vali -'}, 
                {:class=>"games"}
+  * boldiga tähistatud mängude ennustamine annab topeltpunktid
+  %br
+  %br
   = hidden_field_tag "user_id", @user.id
   = submit_tag 'Salvesta'
   = button_to 'Tagasi', user_path(@user.id), :method => :get

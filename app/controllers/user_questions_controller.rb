@@ -8,7 +8,6 @@ class UserQuestionsController < ApplicationController
 
   def create
     user_id = params[:user_id]
-    logger.debug params
     
     existing_user_questions = UserQuestion.find_all_by_user_id user_id
     answers = params[:answers]
@@ -21,6 +20,10 @@ class UserQuestionsController < ApplicationController
         user_question = existing_user_question[0]
         user_question.update_attribute(:answer, v)
       end
+    end
+    user = User.find_by_id user_id
+    if user.name == 'tegelikud tulemused'
+      User.calculate_points
     end
     redirect_to user_path(user_id)
   end

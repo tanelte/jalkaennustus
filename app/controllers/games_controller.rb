@@ -23,6 +23,10 @@ class GamesController < ApplicationController
         end
       end 
     end
+    user = User.find_by_id user_id
+    if user.name == 'tegelikud tulemused'
+      User.calculate_points
+    end
     redirect_to user_path(user_id)
   end
   

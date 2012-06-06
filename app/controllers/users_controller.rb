@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
 def index
-  @users = User.all
+  @users = User.all.sort_by{|e| e[:points] || 0}.reverse
 end
 
 def create
@@ -13,7 +13,11 @@ end
   def show
     id = params[:id] # retrieve user ID from URI route
     @user = User.find(id) # look up user by unique ID
-    # will render app/views/users/show.<extension> by default
+    User.all.each do |u|
+      if u.name == nil || u.name.empty?
+        u.destroy
+      end
+    end
   end
   
   def destroy
