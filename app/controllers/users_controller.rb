@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
 def index
-  @users = User.find(:all, :order => "points desc")
+  @users = User.all.sort {|a, b| a.points.to_i <=> b.points.to_i}.reverse
 end
 
 def create
