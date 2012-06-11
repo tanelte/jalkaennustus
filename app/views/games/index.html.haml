@@ -26,5 +26,6 @@
   %br
   %br
   = hidden_field_tag "user_id", @user.id
-  = submit_tag 'Salvesta'
+  - if @user.name == 'tegelikud tulemused'
+    = submit_tag 'Salvesta'
   = button_to 'Tagasi', user_path(@user.id), :method => :get

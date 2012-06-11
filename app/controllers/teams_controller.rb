@@ -1,16 +1,16 @@
 class TeamsController < ApplicationController
 
   def group
-    @user_id = params[:user_id]
+    @user = User.find_by_id params[:user_id]
     @groupA = Team.find_all_by_group 'A'
     @groupB = Team.find_all_by_group 'B'
     @groupC = Team.find_all_by_group 'C'
     @groupD = Team.find_all_by_group 'D'
     
-    @userTeamA = UserTeam.find_by_user_and_criteria @user_id, :A3
-    @userTeamB = UserTeam.find_by_user_and_criteria @user_id, :B3
-    @userTeamC = UserTeam.find_by_user_and_criteria @user_id, :C3
-    @userTeamD = UserTeam.find_by_user_and_criteria @user_id, :D3
+    @userTeamA = UserTeam.find_by_user_and_criteria @user.id, :A3
+    @userTeamB = UserTeam.find_by_user_and_criteria @user.id, :B3
+    @userTeamC = UserTeam.find_by_user_and_criteria @user.id, :C3
+    @userTeamD = UserTeam.find_by_user_and_criteria @user.id, :D3
   end
   
   def createGroup
@@ -27,11 +27,11 @@ class TeamsController < ApplicationController
   end
   
   def quarterfinals
-    @user_id = params[:user_id]
-    @userTeamQ1 = UserTeam.find_by_user_and_criteria @user_id, :Q1
-    @userTeamQ2 = UserTeam.find_by_user_and_criteria @user_id, :Q2
-    @userTeamQ3 = UserTeam.find_by_user_and_criteria @user_id, :Q3
-    @userTeamQ4 = UserTeam.find_by_user_and_criteria @user_id, :Q4
+    @user = User.find_by_id params[:user_id]
+    @userTeamQ1 = UserTeam.find_by_user_and_criteria @user.id, :Q1
+    @userTeamQ2 = UserTeam.find_by_user_and_criteria @user.id, :Q2
+    @userTeamQ3 = UserTeam.find_by_user_and_criteria @user.id, :Q3
+    @userTeamQ4 = UserTeam.find_by_user_and_criteria @user.id, :Q4
     
     groupA = Team.find_all_by_group 'A'
     groupB = Team.find_all_by_group 'B'
@@ -54,13 +54,13 @@ class TeamsController < ApplicationController
   end
   
   def finals
-    @user_id = params[:user_id]
+    @user = User.find_by_id params[:user_id]
     @teams = Team.all.sort! { |a,b| a.name.downcase <=> b.name.downcase }
     
-    @userTeamF1 = UserTeam.find_by_user_and_criteria @user_id, :F1
-    @userTeamF2 = UserTeam.find_by_user_and_criteria @user_id, :F2
-    @userTeamF3 = UserTeam.find_by_user_and_criteria @user_id, :F3
-    @userTeamF4 = UserTeam.find_by_user_and_criteria @user_id, :F4
+    @userTeamF1 = UserTeam.find_by_user_and_criteria @user.id, :F1
+    @userTeamF2 = UserTeam.find_by_user_and_criteria @user.id, :F2
+    @userTeamF3 = UserTeam.find_by_user_and_criteria @user.id, :F3
+    @userTeamF4 = UserTeam.find_by_user_and_criteria @user.id, :F4
   end
   
   def createFinals

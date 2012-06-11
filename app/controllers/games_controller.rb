@@ -4,7 +4,7 @@ class GamesController < ApplicationController
     user_id = params[:user_id]
     @user = User.find_by_id user_id
     @userGames = UserGame.find_all_by_user_id user_id
-    @games = Game.all
+    @games = Game.find(:all, :order=>'id')
     @teams = Team.all
   end
 

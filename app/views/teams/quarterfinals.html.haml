@@ -37,9 +37,10 @@
     {:selected => "#{@userTeamQ4 == nil ? nil : @userTeamQ4.result}", :prompt => '- vali -'}
   %br
   %br
-  = hidden_field_tag "user_id", @user_id
-  = submit_tag 'Salvesta'
-= button_to 'Tagasi', user_path(@user_id), :method => :get
+  = hidden_field_tag "user_id", @user.id
+  - if @user.name == 'tegelikud tulemused'
+    = submit_tag 'Salvesta'
+= button_to 'Tagasi', user_path(@user.id), :method => :get
 
 %br
 %br

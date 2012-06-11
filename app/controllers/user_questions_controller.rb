@@ -1,9 +1,9 @@
 class UserQuestionsController < ApplicationController
   
   def index
-    @user_id = params[:user_id]
+    @user = User.find_by_id params[:user_id]
     @questions = Question.all
-    @user_questions = UserQuestion.find_all_by_user_id @user_id
+    @user_questions = UserQuestion.find_all_by_user_id @user.id
   end
 
   def create
