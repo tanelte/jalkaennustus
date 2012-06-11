@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
 def index
   @users = User.all.sort {|a, b| a.name == 'tegelikud tulemused' ? -1 : (b.name == 'tegelikud tulemused' ? 1 :
-    (a.points.to_i == b.points.to_i ? a.name <=> b.name : a.points.to_i <=> b.points.to_i))}.reverse
+    (a.points.to_i == b.points.to_i ? b.name <=> a.name : a.points.to_i <=> b.points.to_i))}.reverse
 end
 
 def create
