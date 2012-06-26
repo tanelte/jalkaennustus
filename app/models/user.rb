@@ -49,10 +49,17 @@ class User < ActiveRecord::Base
   def self.calculateTeamPoints user, tegelikTeams
     points = 0
     userTeams = UserTeam.find_all_by_user_id user.id
-      userTeams.each do |userTeam|
+    userTeams.each do |userTeam|
       tegelikTeam = tegelikTeams.select{|t| t.criteria == userTeam.criteria}
       if tegelikTeam != nil && !tegelikTeam.empty?
         points = points + getTeamPoints(userTeam, tegelikTeam[0])
+      end
+      if userTeam.team_id != nil && (tegelikTeam == nil || tegelikTeam.empty? || userTeam.team_id != tegelikTeam[0].team_id) && 
+        ["F1", "F2", "F3", "F4"].include?(userTeam.criteria)
+        pakutud = tegelikTeams.select{|t| ["F1", "F2", "F3", "F4"].include?(t.criteria) && t.team_id == userTeam.team_id}
+        if pakutud != nil && !pakutud.empty?
+          points = points + 15
+        end
       end
     end
     points
@@ -75,6 +82,8 @@ class User < ActiveRecord::Base
     end
     if userTeam.result != nil && userTeam.result == tegelikTeam.result
       points = points + 10
+    elsif userTeam.result != nil &&  userTeam.result[1] == tegelikTeam.result[1]
+      points = points + 6
     end
     points
   end
