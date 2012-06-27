@@ -83,7 +83,7 @@ class User < ActiveRecord::Base
     if userTeam.result != nil && userTeam.result == tegelikTeam.result
       points = points + 10
     elsif userTeam.result != nil &&  userTeam.result[1] == tegelikTeam.result[1]
-      points = points + 6
+      points = points + 5
     end
     points
   end
