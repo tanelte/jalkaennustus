@@ -1,0 +1,6 @@
+%h2 Turniiride nimekiri
+%br
+- @tournaments.each do |tournament|
+  = link_to tournament.name, tournament_users_path(tournament.id)
+  %br
+  %br

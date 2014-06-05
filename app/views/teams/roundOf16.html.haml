@@ -1,0 +1,104 @@
+%h2 Ennusta kaheksandikfinaalide võitjad
+
+= form_tag round_of_16_teams_path(@tournament_id, @user.id), :method => :post do
+  A1 - B2: 
+  =select :result, 'R1', 
+    [['A1 võidab normaalajal','1A'],
+    ['B2 võidab normaalajal','1B'],
+    ['A1 võidab lisaajal või penaltitega','2A'],
+    ['B2 võidab lisaajal või penaltitega','2B']], 
+    {:selected => "#{@userTeamR1 == nil ? nil : @userTeamR1.result}", :prompt => '- vali -'}
+  %br
+  %br
+  B1 - A2: 
+  =select :result, 'R2', 
+    [['B1 võidab normaalajal','1A'],
+    ['A2 võidab normaalajal','1B'],
+    ['B1 võidab lisaajal või penaltitega','2A'],
+    ['A2 võidab lisaajal või penaltitega','2B']], 
+    {:selected => "#{@userTeamR2 == nil ? nil : @userTeamR2.result}", :prompt => '- vali -'}
+  %br
+  %br
+  C1 - D2: 
+  =select :result, 'R3', 
+    [['C1 võidab normaalajal','1A'],
+    ['D2 võidab normaalajal','1B'],
+    ['C1 võidab lisaajal või penaltitega','2A'],
+    ['D2 võidab lisaajal või penaltitega','2B']], 
+    {:selected => "#{@userTeamR3 == nil ? nil : @userTeamR3.result}", :prompt => '- vali -'}
+  %br
+  %br
+  D1 - C2: 
+  =select :result, 'R4', 
+    [['D1 võidab normaalajal','1A'],
+    ['C2 võidab normaalajal','1B'],
+    ['D1 võidab lisaajal või penaltitega','2A'],
+    ['C2 võidab lisaajal või penaltitega','2B']], 
+    {:selected => "#{@userTeamR4 == nil ? nil : @userTeamR4.result}", :prompt => '- vali -'}
+  %br
+  %br
+  E1 - F2: 
+  =select :result, 'R5', 
+    [['E1 võidab normaalajal','1A'],
+    ['F2 võidab normaalajal','1B'],
+    ['E1 võidab lisaajal või penaltitega','2A'],
+    ['F2 võidab lisaajal või penaltitega','2B']], 
+    {:selected => "#{@userTeamR5 == nil ? nil : @userTeamR5.result}", :prompt => '- vali -'}
+  %br
+  %br
+  F1 - E2: 
+  =select :result, 'R6', 
+    [['F1 võidab normaalajal','1A'],
+    ['E2 võidab normaalajal','1B'],
+    ['F1 võidab lisaajal või penaltitega','2A'],
+    ['E2 võidab lisaajal või penaltitega','2B']], 
+    {:selected => "#{@userTeamR6 == nil ? nil : @userTeamR6.result}", :prompt => '- vali -'}
+  %br
+  %br
+  G1 - H2: 
+  =select :result, 'R7', 
+    [['G1 võidab normaalajal','1A'],
+    ['H2 võidab normaalajal','1B'],
+    ['G1 võidab lisaajal või penaltitega','2A'],
+    ['H2 võidab lisaajal või penaltitega','2B']], 
+    {:selected => "#{@userTeamR7 == nil ? nil : @userTeamR7.result}", :prompt => '- vali -'}
+  %br
+  %br
+  H1 - G2: 
+  =select :result, 'R8', 
+    [['H1 võidab normaalajal','1A'],
+    ['G2 võidab normaalajal','1B'],
+    ['H1 võidab lisaajal või penaltitega','2A'],
+    ['G2 võidab lisaajal või penaltitega','2B']], 
+    {:selected => "#{@userTeamR8 == nil ? nil : @userTeamR8.result}", :prompt => '- vali -'}
+  %br
+  %br
+  * Õige vastus annab 8 punkti. Õige võitja aga vale vastus annab 4 punkti.
+  %br
+  %br
+  = hidden_field_tag "user_id", @user.id
+  = hidden_field_tag "tournament_id", @tournament_id
+  -# - if @user.name == 'tegelikud tulemused'
+  = submit_tag 'Salvesta'
+= button_to 'Tagasi', tournament_user_path(@tournament_id, @user.id), :method => :get
+
+%br
+%br
+%br
+%h2 Alagrupid
+%table#groups
+  %thead
+    %tr
+      %th A
+      %th B
+      %th C
+      %th D
+      %th E
+      %th F
+      %th G
+      %th H
+  %tbody
+    - @teamsByGroup.each do |teams|
+      %tr
+        - teams.each do |t|
+          %td= "#{t.name}"

@@ -1,4 +1,10 @@
 class User < ActiveRecord::Base
+
+  attr_accessible :name
+  
+  def self.find_by_tournament tournament_id
+    
+  end
   
   def self.calculate_points
     users = User.all

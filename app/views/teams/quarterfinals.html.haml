@@ -1,46 +1,50 @@
 %h2 Ennusta veerandfinaalide võitjad
 
-= form_tag quarterfinals_teams_path, :method => :post do
-  A1 - B2: 
+= form_tag quarterfinals_teams_path(@tournament_id, @user.id), :method => :post do
+  #{@team1} - #{@team2}: 
   =select :result, 'Q1', 
-    [['A1 võidab normaalajal','1A'],
-    ['B2 võidab normaalajal','1B'],
-    ['A1 võidab lisaajal või penaltitega','2A'],
-    ['B2 võidab lisaajal või penaltitega','2B']], 
+    [["#{@team1} võidab normaalajal",'1A'],
+    ["#{@team2} võidab normaalajal",'1B'],
+    ["#{@team1} võidab lisaajal või penaltitega",'2A'],
+    ["#{@team2} võidab lisaajal või penaltitega",'2B']], 
     {:selected => "#{@userTeamQ1 == nil ? nil : @userTeamQ1.result}", :prompt => '- vali -'}
   %br
   %br
-  B1 - A2: 
+  #{@team3} - #{@team4}: 
   =select :result, 'Q2', 
-    [['B1 võidab normaalajal','1A'],
-    ['A2 võidab normaalajal','1B'],
-    ['B1 võidab lisaajal või penaltitega','2A'],
-    ['A2 võidab lisaajal või penaltitega','2B']], 
+    [["#{@team3} võidab normaalajal",'1A'],
+    ["#{@team4} võidab normaalajal",'1B'],
+    ["#{@team3} võidab lisaajal või penaltitega",'2A'],
+    ["#{@team4} võidab lisaajal või penaltitega",'2B']], 
     {:selected => "#{@userTeamQ2 == nil ? nil : @userTeamQ2.result}", :prompt => '- vali -'}
   %br
   %br
-  C1 - D2: 
+  #{@team5} - #{@team6}: 
   =select :result, 'Q3', 
-    [['C1 võidab normaalajal','1A'],
-    ['D2 võidab normaalajal','1B'],
-    ['C1 võidab lisaajal või penaltitega','2A'],
-    ['D2 võidab lisaajal või penaltitega','2B']], 
+    [["#{@team5} võidab normaalajal",'1A'],
+    ["#{@team6} võidab normaalajal",'1B'],
+    ["#{@team5} võidab lisaajal või penaltitega",'2A'],
+    ["#{@team6} võidab lisaajal või penaltitega",'2B']], 
     {:selected => "#{@userTeamQ3 == nil ? nil : @userTeamQ3.result}", :prompt => '- vali -'}
   %br
   %br
-  D1 - C2: 
+  #{@team7} - #{@team8}: 
   =select :result, 'Q4', 
-    [['D1 võidab normaalajal','1A'],
-    ['C2 võidab normaalajal','1B'],
-    ['D1 võidab lisaajal või penaltitega','2A'],
-    ['C2 võidab lisaajal või penaltitega','2B']], 
+    [["#{@team7} võidab normaalajal",'1A'],
+    ["#{@team8} võidab normaalajal",'1B'],
+    ["#{@team7} võidab lisaajal või penaltitega",'2A'],
+    ["#{@team8} võidab lisaajal või penaltitega",'2B']], 
     {:selected => "#{@userTeamQ4 == nil ? nil : @userTeamQ4.result}", :prompt => '- vali -'}
   %br
   %br
+  * Õige vastus annab 10 punkti. Õige võitja aga vale vastus annab 5 punkti.
+  %br
+  %br
   = hidden_field_tag "user_id", @user.id
-  - if @user.name == 'tegelikud tulemused'
-    = submit_tag 'Salvesta'
-= button_to 'Tagasi', user_path(@user.id), :method => :get
+  = hidden_field_tag "tournament_id", @tournament_id
+  -# - if @user.name == 'tegelikud tulemused'
+  = submit_tag 'Salvesta'
+= button_to 'Tagasi', tournament_user_path(@tournament_id, @user.id), :method => :get
 
 %br
 %br
@@ -53,6 +57,11 @@
       %th B
       %th C
       %th D
+      - if @tournament.mm
+        %th E
+        %th F
+        %th G
+        %th H
   %tbody
     - @teamsByGroup.each do |teams|
       %tr

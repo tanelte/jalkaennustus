@@ -1,6 +1,6 @@
 %h2 Ennusta turniiri neli parimat meeskonda
 
-= form_tag finals_teams_path, :method => :post do
+= form_tag finals_teams_path(@tournament_id, @user.id), :method => :post do
   Võitja: 
   =select :result, 'F1', @teams.collect{|p| [p.name, p.id]}, 
     {:selected => "#{@userTeamF1 == nil ? nil : @userTeamF1.team_id}", :prompt => '- vali -'}
@@ -21,7 +21,11 @@
     {:selected => "#{@userTeamF4 == nil ? nil : @userTeamF4.team_id}", :prompt => '- vali -'}
   %br
   %br
+  * Õiged vastused annavad vastavalt 50, 30, 25, 20 punkti. Kui ennustad võistkonna õigesti nelja hulka aga valele kohale siis saad 15 punkti.
+  %br
+  %br
   = hidden_field_tag "user_id", @user.id
-  - if @user.name == 'tegelikud tulemused'
-    = submit_tag 'Salvesta'
-= button_to 'Tagasi', user_path(@user.id), :method => :get
+  = hidden_field_tag "tournament_id", @tournament_id
+  -# - if @user.name == 'tegelikud tulemused'
+  = submit_tag 'Salvesta'
+= button_to 'Tagasi', tournament_user_path(@tournament_id, @user.id), :method => :get

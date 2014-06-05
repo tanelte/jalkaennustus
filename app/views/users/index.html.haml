@@ -6,14 +6,19 @@
     %tr
       %th Nimi
       %th Punktid
+      %th
   %tbody
     - @users.each do |user|
       %tr
-        %td= link_to "#{user.name}", user_path(user)
-        %td= user.points
+        %td= link_to "#{user.name}", tournament_user_path(@tournament_id, user.id)
+        %td= user.points.round()
+        %td= link_to "Kustuta", tournament_user_path(@tournament_id, user.id), :method => :delete, :confirm => 'Kas oled kindel et soovid kasutaja kustutada?'
 %br
 %br
-/= form_tag users_path do
-/  = label :user, :name, 'Nimi:'
-/  = text_field :user, 'name'
-/  = submit_tag 'Lisa uus kasutaja'
+= form_tag tournament_users_path(@tournament_id) do
+  = label :user, :name, 'Nimi:'
+  = text_field :user, 'name'
+  = submit_tag 'Lisa uus kasutaja'
+%br
+%br
+= button_to "Turniiride nimekirja", tournaments_path, :method => :get

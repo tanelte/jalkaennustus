@@ -11,18 +11,27 @@ Jalkaennustus::Application.routes.draw do
   # This route can be invoked with purchase_url(:id => product.id)
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
-   resources :users
-   resources :games
-   resources :user_questions
+   resources :tournaments do
+     resources :users do
+       resources :games
+       resources :user_questions
+     end
+   end
+   # match 'tournaments/:tournament_id/users/:id/show' => 'users#show', :as => 'user', :via => :get
+   # match 'tournaments/:tournament_id/users' => 'users#index', :as => 'tournament_users', :via => :get
+   # match 'tournaments/:tournament_id/users' => "users#create", :as => 'users', :via => :post
    
-   match 'teams/group' => "teams#group", :as => 'group_teams', :via => :get
-   match 'teams/group' => "teams#createGroup", :as => 'group_teams', :via => :post
+   match 'tournaments/:tournament_id/users/:user_id/teams/group' => "teams#group", :as => 'group_teams', :via => :get
+   match 'tournaments/:tournament_id/users/:user_id/teams/group' => "teams#createGroup", :as => 'group_teams', :via => :post
    
-   match 'teams/quarterfinals' => "teams#quarterfinals", :as => 'quarterfinals_teams', :via => :get
-   match 'teams/quarterfinals' => "teams#createQuarterfinals", :as => 'quarterfinals_teams', :via => :post
+   match 'tournaments/:tournament_id/users/:user_id/teams/quarterfinals' => "teams#quarterfinals", :as => 'quarterfinals_teams', :via => :get
+   match 'tournaments/:tournament_id/users/:user_id/teams/quarterfinals' => "teams#createQuarterfinals", :as => 'quarterfinals_teams', :via => :post
    
-   match 'teams/finals' => "teams#finals", :as => 'finals_teams', :via => :get
-   match 'teams/finals' => "teams#createFinals", :as => 'finals_teams', :via => :post
+   match 'tournaments/:tournament_id/users/:user_id/teams/round_of_16' => "teams#roundOf16", :as => 'round_of_16_teams', :via => :get
+   match 'tournaments/:tournament_id/users/:user_id/teams/round_of_16' => "teams#createRoundOf16", :as => 'round_of_16_teams', :via => :post
+   
+   match 'tournaments/:tournament_id/users/:user_id/teams/finals' => "teams#finals", :as => 'finals_teams', :via => :get
+   match 'tournaments/:tournament_id/users/:user_id/teams/finals' => "teams#createFinals", :as => 'finals_teams', :via => :post
 
   # Sample resource route with options:
   #   resources :products do
@@ -66,4 +75,5 @@ Jalkaennustus::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
+  root :to => 'tournaments#index'
 end

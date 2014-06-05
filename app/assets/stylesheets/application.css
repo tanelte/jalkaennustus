@@ -27,9 +27,9 @@ h1 {
 h1.title {
   margin: 0 0 1em;
   padding: 10px;
-  background-color: orange;
+  background-color: rgb(25, 144, 99);
   color: white;
-  border-bottom: 4px solid gold;
+  border-bottom: 4px solid rgb(147, 133, 57);
   font-size: 2em;
   font-style: normal;
 }

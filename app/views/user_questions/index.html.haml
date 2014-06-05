@@ -1,6 +1,6 @@
 %h2 Vasta järgmistele lisaküsimustele:
 
-= form_tag user_questions_path, :method => :post do
+= form_tag tournament_user_user_questions_path(@tournament_id, @user.id), :method => :post do
   - @questions.each do |question|
     = "#{question.question}"
     %br
@@ -10,7 +10,11 @@
     %br
     %br
     %br
+  * Õiged vastused küsimustele 1, 2 ja 4 annavad igaüks 10 punkti. Küsimused 3 ja 5 annavad maksimaalselt 10 punkti, sellest lahutatakse arv mille võrra vastus erineb õigest vastusest. 5. küsimuse eest saab punkte vaid juhul kui 4. küsimus on õigesti vastatud.
+  %br
+  %br
   = hidden_field_tag "user_id", @user.id
-  - if @user.name == 'tegelikud tulemused'
-    = submit_tag 'Salvesta'
-  = button_to 'Tagasi', user_path(@user.id), :method => :get
+  = hidden_field_tag "tournament_id", @tournament_id
+  -#- if @user.name == 'tegelikud tulemused'
+  = submit_tag 'Salvesta'
+= button_to 'Tagasi', tournament_user_path(@tournament_id, @user.id), :method => :get

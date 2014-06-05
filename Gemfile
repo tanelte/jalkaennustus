@@ -1,35 +1,29 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0'
+gem 'rails', '3.2.14'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
 # for Heroku, replace "gem 'sqlite3'" in your Gemfile with this:
 group :development, :test do
-  # if you already have a 'group :development,:test' block in your
-  # Gemfile, you can just move the line "gem 'sqlite3'" into it.
-  gem 'sqlite3' # use SQLite only in development and testing
-end 
+  gem 'activerecord-oracle_enhanced-adapter', '~> 1.4.0'
+  gem 'ruby-oci8'
+end
 group :production do
   gem 'pg' # use PostgreSQL in production (Heroku)
 end
 
 # use Haml for templates
 gem 'haml'
-# use Ruby debugger
-group :development, :test do
-  gem 'ruby-debug19'
-end
 
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails', "  ~> 3.1.0"
-  gem 'coffee-rails', "~> 3.1.0"
-  gem 'uglifier'
-  gem 'therubyracer'
+  gem 'sass-rails',   '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
+  gem 'uglifier', '>= 1.0.3'
 end
 
 gem 'jquery-rails'
@@ -42,4 +36,4 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
-
+ruby '1.9.3'

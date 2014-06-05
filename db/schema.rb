@@ -11,60 +11,79 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120606144455) do
+ActiveRecord::Schema.define(:version => 20140605120306) do
 
   create_table "games", :force => true do |t|
-    t.integer  "team1_id"
-    t.integer  "team2_id"
+    t.integer  "team1_id",      :precision => 38, :scale => 0
+    t.integer  "team2_id",      :precision => 38, :scale => 0
     t.string   "group"
-    t.integer  "double_points"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer  "double_points", :precision => 38, :scale => 0
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
+    t.integer  "tournament_id", :precision => 38, :scale => 0
   end
 
   create_table "questions", :force => true do |t|
     t.string   "question"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "teams", :force => true do |t|
     t.string   "name"
     t.string   "group"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
+    t.integer  "tournament_id", :precision => 38, :scale => 0
+  end
+
+  create_table "tournaments", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "type"
   end
 
   create_table "user_games", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "game_id"
+    t.integer  "user_id",       :precision => 38, :scale => 0
+    t.integer  "game_id",       :precision => 38, :scale => 0
     t.string   "result"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
+    t.decimal  "tournament_id"
   end
 
   create_table "user_questions", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "question_id"
+    t.integer  "user_id",       :precision => 38, :scale => 0
+    t.integer  "question_id",   :precision => 38, :scale => 0
     t.string   "answer"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
+    t.integer  "tournament_id", :precision => 38, :scale => 0
+  end
+
+  create_table "user_results", :force => true do |t|
+    t.integer  "user_id",       :precision => 38, :scale => 0
+    t.integer  "tournament_id", :precision => 38, :scale => 0
+    t.integer  "points",        :precision => 38, :scale => 0
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
   end
 
   create_table "user_teams", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "team_id"
+    t.integer  "user_id",       :precision => 38, :scale => 0
+    t.integer  "team_id",       :precision => 38, :scale => 0
     t.string   "criteria"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
     t.string   "result"
+    t.integer  "tournament_id", :precision => 38, :scale => 0
   end
 
   create_table "users", :force => true do |t|
     t.string   "name"
-    t.integer  "points"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end

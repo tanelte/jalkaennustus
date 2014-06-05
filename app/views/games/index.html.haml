@@ -1,11 +1,11 @@
 %h2 Ennusta alagrupimängude tulemused
 
-= form_tag games_path, :method => :post do
+= form_tag tournament_user_games_path(@tournament_id, @user.id), :method => :post do
   %table#users
     %thead
       %tr
         %th Alagrupp
-        %th Mäng
+        %th MĆ¤ng
         %th Tulemus
     %tbody
       - @games.each do |game|
@@ -18,14 +18,15 @@
               ["#{@teams.select{|team| team.id == game.team1_id}[0].name} võidab vähemalt kolme väravaga",'1B'],
               ["#{@teams.select{|team| team.id == game.team2_id}[0].name} võidab kuni kahe väravaga",'2A'],
               ["#{@teams.select{|team| team.id == game.team2_id}[0].name} võidab vähemalt kolme väravaga",'2B'],
-              ['Mäng lõppeb viigiga','X']], 
+              ['MĆ¤ng lĆµppeb viigiga','X']], 
               {:selected => "#{@userGames == nil || @userGames.empty? || @userGames.select{|userGame| game.id == userGame.game_id}.empty? ? '' : @userGames.select{|userGame| game.id == userGame.game_id}[0].result}", 
                :prompt => '- vali -'}, 
                {:class=>"games"}
-  * boldiga tähistatud mängude ennustamine annab topeltpunktid
+  * Õige vastus annab 5 punkti. Õige võitja aga vale vastus annab 3 punkti. Boldiga tähistatud mängude ennustamine annab topeltpunktid.
   %br
   %br
   = hidden_field_tag "user_id", @user.id
-  - if @user.name == 'tegelikud tulemused'
-    = submit_tag 'Salvesta'
-  = button_to 'Tagasi', user_path(@user.id), :method => :get
+  = hidden_field_tag "tournament_id", @tournament_id
+  -# - if @user.name == 'tegelikud tulemused'
+  = submit_tag 'Salvesta'
+  = button_to 'Tagasi', tournament_user_path(@tournament_id, @user.id), :method => :get

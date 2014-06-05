@@ -4,6 +4,6 @@ class AddUserTeamResult < ActiveRecord::Migration
   end
 
   def down
-    remove_column :result
+    remove_column :user_teams, :result
   end
 end
