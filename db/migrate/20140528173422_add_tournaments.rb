@@ -11,8 +11,8 @@ class AddTournaments < ActiveRecord::Migration
     Game.update_all :tournament_id => 1
     Team.update_all :tournament_id => 1
     UserQuestion.update_all :tournament_id => 1
-    UserGames.update_all :tournament_id => 1
-    UserTeams.update_all :tournament_id => 1
+    UserGame.update_all :tournament_id => 1
+    UserTeam.update_all :tournament_id => 1
   end
 
   def down
@@ -22,7 +22,7 @@ class AddTournaments < ActiveRecord::Migration
     Game.update_all :tournament_id => nil
     Team.update_all :tournament_id => nil
     UserQuestion.update_all :tournament_id => nil
-    UserGames.update_all :tournament_id => nil
-    UserTeams.update_all :tournament_id => nil
+    UserGame.update_all :tournament_id => nil
+    UserTeam.update_all :tournament_id => nil
   end
 end
