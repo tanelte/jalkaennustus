@@ -18,7 +18,7 @@
               ["#{@teams.select{|team| team.id == game.team1_id}[0].name} võidab vähemalt kolme väravaga",'1B'],
               ["#{@teams.select{|team| team.id == game.team2_id}[0].name} võidab kuni kahe väravaga",'2A'],
               ["#{@teams.select{|team| team.id == game.team2_id}[0].name} võidab vähemalt kolme väravaga",'2B'],
-              ['MĆ¤ng lĆµppeb viigiga','X']], 
+              ['Mäng lõppeb viigiga','X']], 
               {:selected => "#{@userGames == nil || @userGames.empty? || @userGames.select{|userGame| game.id == userGame.game_id}.empty? ? '' : @userGames.select{|userGame| game.id == userGame.game_id}[0].result}", 
                :prompt => '- vali -'}, 
                {:class=>"games"}
