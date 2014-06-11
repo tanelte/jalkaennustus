@@ -2,32 +2,33 @@ class User < ActiveRecord::Base
 
   attr_accessible :name
   
-  def self.find_by_tournament tournament_id
-    
-  end
-  
-  def self.calculate_points
+  def self.calculate_points tournament_id
     users = User.all
     tegelikUser = User.find_by_name 'tegelikud tulemused'
     if tegelikUser != nil
-      tegelikGames = UserGame.find_all_by_user_id tegelikUser.id
-      tegelikTeams = UserTeam.find_all_by_user_id tegelikUser.id
-      tegelikQuestions = UserQuestion.find_all_by_user_id tegelikUser.id
+      tegelikGames = UserGame.find_all_by_user_id_and_tournament_id tegelikUser.id, tournament_id
+      tegelikTeams = UserTeam.find_all_by_user_id_and_tournament_id tegelikUser.id, tournament_id
+      tegelikQuestions = UserQuestion.find_all_by_user_id_and_tournament_id tegelikUser.id, tournament_id
       users.each do |user|
         if user.name != 'tegelikud tulemused'
           points = 0
-          points = points + calculateGamePoints(user, tegelikGames)
-          points = points + calculateTeamPoints(user, tegelikTeams)
-          points = points + calculateQuestionPoints(user, tegelikQuestions)
-          user.update_attribute(:points, points)
+          points = points + calculateGamePoints(user, tegelikGames, tournament_id)
+          points = points + calculateTeamPoints(user, tegelikTeams, tournament_id)
+          points = points + calculateQuestionPoints(user, tegelikQuestions, tournament_id)
+          userResult = UserResult.find_by_user_id_and_tournament_id user.id, tournament_id
+          if userResult != nil
+            userResult.update_attribute(:points, points)
+          else
+            UserResult.create(:user_id => user.id, :points => points, :tournament_id => tournament_id)
+          end
         end
       end
     end
   end
   
-  def self.calculateGamePoints user, tegelikGames
+  def self.calculateGamePoints user, tegelikGames, tournament_id
     points = 0
-    userGames = UserGame.find_all_by_user_id user.id
+    userGames = UserGame.find_all_by_user_id_and_tournament_id user.id, tournament_id
     userGames.each do |userGame|
       tegelikGame = tegelikGames.select{|t| t.game_id == userGame.game_id}
       if tegelikGame != nil && !tegelikGame.empty?
@@ -52,9 +53,9 @@ class User < ActiveRecord::Base
     points
   end
   
-  def self.calculateTeamPoints user, tegelikTeams
+  def self.calculateTeamPoints user, tegelikTeams, tournament_id
     points = 0
-    userTeams = UserTeam.find_all_by_user_id user.id
+    userTeams = UserTeam.find_all_by_user_id_and_tournament_id user.id, tournament_id
     userTeams.each do |userTeam|
       tegelikTeam = tegelikTeams.select{|t| t.criteria == userTeam.criteria}
       if tegelikTeam != nil && !tegelikTeam.empty?
@@ -74,7 +75,7 @@ class User < ActiveRecord::Base
   def self.getTeamPoints userTeam, tegelikTeam
     points = 0
     if userTeam.team_id != nil && userTeam.team_id == tegelikTeam.team_id
-      if ["A3", "B3", "C3", "D3"].include?(userTeam.criteria)
+      if ["A3", "B3", "C3", "D3", "E3", "FA3", "G3", "H3"].include?(userTeam.criteria)
         points = points + 10
       elsif 'F1' == userTeam.criteria
         points = points + 50
@@ -86,17 +87,27 @@ class User < ActiveRecord::Base
         points = points + 20
       end
     end
-    if userTeam.result != nil && userTeam.result == tegelikTeam.result
-      points = points + 10
-    elsif userTeam.result != nil &&  userTeam.result[1] == tegelikTeam.result[1]
-      points = points + 5
+    if userTeam.result != nil
+      if ["Q1", "Q2", "Q3", "Q4"].include?(userTeam.criteria)
+        if userTeam.result == tegelikTeam.result
+          points = points + 10
+        elsif userTeam.result[1] == tegelikTeam.result[1]
+          points = points + 5
+        end
+      else
+        if userTeam.result == tegelikTeam.result
+          points = points + 8
+        elsif userTeam.result[1] == tegelikTeam.result[1]
+          points = points + 4
+        end
+      end
     end
     points
   end
   
-  def self.calculateQuestionPoints user, tegelikQuestions
+  def self.calculateQuestionPoints user, tegelikQuestions, tournament_id
     points = 0
-    userQuestions = UserQuestion.find_all_by_user_id user.id
+    userQuestions = UserQuestion.find_all_by_user_id_and_tournament_id user.id, tournament_id
       userQuestions.each do |userQuestion|
       tegelikQuestion = tegelikQuestions.select{|t| t.question_id == userQuestion.question_id}
       if tegelikQuestion != nil && !tegelikQuestion.empty?

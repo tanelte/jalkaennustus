@@ -27,7 +27,7 @@ class GamesController < ApplicationController
     end
     user = User.find_by_id user_id
     if user.name == 'tegelikud tulemused'
-      User.calculate_points
+      User.calculate_points tournament_id
     end
     redirect_to tournament_user_path(tournament_id, user_id)
   end

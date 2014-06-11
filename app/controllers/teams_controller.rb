@@ -43,7 +43,7 @@ class TeamsController < ApplicationController
     end
     user = User.find_by_id user_id
     if user.name == 'tegelikud tulemused'
-      User.calculate_points
+      User.calculate_points tournament_id
     end
     redirect_to tournament_user_path(tournament_id, user_id)
   end
@@ -77,7 +77,7 @@ class TeamsController < ApplicationController
     add_or_update_user_team_with_result params[:result][:R8], :R8, tournament_id
     user = User.find_by_id user_id
     if user.name == 'tegelikud tulemused'
-      User.calculate_points
+      User.calculate_points tournament_id
     end
     redirect_to tournament_user_path(tournament_id, user_id)
   end
@@ -128,7 +128,7 @@ class TeamsController < ApplicationController
     add_or_update_user_team_with_result params[:result][:Q4], :Q4, tournament_id
     user = User.find_by_id user_id
     if user.name == 'tegelikud tulemused'
-      User.calculate_points
+      User.calculate_points tournament_id
     end
     redirect_to tournament_user_path(tournament_id, user_id)
   end
@@ -153,7 +153,7 @@ class TeamsController < ApplicationController
     add_or_update_user_team params[:result][:F4], :F4, tournament_id
     user = User.find_by_id user_id
     if user.name == 'tegelikud tulemused'
-      User.calculate_points
+      User.calculate_points tournament_id
     end
     redirect_to tournament_user_path(tournament_id, user_id)
   end
