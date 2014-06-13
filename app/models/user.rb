@@ -109,17 +109,19 @@ class User < ActiveRecord::Base
     points = 0
     userQuestions = UserQuestion.find_all_by_user_id_and_tournament_id user.id, tournament_id
       userQuestions.each do |userQuestion|
-      tegelikQuestion = tegelikQuestions.select{|t| t.question_id == userQuestion.question_id}
-      if tegelikQuestion != nil && !tegelikQuestion.empty?
-        points = points + getQuestionPoints(userQuestion, tegelikQuestion[0])
-        if userQuestion.question_id == 5
-          userVaravQuestion = userQuestions.select{|t| t.question_id == 4}
-          tegelikVaravQuestion = tegelikQuestions.select{|t| t.question_id == 4}
-          if userVaravQuestion != nil && !userVaravQuestion.empty? && tegelikVaravQuestion != nil && !tegelikVaravQuestion.empty? && userVaravQuestion[0].answer == tegelikVaravQuestion[0].answer
-            points = points + getDifference(userQuestion.answer, tegelikQuestion[0].answer)
+        if userQuestion.answer != nil && !userQuestion.answer.empty?
+          tegelikQuestion = tegelikQuestions.select{|t| t.question_id == userQuestion.question_id}
+          if tegelikQuestion != nil && !tegelikQuestion.empty?
+            points = points + getQuestionPoints(userQuestion, tegelikQuestion[0])
+            if userQuestion.question_id == 5
+              userVaravQuestion = userQuestions.select{|t| t.question_id == 4}
+              tegelikVaravQuestion = tegelikQuestions.select{|t| t.question_id == 4}
+              if userVaravQuestion != nil && !userVaravQuestion.empty? && tegelikVaravQuestion != nil && !tegelikVaravQuestion.empty? && userVaravQuestion[0].answer == tegelikVaravQuestion[0].answer
+                points = points + getDifference(userQuestion.answer, tegelikQuestion[0].answer)
+              end
+            end
           end
         end
-      end
     end
     points
   end
