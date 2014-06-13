@@ -159,14 +159,12 @@ class TeamsController < ApplicationController
   end
   
   def add_or_update_user_team team_id, criteria, tournament_id
-    if team_id != nil && !team_id.empty?
-      user_id = params[:user_id]
-      user_team = UserTeam.find_by_user_id_and_criteria_and_tournament_id user_id, criteria, tournament_id
-      if user_team == nil
-         UserTeam.create!(:user_id => user_id, :team_id => team_id, :criteria => criteria, :tournament_id => tournament_id)
-      else
-         user_team.update_attribute(:team_id, team_id)
-      end
+    user_id = params[:user_id]
+    user_team = UserTeam.find_by_user_id_and_criteria_and_tournament_id user_id, criteria, tournament_id
+    if (team_id != nil && !team_id.empty?) && user_team == nil
+       UserTeam.create!(:user_id => user_id, :team_id => team_id, :criteria => criteria, :tournament_id => tournament_id)
+    elsif user_team != nil
+       user_team.update_attribute(:team_id, team_id)
     end
   end
   
