@@ -92,12 +92,12 @@ class TeamsController < ApplicationController
     
     @tournament = Tournament.find_by_id @tournament_id
     @team1 = @tournament.mm ? 'A1/B2' : 'A1'
-    @team2 = @tournament.mm ? 'B1/A2' : 'B2'
-    @team3 = @tournament.mm ? 'C1/D2' : 'B1'
+    @team2 = @tournament.mm ? 'C1/D2' : 'B2'
+    @team3 = @tournament.mm ? 'B1/A2' : 'B1'
     @team4 = @tournament.mm ? 'D1/C2' : 'A2'
     @team5 = @tournament.mm ? 'E1/F2' : 'C1'
-    @team6 = @tournament.mm ? 'F1/E2' : 'D2'
-    @team7 = @tournament.mm ? 'G1/H2' : 'D1'
+    @team6 = @tournament.mm ? 'G1/H2' : 'D2'
+    @team7 = @tournament.mm ? 'F1/E2' : 'D1'
     @team8 = @tournament.mm ? 'H1/G2' : 'A2'
     
     addGroups @tournament
