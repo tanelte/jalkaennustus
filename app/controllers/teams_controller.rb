@@ -31,6 +31,10 @@ class TeamsController < ApplicationController
     tournament_id = params[:tournament_id]
     user_id = params[:user_id]
     tournament = Tournament.find_by_id tournament_id
+    user = User.find_by_id user_id
+    if user.name != 'tegelikud tulemused'
+      raise "Mine pekki!"
+    end
     add_or_update_user_team params[:result][:A3], :A3, tournament_id
     add_or_update_user_team params[:result][:B3], :B3, tournament_id
     add_or_update_user_team params[:result][:C3], :C3, tournament_id
@@ -41,7 +45,6 @@ class TeamsController < ApplicationController
       add_or_update_user_team params[:result][:G3], :G3, tournament_id
       add_or_update_user_team params[:result][:H3], :H3, tournament_id
     end
-    user = User.find_by_id user_id
     if user.name == 'tegelikud tulemused'
       User.calculate_points tournament_id
     end
@@ -67,6 +70,12 @@ class TeamsController < ApplicationController
   def createRoundOf16
     tournament_id = params[:tournament_id]
     user_id = params[:user_id]
+    user = User.find_by_id user_id
+    puts '--------------------------------'
+    puts user.name
+    if user.name != 'tegelikud tulemused'
+      raise "Mine pekki!"
+    end
     add_or_update_user_team_with_result params[:result][:R1], :R1, tournament_id
     add_or_update_user_team_with_result params[:result][:R2], :R2, tournament_id
     add_or_update_user_team_with_result params[:result][:R3], :R3, tournament_id
@@ -75,7 +84,6 @@ class TeamsController < ApplicationController
     add_or_update_user_team_with_result params[:result][:R6], :R6, tournament_id
     add_or_update_user_team_with_result params[:result][:R7], :R7, tournament_id
     add_or_update_user_team_with_result params[:result][:R8], :R8, tournament_id
-    user = User.find_by_id user_id
     if user.name == 'tegelikud tulemused'
       User.calculate_points tournament_id
     end
@@ -122,11 +130,14 @@ class TeamsController < ApplicationController
   def createQuarterfinals
     tournament_id = params[:tournament_id]
     user_id = params[:user_id]
+    user = User.find_by_id user_id
+    if user.name != 'tegelikud tulemused'
+      raise "Mine pekki!"
+    end
     add_or_update_user_team_with_result params[:result][:Q1], :Q1, tournament_id
     add_or_update_user_team_with_result params[:result][:Q2], :Q2, tournament_id
     add_or_update_user_team_with_result params[:result][:Q3], :Q3, tournament_id
     add_or_update_user_team_with_result params[:result][:Q4], :Q4, tournament_id
-    user = User.find_by_id user_id
     if user.name == 'tegelikud tulemused'
       User.calculate_points tournament_id
     end
@@ -147,11 +158,14 @@ class TeamsController < ApplicationController
   def createFinals
     tournament_id = params[:tournament_id]
     user_id = params[:user_id]
+    user = User.find_by_id user_id
+    if user.name != 'tegelikud tulemused'
+      raise "Mine pekki!"
+    end
     add_or_update_user_team params[:result][:F1], :F1, tournament_id
     add_or_update_user_team params[:result][:F2], :F2, tournament_id
     add_or_update_user_team params[:result][:F3], :F3, tournament_id
     add_or_update_user_team params[:result][:F4], :F4, tournament_id
-    user = User.find_by_id user_id
     if user.name == 'tegelikud tulemused'
       User.calculate_points tournament_id
     end

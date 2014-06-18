@@ -13,6 +13,10 @@ class GamesController < ApplicationController
     result = params[:result]
     user_id = params[:user_id]
     tournament_id = params[:tournament_id]
+    user = User.find_by_id user_id
+    if user.name != 'tegelikud tulemused'
+      raise "Mine pekki!"
+    end
     userGames = UserGame.where(:user_id => user_id, :tournament_id => tournament_id)
     result.map do |k,v|
       existingGames = userGames == nil ? nil : userGames.select{|userGame| k.to_i == userGame.game_id}
@@ -23,7 +27,6 @@ class GamesController < ApplicationController
         existingGame.update_attribute(:result, v)
       end
     end
-    user = User.find_by_id user_id
     if user.name == 'tegelikud tulemused'
       User.calculate_points tournament_id
     end

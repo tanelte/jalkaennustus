@@ -9,7 +9,11 @@ class UserQuestionsController < ApplicationController
 
   def create
     tournament_id = params[:tournament_id]
-    user_id = params[:user_id]
+    user_id = params[:user_id]    
+    user = User.find_by_id user_id
+    if user.name != 'tegelikud tulemused'
+      raise "Mine pekki!"
+    end
     
     existing_user_questions = UserQuestion.find_all_by_user_id_and_tournament_id user_id, tournament_id
     answers = params[:answers]
@@ -23,7 +27,6 @@ class UserQuestionsController < ApplicationController
         user_question.update_attribute(:answer, v)
       end
     end
-    user = User.find_by_id user_id
     if user.name == 'tegelikud tulemused'
       User.calculate_points tournament_id
     end
