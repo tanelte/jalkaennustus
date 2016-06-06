@@ -28,7 +28,8 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: daags02il2uqam
+  database: de8gt6b34drbsj
   pool: 5
-  username: faggbntvzqlyvj
-  password: I0KJ3hNdUEOFgP0rirFuaj6vTg
+  username: parillareiibuj
+  password: oC6eMxBYH3SWYstn8gXQvj3NJn
+  host: ec2-54-83-51-38.compute-1.amazonaws.com
