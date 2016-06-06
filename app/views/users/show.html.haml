@@ -8,7 +8,7 @@
 = link_to 'Ennusta alagruppide kolmandad kohad', group_teams_path(@tournament_id, @user.id)
 %br
 %br
-- if @tournament.mm
+- if @tournament.mm || @tournament.em2016
   = link_to 'Ennusta kaheksandikfinaalide võitjad', round_of_16_teams_path(@tournament_id, @user.id)
   %br
   %br

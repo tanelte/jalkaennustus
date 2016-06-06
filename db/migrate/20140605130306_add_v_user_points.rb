@@ -17,7 +17,7 @@ class AddVUserPoints < ActiveRecord::Migration
 
   def down
     execute <<-SQL
-      DROP VIEW v_group_elements
+      DROP VIEW V_USER_POINTS
     SQL
   end
 end

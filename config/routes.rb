@@ -1,4 +1,6 @@
 Jalkaennustus::Application.routes.draw do
+  devise_for :groups
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

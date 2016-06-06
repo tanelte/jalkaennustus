@@ -80,3 +80,6 @@ select.group {
  .bold {
   font-weight:bold;
 }
+.form_btn {
+  float:left;
+}

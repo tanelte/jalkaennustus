@@ -14,16 +14,20 @@ class TeamsController < ApplicationController
     @userTeamD = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :D3, @tournament_id
     
     @tournament = Tournament.find_by_id @tournament_id
-    if @tournament.mm
+    if @tournament.mm || @tournament.em2016
       @groupE = Team.find_all_by_group_and_tournament_id 'E', @tournament_id
       @groupF = Team.find_all_by_group_and_tournament_id 'F', @tournament_id
-      @groupG = Team.find_all_by_group_and_tournament_id 'G', @tournament_id
-      @groupH = Team.find_all_by_group_and_tournament_id 'H', @tournament_id
       
       @userTeamE = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :E3, @tournament_id
       @userTeamF = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :FA3, @tournament_id
-      @userTeamG = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :G3, @tournament_id
-      @userTeamH = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :H3, @tournament_id
+      
+      if @tournament.mm
+        @groupG = Team.find_all_by_group_and_tournament_id 'G', @tournament_id
+        @groupH = Team.find_all_by_group_and_tournament_id 'H', @tournament_id
+        
+        @userTeamG = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :G3, @tournament_id
+        @userTeamH = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :H3, @tournament_id
+      end
     end
   end
   
@@ -32,28 +36,38 @@ class TeamsController < ApplicationController
     user_id = params[:user_id]
     tournament = Tournament.find_by_id tournament_id
     user = User.find_by_id user_id
-    if user.name != 'tegelikud tulemused'
-      raise "Mine pekki!"
-    end
+    # if user.name != 'tegelikud tulemused'
+      # raise "Mine pekki!"
+    # end
     add_or_update_user_team params[:result][:A3], :A3, tournament_id
     add_or_update_user_team params[:result][:B3], :B3, tournament_id
     add_or_update_user_team params[:result][:C3], :C3, tournament_id
     add_or_update_user_team params[:result][:D3], :D3, tournament_id
-    if tournament.mm
+    if tournament.mm || tournament.em2016
       add_or_update_user_team params[:result][:E3], :E3, tournament_id
       add_or_update_user_team params[:result][:FA3], :FA3, tournament_id
-      add_or_update_user_team params[:result][:G3], :G3, tournament_id
-      add_or_update_user_team params[:result][:H3], :H3, tournament_id
+      if tournament.mm
+        add_or_update_user_team params[:result][:G3], :G3, tournament_id
+        add_or_update_user_team params[:result][:H3], :H3, tournament_id
+      end
     end
     if user.name == 'tegelikud tulemused'
-      User.calculate_points tournament_id
+      User.calculate_points tournament_id, current_group
     end
     redirect_to tournament_user_path(tournament_id, user_id)
   end
   
   def roundOf16
     @tournament_id = params[:tournament_id]
+    @tournament = Tournament.find_by_id @tournament_id
     @user = User.find_by_id params[:user_id]
+    
+    if @tournament.mm
+      @teams = ['A1', 'B2', 'B1', 'A2', 'C1', 'D2', 'D1', 'C2', 'E1', 'F2', 'F1', 'E2', 'G1', 'H2', 'H1', 'G2']
+    else
+      @teams = ['A2', 'C2', 'D1', 'BEF3', 'B1', 'ACD3', 'F1', 'E2', 'C1', 'ABF3', 'E1', 'D2', 'A1', 'CDE3', 'B2', 'F2']
+    end    
+    
     @userTeamR1 = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :R1, @tournament_id
     @userTeamR2 = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :R2, @tournament_id
     @userTeamR3 = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :R3, @tournament_id
@@ -63,19 +77,16 @@ class TeamsController < ApplicationController
     @userTeamR7 = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :R7, @tournament_id
     @userTeamR8 = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :R8, @tournament_id
     
-    tournament = Tournament.find_by_id @tournament_id
-    addGroups tournament
+    addGroups @tournament
   end
   
   def createRoundOf16
     tournament_id = params[:tournament_id]
     user_id = params[:user_id]
     user = User.find_by_id user_id
-    puts '--------------------------------'
-    puts user.name
-    if user.name != 'tegelikud tulemused'
-      raise "Mine pekki!"
-    end
+    # if user.name != 'tegelikud tulemused'
+      # raise "Mine pekki!"
+    # end
     add_or_update_user_team_with_result params[:result][:R1], :R1, tournament_id
     add_or_update_user_team_with_result params[:result][:R2], :R2, tournament_id
     add_or_update_user_team_with_result params[:result][:R3], :R3, tournament_id
@@ -85,7 +96,7 @@ class TeamsController < ApplicationController
     add_or_update_user_team_with_result params[:result][:R7], :R7, tournament_id
     add_or_update_user_team_with_result params[:result][:R8], :R8, tournament_id
     if user.name == 'tegelikud tulemused'
-      User.calculate_points tournament_id
+      User.calculate_points tournament_id, current_group
     end
     redirect_to tournament_user_path(tournament_id, user_id)
   end
@@ -99,14 +110,14 @@ class TeamsController < ApplicationController
     @userTeamQ4 = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :Q4, @tournament_id
     
     @tournament = Tournament.find_by_id @tournament_id
-    @team1 = @tournament.mm ? 'A1/B2' : 'A1'
-    @team2 = @tournament.mm ? 'C1/D2' : 'B2'
-    @team3 = @tournament.mm ? 'B1/A2' : 'B1'
-    @team4 = @tournament.mm ? 'D1/C2' : 'A2'
-    @team5 = @tournament.mm ? 'E1/F2' : 'C1'
-    @team6 = @tournament.mm ? 'G1/H2' : 'D2'
-    @team7 = @tournament.mm ? 'F1/E2' : 'D1'
-    @team8 = @tournament.mm ? 'H1/G2' : 'A2'
+    @team1 = @tournament.em2016 ? 'A2/C2' : (@tournament.mm ? 'A1/B2' : 'A1')
+    @team2 = @tournament.em2016 ? 'D1/BEF3' : (@tournament.mm ? 'C1/D2' : 'B2')
+    @team3 = @tournament.em2016 ? 'B1/ACD3' : (@tournament.mm ? 'B1/A2' : 'B1')
+    @team4 = @tournament.em2016 ? 'F1/E2' : (@tournament.mm ? 'D1/C2' : 'A2')
+    @team5 = @tournament.em2016 ? 'C1/ABF3' : (@tournament.mm ? 'C1/F2' : 'C1')
+    @team6 = @tournament.em2016 ? 'E1/D2' : (@tournament.mm ? 'G1/H2' : 'D2')
+    @team7 = @tournament.em2016 ? 'A1/CDE3' : (@tournament.mm ? 'F1/E2' : 'D1')
+    @team8 = @tournament.em2016 ? 'B2/F2' : (@tournament.mm ? 'H1/G2' : 'C2')
     
     addGroups @tournament
   end
@@ -116,12 +127,16 @@ class TeamsController < ApplicationController
     groupB = Team.find_all_by_group_and_tournament_id 'B', tournament.id
     groupC = Team.find_all_by_group_and_tournament_id 'C', tournament.id
     groupD = Team.find_all_by_group_and_tournament_id 'D', tournament.id
-    if tournament.mm
+    if tournament.mm || tournament.em2016
       groupE = Team.find_all_by_group_and_tournament_id 'E', tournament.id
       groupF = Team.find_all_by_group_and_tournament_id 'F', tournament.id
-      groupG = Team.find_all_by_group_and_tournament_id 'G', tournament.id
-      groupH = Team.find_all_by_group_and_tournament_id 'H', tournament.id
-      @teamsByGroup = [0, 1, 2, 3].collect{|n|[groupA[n], groupB[n], groupC[n], groupD[n], groupE[n], groupF[n], groupG[n], groupH[n]]}
+      if tournament.mm
+        groupG = Team.find_all_by_group_and_tournament_id 'G', tournament.id
+        groupH = Team.find_all_by_group_and_tournament_id 'H', tournament.id
+        @teamsByGroup = [0, 1, 2, 3].collect{|n|[groupA[n], groupB[n], groupC[n], groupD[n], groupE[n], groupF[n], groupG[n], groupH[n]]}
+      else
+        @teamsByGroup = [0, 1, 2, 3].collect{|n|[groupA[n], groupB[n], groupC[n], groupD[n], groupE[n], groupF[n]]}
+      end
     else
       @teamsByGroup = [0, 1, 2, 3].collect{|n|[groupA[n], groupB[n], groupC[n], groupD[n]]}
     end
@@ -131,15 +146,15 @@ class TeamsController < ApplicationController
     tournament_id = params[:tournament_id]
     user_id = params[:user_id]
     user = User.find_by_id user_id
-    if user.name != 'tegelikud tulemused'
-      raise "Mine pekki!"
-    end
+    # if user.name != 'tegelikud tulemused'
+      # raise "Mine pekki!"
+    # end
     add_or_update_user_team_with_result params[:result][:Q1], :Q1, tournament_id
     add_or_update_user_team_with_result params[:result][:Q2], :Q2, tournament_id
     add_or_update_user_team_with_result params[:result][:Q3], :Q3, tournament_id
     add_or_update_user_team_with_result params[:result][:Q4], :Q4, tournament_id
     if user.name == 'tegelikud tulemused'
-      User.calculate_points tournament_id
+      User.calculate_points tournament_id, current_group
     end
     redirect_to tournament_user_path(tournament_id, user_id)
   end
@@ -159,15 +174,15 @@ class TeamsController < ApplicationController
     tournament_id = params[:tournament_id]
     user_id = params[:user_id]
     user = User.find_by_id user_id
-    if user.name != 'tegelikud tulemused'
-      raise "Mine pekki!"
-    end
+    # if user.name != 'tegelikud tulemused'
+      # raise "Mine pekki!"
+    # end
     add_or_update_user_team params[:result][:F1], :F1, tournament_id
     add_or_update_user_team params[:result][:F2], :F2, tournament_id
     add_or_update_user_team params[:result][:F3], :F3, tournament_id
     add_or_update_user_team params[:result][:F4], :F4, tournament_id
     if user.name == 'tegelikud tulemused'
-      User.calculate_points tournament_id
+      User.calculate_points tournament_id, current_group
     end
     redirect_to tournament_user_path(tournament_id, user_id)
   end

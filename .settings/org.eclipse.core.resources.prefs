@@ -1,3 +1,4 @@
 eclipse.preferences.version=1
 encoding//app/views/games/index.html.haml=UTF-8
+encoding//db/migrate/20160603164755_add_teams2016.rb=UTF-8
 encoding/<project>=UTF-8

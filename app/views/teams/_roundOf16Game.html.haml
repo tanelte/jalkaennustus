@@ -1,0 +1,9 @@
+#{team1} - #{team2}:
+=select :result, resultCode, 
+  [["#{team1} võidab normaalajal",'1A'],
+  ["#{team2} võidab normaalajal",'1B'],
+  ["#{team1} võidab lisaajal või penaltitega",'2A'],
+  ["#{team2} võidab lisaajal või penaltitega",'2B']], 
+  {:selected => "#{userTeam == nil ? nil : userTeam.result}", :prompt => '- vali -'}
+%br
+%br

@@ -6,11 +6,11 @@ gem 'rails', '3.2.14'
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
 # for Heroku, replace "gem 'sqlite3'" in your Gemfile with this:
-group :development, :test do
+group :test do
   gem 'activerecord-oracle_enhanced-adapter', '~> 1.4.0'
   gem 'ruby-oci8'
 end
-group :production do
+group :development, :production do
   gem 'pg' # use PostgreSQL in production (Heroku)
 end
 
@@ -27,6 +27,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'devise'
 
 # Use unicorn as the web server
 # gem 'unicorn'

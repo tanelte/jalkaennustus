@@ -25,7 +25,7 @@
     {:class=>"group"}
   %br
   %br
-  - if @tournament.mm
+  - if @tournament.mm || @tournament.em2016
     Grupp E: 
     =select :result, 'E3', @groupE.collect{|p| [p.name, p.id]}, 
       {:selected => "#{@userTeamE == nil ? nil : @userTeamE.team_id}", :prompt => '- vali -'}, 
@@ -38,23 +38,25 @@
       {:class=>"group"}
     %br
     %br
-    Grupp G: 
-    =select :result, 'G3', @groupG.collect{|p| [p.name, p.id]}, 
-      {:selected => "#{@userTeamG == nil ? nil : @userTeamG.team_id}", :prompt => '- vali -'}, 
-      {:class=>"group"}
-    %br
-    %br
-    Grupp H: 
-    =select :result, 'H3', @groupH.collect{|p| [p.name, p.id]}, 
-      {:selected => "#{@userTeamH == nil ? nil : @userTeamH.team_id}", :prompt => '- vali -'}, 
-      {:class=>"group"}
-    %br
-    %br
-    * Iga õige vastus annab 10 punkti.
-    %br
-    %br
+    - if @tournament.mm
+      Grupp G: 
+      =select :result, 'G3', @groupG.collect{|p| [p.name, p.id]}, 
+        {:selected => "#{@userTeamG == nil ? nil : @userTeamG.team_id}", :prompt => '- vali -'}, 
+        {:class=>"group"}
+      %br
+      %br
+      Grupp H: 
+      =select :result, 'H3', @groupH.collect{|p| [p.name, p.id]}, 
+        {:selected => "#{@userTeamH == nil ? nil : @userTeamH.team_id}", :prompt => '- vali -'}, 
+        {:class=>"group"}
+  %br
+  %br
+  * Iga õige vastus annab 10 punkti.
+  %br
+  %br
   = hidden_field_tag "user_id", @user.id
   = hidden_field_tag "tournament_id", @tournament_id
-  - if @user.name == 'tegelikud tulemused'
-    = submit_tag 'Salvesta'
-= button_to 'Tagasi', tournament_user_path(@tournament_id, @user.id), :method => :get
+  -# - if @user.name == 'tegelikud tulemused'
+    -# = submit_tag 'Salvesta', :class => 'form_btn'
+  = submit_tag 'Salvesta', :class => 'form_btn'
+= button_to 'Tagasi', tournament_user_path(@tournament_id, @user.id), :method => :get, :class => 'form_btn'

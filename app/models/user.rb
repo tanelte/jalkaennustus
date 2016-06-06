@@ -1,10 +1,11 @@
 class User < ActiveRecord::Base
 
   attr_accessible :name
+  has_many :user_groups
   
-  def self.calculate_points tournament_id
-    users = User.all
-    tegelikUser = User.find_by_name 'tegelikud tulemused'
+  def self.calculate_points tournament_id, currentGroup
+    users = currentGroup.users.all
+    tegelikUser = User.joins(:user_groups).where(user_groups: {group_id: currentGroup.id}, name: 'tegelikud tulemused').first
     if tegelikUser != nil
       tegelikGames = UserGame.find_all_by_user_id_and_tournament_id tegelikUser.id, tournament_id
       tegelikTeams = UserTeam.find_all_by_user_id_and_tournament_id tegelikUser.id, tournament_id
@@ -15,11 +16,12 @@ class User < ActiveRecord::Base
           points = points + calculateGamePoints(user, tegelikGames, tournament_id)
           points = points + calculateTeamPoints(user, tegelikTeams, tournament_id)
           points = points + calculateQuestionPoints(user, tegelikQuestions, tournament_id)
-          userResult = UserResult.find_by_user_id_and_tournament_id user.id, tournament_id
+          userGroup = UserGroup.find_by_user_id_and_group_id user.id, currentGroup.id
+          userResult = UserResult.find_by_user_group_id_and_tournament_id userGroup.id, tournament_id
           if userResult != nil
             userResult.update_attribute(:points, points)
           else
-            UserResult.create(:user_id => user.id, :points => points, :tournament_id => tournament_id)
+            UserResult.create(:user_group_id => userGroup.id, :points => points, :tournament_id => tournament_id)
           end
         end
       end
