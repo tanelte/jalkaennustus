@@ -14,9 +14,9 @@ class GamesController < ApplicationController
     user_id = params[:user_id]
     tournament_id = params[:tournament_id]
     user = User.find_by_id user_id
-    # if user.name != 'tegelikud tulemused'
-      # raise "Mine pekki!"
-    # end
+    if user.name != 'tegelikud tulemused'
+      raise "Mine pekki!"
+    end
     userGames = UserGame.where(:user_id => user_id, :tournament_id => tournament_id)
     result.map do |k,v|
       existingGames = userGames == nil ? nil : userGames.select{|userGame| k.to_i == userGame.game_id}

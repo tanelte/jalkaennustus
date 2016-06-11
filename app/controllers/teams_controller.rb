@@ -36,9 +36,9 @@ class TeamsController < ApplicationController
     user_id = params[:user_id]
     tournament = Tournament.find_by_id tournament_id
     user = User.find_by_id user_id
-    # if user.name != 'tegelikud tulemused'
-      # raise "Mine pekki!"
-    # end
+    if user.name != 'tegelikud tulemused'
+      raise "Mine pekki!"
+    end
     add_or_update_user_team params[:result][:A3], :A3, tournament_id
     add_or_update_user_team params[:result][:B3], :B3, tournament_id
     add_or_update_user_team params[:result][:C3], :C3, tournament_id
