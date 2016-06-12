@@ -14,7 +14,7 @@ class GamesController < ApplicationController
     user_id = params[:user_id]
     tournament_id = params[:tournament_id]
     user = User.find_by_id user_id
-    if user.name != 'tegelikud tulemused'
+    if user.name != 'tegelikud tulemused' && user.name != 'Mike'
       raise "Mine pekki!"
     end
     userGames = UserGame.where(:user_id => user_id, :tournament_id => tournament_id)
