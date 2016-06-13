@@ -7,6 +7,7 @@
         %th Alagrupp
         %th Mäng
         %th Tulemus
+        %th
     %tbody
       - @games.each do |game|
         = fields_for :game, game do |g|
@@ -22,12 +23,13 @@
               {:selected => "#{@userGames == nil || @userGames.empty? || @userGames.select{|userGame| game.id == userGame.game_id}.empty? ? '' : @userGames.select{|userGame| game.id == userGame.game_id}[0].result}", 
                :prompt => '- vali -'}, 
                {:class=>"games"}
+            %td= link_to 'Vaata teiste ennustusi', tournament_user_game_path(@tournament_id, @user.id, game.id)
   * Õige vastus annab 5 punkti. Õige võitja aga vale vastus annab 3 punkti. Boldiga tähistatud mängude ennustamine annab topeltpunktid.
   %br
   %br
   = hidden_field_tag "user_id", @user.id
   = hidden_field_tag "tournament_id", @tournament_id
-  - if @user.name == 'tegelikud tulemused' || @user.name == 'Mike'
+  - if @user.name == 'tegelikud tulemused'
     = submit_tag 'Salvesta'
   -# = submit_tag 'Salvesta', :class => 'form_btn'
 = button_to 'Tagasi', tournament_user_path(@tournament_id, @user.id), :method => :get, :class => 'form_btn'

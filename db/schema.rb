@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160605180855) do
+ActiveRecord::Schema.define(:version => 20160613184726) do
 
   create_table "games", :force => true do |t|
     t.integer  "team1_id"
@@ -39,7 +39,6 @@ ActiveRecord::Schema.define(:version => 20160605180855) do
     t.datetime "updated_at",                             :null => false
   end
 
-  add_index "groups", ["email"], :name => "index_groups_on_email", :unique => true
   add_index "groups", ["reset_password_token"], :name => "index_groups_on_reset_password_token", :unique => true
 
   create_table "questions", :force => true do |t|

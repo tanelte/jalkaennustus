@@ -8,13 +8,20 @@ class GamesController < ApplicationController
     @games = Game.where(:tournament_id => @tournament_id).order('id')
     @teams = Team.find_all_by_tournament_id @tournament_id
   end
+  
+  def show
+    @user_id = params[:user_id]
+    @tournament_id = params[:tournament_id]
+    game_id = params[:id]
+    @userGames = VUserGames.find_by_game_and_group game_id, current_group.id
+  end
 
   def create
     result = params[:result]
     user_id = params[:user_id]
     tournament_id = params[:tournament_id]
     user = User.find_by_id user_id
-    if user.name != 'tegelikud tulemused' && user.name != 'Mike'
+    if user.name != 'tegelikud tulemused'
       raise "Mine pekki!"
     end
     userGames = UserGame.where(:user_id => user_id, :tournament_id => tournament_id)

@@ -1,0 +1,13 @@
+%h2 Ennustused
+
+%table#games
+  %thead
+    %tr
+      %th Nimi
+      %th Tulemus
+  %tbody
+    - @userGames.each do |userGame|
+      %tr
+        %td= userGame.user_name
+        %td= userGame.get_result_text
+= button_to 'Tagasi', tournament_user_games_path(@tournament_id, @user_id), :method => :get, :class => 'form_btn'

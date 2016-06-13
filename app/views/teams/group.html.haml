@@ -56,7 +56,7 @@
   %br
   = hidden_field_tag "user_id", @user.id
   = hidden_field_tag "tournament_id", @tournament_id
-  - if @user.name == 'tegelikud tulemused' || @user.name == 'Mike'
+  - if @user.name == 'tegelikud tulemused'
     = submit_tag 'Salvesta', :class => 'form_btn'
   -# = submit_tag 'Salvesta', :class => 'form_btn'
 = button_to 'Tagasi', tournament_user_path(@tournament_id, @user.id), :method => :get, :class => 'form_btn'

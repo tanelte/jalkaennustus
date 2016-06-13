@@ -22,7 +22,7 @@ Jalkaennustus::Application.routes.draw do
    # match 'tournaments/:tournament_id/users/:id/show' => 'users#show', :as => 'user', :via => :get
    # match 'tournaments/:tournament_id/users' => 'users#index', :as => 'tournament_users', :via => :get
    # match 'tournaments/:tournament_id/users' => "users#create", :as => 'users', :via => :post
-   
+      
    match 'tournaments/:tournament_id/users/:user_id/teams/group' => "teams#group", :as => 'group_teams', :via => :get
    match 'tournaments/:tournament_id/users/:user_id/teams/group' => "teams#createGroup", :as => 'group_teams', :via => :post
    
