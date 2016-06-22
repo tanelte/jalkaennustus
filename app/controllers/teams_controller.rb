@@ -65,7 +65,7 @@ class TeamsController < ApplicationController
     if @tournament.mm
       @teams = ['A1', 'B2', 'B1', 'A2', 'C1', 'D2', 'D1', 'C2', 'E1', 'F2', 'F1', 'E2', 'G1', 'H2', 'H1', 'G2']
     else
-      @teams = ['A2', 'C2', 'D1', 'BEF3', 'B1', 'ACD3', 'F1', 'E2', 'C1', 'ABF3', 'E1', 'D2', 'A1', 'CDE3', 'B2', 'F2']
+      @teams = ['Šveits', 'Poola', 'Horvaatia', 'BEF3', 'Wales', 'ACD3', 'F1', 'E2', 'Saksamaa', 'ABF3', 'Itaalia', 'Hispaania', 'Prantsusmaa', 'CDE3', 'Inglismaa', 'F2']
     end    
     
     @userTeamR1 = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :R1, @tournament_id
