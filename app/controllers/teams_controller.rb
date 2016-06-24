@@ -66,7 +66,7 @@ class TeamsController < ApplicationController
     if @tournament.mm
       @teams = ['A1', 'B2', 'B1', 'A2', 'C1', 'D2', 'D1', 'C2', 'E1', 'F2', 'F1', 'E2', 'G1', 'H2', 'H1', 'G2']
     else
-      @teams = ['Šveits', 'Poola', 'Horvaatia', 'BEF3', 'Wales', 'ACD3', 'F1', 'E2', 'Saksamaa', 'ABF3', 'Itaalia', 'Hispaania', 'Prantsusmaa', 'CDE3', 'Inglismaa', 'F2']
+      @teams = ['Šveits', 'Poola', 'Horvaatia', 'Portugal', 'Wales', 'Põhja-Iirimaa', 'Ungari', 'Belgia', 'Saksamaa', 'Slovakkia', 'Itaalia', 'Hispaania', 'Prantsusmaa', 'Iirimaa', 'Inglismaa', 'Island']
     end    
     
     @userTeamR1 = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :R1, @tournament_id
@@ -111,14 +111,14 @@ class TeamsController < ApplicationController
     @userTeamQ4 = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :Q4, @tournament_id
     
     @tournament = Tournament.find_by_id @tournament_id
-    @team1 = @tournament.em2016 ? 'A2/C2' : (@tournament.mm ? 'A1/B2' : 'A1')
-    @team2 = @tournament.em2016 ? 'D1/BEF3' : (@tournament.mm ? 'C1/D2' : 'B2')
-    @team3 = @tournament.em2016 ? 'B1/ACD3' : (@tournament.mm ? 'B1/A2' : 'B1')
-    @team4 = @tournament.em2016 ? 'F1/E2' : (@tournament.mm ? 'D1/C2' : 'A2')
-    @team5 = @tournament.em2016 ? 'C1/ABF3' : (@tournament.mm ? 'C1/F2' : 'C1')
-    @team6 = @tournament.em2016 ? 'E1/D2' : (@tournament.mm ? 'G1/H2' : 'D2')
-    @team7 = @tournament.em2016 ? 'A1/CDE3' : (@tournament.mm ? 'F1/E2' : 'D1')
-    @team8 = @tournament.em2016 ? 'B2/F2' : (@tournament.mm ? 'H1/G2' : 'C2')
+    @team1 = @tournament.em2016 ? 'Šveits/Poola' : (@tournament.mm ? 'A1/B2' : 'A1')
+    @team2 = @tournament.em2016 ? 'Horvaatia/Portugal' : (@tournament.mm ? 'C1/D2' : 'B2')
+    @team3 = @tournament.em2016 ? 'Wales/Põhja-Iirimaa' : (@tournament.mm ? 'B1/A2' : 'B1')
+    @team4 = @tournament.em2016 ? 'Ungari/Belgia' : (@tournament.mm ? 'D1/C2' : 'A2')
+    @team5 = @tournament.em2016 ? 'Saksamaa/Slovakkia' : (@tournament.mm ? 'C1/F2' : 'C1')
+    @team6 = @tournament.em2016 ? 'Itaalia/Hispaania' : (@tournament.mm ? 'G1/H2' : 'D2')
+    @team7 = @tournament.em2016 ? 'Prantsusmaa/Iirimaa' : (@tournament.mm ? 'F1/E2' : 'D1')
+    @team8 = @tournament.em2016 ? 'Inglismaa/Island' : (@tournament.mm ? 'H1/G2' : 'C2')
     
     addGroups @tournament
   end
