@@ -85,9 +85,9 @@ class TeamsController < ApplicationController
     tournament_id = params[:tournament_id]
     user_id = params[:user_id]
     user = User.find_by_id user_id
-    # if user.name != 'tegelikud tulemused'
-      # raise "Mine pekki!"
-    # end
+    if user.name != 'tegelikud tulemused'
+      raise "Mine pekki!"
+    end
     add_or_update_user_team_with_result params[:result][:R1], :R1, tournament_id
     add_or_update_user_team_with_result params[:result][:R2], :R2, tournament_id
     add_or_update_user_team_with_result params[:result][:R3], :R3, tournament_id
@@ -147,9 +147,9 @@ class TeamsController < ApplicationController
     tournament_id = params[:tournament_id]
     user_id = params[:user_id]
     user = User.find_by_id user_id
-    # if user.name != 'tegelikud tulemused'
-      # raise "Mine pekki!"
-    # end
+    if user.name != 'tegelikud tulemused'
+      raise "Mine pekki!"
+    end
     add_or_update_user_team_with_result params[:result][:Q1], :Q1, tournament_id
     add_or_update_user_team_with_result params[:result][:Q2], :Q2, tournament_id
     add_or_update_user_team_with_result params[:result][:Q3], :Q3, tournament_id
@@ -175,9 +175,9 @@ class TeamsController < ApplicationController
     tournament_id = params[:tournament_id]
     user_id = params[:user_id]
     user = User.find_by_id user_id
-    # if user.name != 'tegelikud tulemused'
-      # raise "Mine pekki!"
-    # end
+    if user.name != 'tegelikud tulemused'
+      raise "Mine pekki!"
+    end
     add_or_update_user_team params[:result][:F1], :F1, tournament_id
     add_or_update_user_team params[:result][:F2], :F2, tournament_id
     add_or_update_user_team params[:result][:F3], :F3, tournament_id
