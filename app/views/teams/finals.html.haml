@@ -21,7 +21,7 @@
     {:selected => "#{@userTeamF4 == nil ? nil : @userTeamF4.team_id}", :prompt => '- vali -'}
   %br
   %br
-  * Õiged vastused annavad vastavalt 50, 30, 25, 20 punkti. Kui ennustad võistkonna õigesti nelja hulka aga valele kohale siis saad 15 punkti.
+  * Esimese ja teise koha Õiged vastused annavad vastavalt 50 ja 30 punkti. Kui ennustad esinelikus võistkonna õigesti, aga koht on vale (või ei mängita kohta välja), siis saad 15 punkti.
   %br
   %br
   = hidden_field_tag "user_id", @user.id

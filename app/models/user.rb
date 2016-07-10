@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   
   def self.calculate_points tournament_id, currentGroup
     users = currentGroup.users.all
+    tournament = Tournament.find_by_id tournament_id
     tegelikUser = User.joins(:user_groups).where(user_groups: {group_id: currentGroup.id}, name: 'tegelikud tulemused').first
     if tegelikUser != nil
       tegelikGames = UserGame.find_all_by_user_id_and_tournament_id tegelikUser.id, tournament_id
@@ -14,7 +15,7 @@ class User < ActiveRecord::Base
         if user.name != 'tegelikud tulemused'
           points = 0
           points = points + calculateGamePoints(user, tegelikGames, tournament_id)
-          points = points + calculateTeamPoints(user, tegelikTeams, tournament_id)
+          points = points + calculateTeamPoints(user, tegelikTeams, tournament)
           points = points + calculateQuestionPoints(user, tegelikQuestions, tournament_id)
           userGroup = UserGroup.find_by_user_id_and_group_id user.id, currentGroup.id
           userResult = UserResult.find_by_user_group_id_and_tournament_id userGroup.id, tournament_id
@@ -55,16 +56,16 @@ class User < ActiveRecord::Base
     points
   end
   
-  def self.calculateTeamPoints user, tegelikTeams, tournament_id
+  def self.calculateTeamPoints user, tegelikTeams, tournament
     points = 0
-    userTeams = UserTeam.find_all_by_user_id_and_tournament_id user.id, tournament_id
+    userTeams = UserTeam.find_all_by_user_id_and_tournament_id user.id, tournament.id
     userTeams.each do |userTeam|
       tegelikTeam = tegelikTeams.select{|t| t.criteria == userTeam.criteria}
       if tegelikTeam != nil && !tegelikTeam.empty?
-        points = points + getTeamPoints(userTeam, tegelikTeam[0])
+        points = points + getTeamPoints(userTeam, tegelikTeam[0], tournament)
       end
-      if userTeam.team_id != nil && (tegelikTeam == nil || tegelikTeam.empty? || userTeam.team_id != tegelikTeam[0].team_id) && 
-        ["F1", "F2", "F3", "F4"].include?(userTeam.criteria)
+      if ["F1", "F2", "F3", "F4"].include?(userTeam.criteria) && userTeam.team_id != nil && 
+        (tegelikTeam == nil || tegelikTeam.empty? || userTeam.team_id != tegelikTeam[0].team_id || ["F3", "F4"].include?(userTeam.criteria))
         pakutud = tegelikTeams.select{|t| ["F1", "F2", "F3", "F4"].include?(t.criteria) && t.team_id == userTeam.team_id}
         if pakutud != nil && !pakutud.empty?
           points = points + 15
@@ -74,7 +75,7 @@ class User < ActiveRecord::Base
     points
   end
   
-  def self.getTeamPoints userTeam, tegelikTeam
+  def self.getTeamPoints userTeam, tegelikTeam, tournament
     points = 0
     if userTeam.team_id != nil && userTeam.team_id == tegelikTeam.team_id
       if ["A3", "B3", "C3", "D3", "E3", "FA3", "G3", "H3"].include?(userTeam.criteria)
@@ -83,10 +84,13 @@ class User < ActiveRecord::Base
         points = points + 50
       elsif 'F2' == userTeam.criteria
         points = points + 30
-      elsif 'F3' == userTeam.criteria
-        points = points + 25
-      elsif 'F4' == userTeam.criteria
-        points = points + 20
+      end
+      if !tournament.em2016
+        if 'F3' == userTeam.criteria
+          points = points + 25
+        elsif 'F4' == userTeam.criteria
+          points = points + 20
+        end
       end
     end
     if userTeam.result != nil
