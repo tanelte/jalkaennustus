@@ -11,9 +11,11 @@ class UserQuestionsController < ApplicationController
     tournament_id = params[:tournament_id]
     user_id = params[:user_id]    
     user = User.find_by_id user_id
+=begin
     if user.name != 'tegelikud tulemused'
       raise "Mine pekki!"
     end
+=end
     
     existing_user_questions = UserQuestion.find_all_by_user_id_and_tournament_id user_id, tournament_id
     answers = params[:answers]
