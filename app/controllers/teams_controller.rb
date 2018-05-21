@@ -119,7 +119,7 @@ class TeamsController < ApplicationController
     @team2 = @tournament.em2016 ? 'Horvaatia/Portugal' : (@tournament.mm ? 'C1/D2' : 'B2')
     @team3 = @tournament.em2016 ? 'Wales/Põhja-Iirimaa' : (@tournament.mm ? 'B1/A2' : 'B1')
     @team4 = @tournament.em2016 ? 'Ungari/Belgia' : (@tournament.mm ? 'D1/C2' : 'A2')
-    @team5 = @tournament.em2016 ? 'Saksamaa/Slovakkia' : (@tournament.mm ? 'C1/F2' : 'C1')
+    @team5 = @tournament.em2016 ? 'Saksamaa/Slovakkia' : (@tournament.mm ? 'E1/F2' : 'C1')
     @team6 = @tournament.em2016 ? 'Itaalia/Hispaania' : (@tournament.mm ? 'G1/H2' : 'D2')
     @team7 = @tournament.em2016 ? 'Prantsusmaa/Iirimaa' : (@tournament.mm ? 'F1/E2' : 'D1')
     @team8 = @tournament.em2016 ? 'Inglismaa/Island' : (@tournament.mm ? 'H1/G2' : 'C2')
