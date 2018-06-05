@@ -4,7 +4,7 @@ class UserQuestionsController < ApplicationController
     @tournament_id = params[:tournament_id]
     @user = User.find_by_id params[:user_id]
     @questions = Question.all
-    @user_questions = UserQuestion.find_all_by_user_id_and_tournament_id @user.id, @tournament_id
+    @user_questions = UserQuestion.where(:user_id => @user.id, :tournament_id => @tournament_id)
   end
 
   def create
@@ -17,10 +17,10 @@ class UserQuestionsController < ApplicationController
     end
 =end
     
-    existing_user_questions = UserQuestion.find_all_by_user_id_and_tournament_id user_id, tournament_id
+    existing_user_questions = UserQuestion.where(:user_id => user_id, :tournament_id => tournament_id)
     answers = params[:answers]
     
-    answers.map do |k,v|
+    answers.to_unsafe_h.map do |k,v|
       existing_user_question = existing_user_questions == nil ? nil : existing_user_questions.select{|q| k.to_i == q.question_id}
       if existing_user_question == nil || existing_user_question.empty?
         UserQuestion.create!(:user_id => user_id, :question_id => k, :answer => v, :tournament_id => tournament_id)

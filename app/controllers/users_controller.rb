@@ -24,6 +24,7 @@ end
   end
   
   def destroy
+    # TODO: invalidate user instead of delete
     user_id = params[:id]
     user_games = UserGame.find_all_by_user_id user_id
     user_teams = UserTeam.find_all_by_user_id user_id

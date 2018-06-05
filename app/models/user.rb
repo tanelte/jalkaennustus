@@ -1,16 +1,16 @@
 class User < ActiveRecord::Base
 
-  attr_accessible :name
   has_many :user_groups
-  
+  has_many :groups, through: :user_groups
+
   def self.calculate_points tournament_id, currentGroup
     users = currentGroup.users.all
     tournament = Tournament.find_by_id tournament_id
     tegelikUser = User.joins(:user_groups).where(user_groups: {group_id: currentGroup.id}, name: 'tegelikud tulemused').first
     if tegelikUser != nil
-      tegelikGames = UserGame.find_all_by_user_id_and_tournament_id tegelikUser.id, tournament_id
-      tegelikTeams = UserTeam.find_all_by_user_id_and_tournament_id tegelikUser.id, tournament_id
-      tegelikQuestions = UserQuestion.find_all_by_user_id_and_tournament_id tegelikUser.id, tournament_id
+      tegelikGames = UserGame.where(:user_id => tegelikUser.id, :tournament_id => tournament_id)
+      tegelikTeams = UserTeam.where(:user_id => tegelikUser.id, :tournament_id => tournament_id)
+      tegelikQuestions = UserQuestion.where(:user_id => tegelikUser.id, :tournament_id => tournament_id)
       users.each do |user|
         if user.name != 'tegelikud tulemused'
           points = 0
@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   
   def self.calculateGamePoints user, tegelikGames, tournament_id
     points = 0
-    userGames = UserGame.find_all_by_user_id_and_tournament_id user.id, tournament_id
+    userGames = UserGame.where(:user_id => user.id, :tournament_id => tournament_id)
     userGames.each do |userGame|
       tegelikGame = tegelikGames.select{|t| t.game_id == userGame.game_id}
       if tegelikGame != nil && !tegelikGame.empty?
@@ -58,7 +58,7 @@ class User < ActiveRecord::Base
   
   def self.calculateTeamPoints user, tegelikTeams, tournament
     points = 0
-    userTeams = UserTeam.find_all_by_user_id_and_tournament_id user.id, tournament.id
+    userTeams = UserTeam.where(:user_id => user.id, :tournament_id => tournament.id)
     userTeams.each do |userTeam|
       tegelikTeam = tegelikTeams.select{|t| t.criteria == userTeam.criteria}
       if tegelikTeam != nil && !tegelikTeam.empty?
@@ -113,7 +113,7 @@ class User < ActiveRecord::Base
   
   def self.calculateQuestionPoints user, tegelikQuestions, tournament_id
     points = 0
-    userQuestions = UserQuestion.find_all_by_user_id_and_tournament_id user.id, tournament_id
+    userQuestions = UserQuestion.where(:user_id => user.id, :tournament_id => tournament_id)
       userQuestions.each do |userQuestion|
         if userQuestion.answer != nil && !userQuestion.answer.empty?
           tegelikQuestion = tegelikQuestions.select{|t| t.question_id == userQuestion.question_id}

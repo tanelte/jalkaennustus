@@ -4,10 +4,10 @@ class TeamsController < ApplicationController
   def group
     @tournament_id = params[:tournament_id]
     @user = User.find_by_id params[:user_id]
-    @groupA = Team.find_all_by_group_and_tournament_id 'A', @tournament_id
-    @groupB = Team.find_all_by_group_and_tournament_id 'B', @tournament_id
-    @groupC = Team.find_all_by_group_and_tournament_id 'C', @tournament_id
-    @groupD = Team.find_all_by_group_and_tournament_id 'D', @tournament_id
+    @groupA = Team.where(:group => 'A', :tournament_id => @tournament_id)
+    @groupB = Team.where(:group => 'B', :tournament_id => @tournament_id)
+    @groupC = Team.where(:group => 'C', :tournament_id => @tournament_id)
+    @groupD = Team.where(:group => 'D', :tournament_id => @tournament_id)
     
     @userTeamA = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :A3, @tournament_id
     @userTeamB = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :B3, @tournament_id
@@ -16,15 +16,15 @@ class TeamsController < ApplicationController
     
     @tournament = Tournament.find_by_id @tournament_id
     if @tournament.mm || @tournament.em2016
-      @groupE = Team.find_all_by_group_and_tournament_id 'E', @tournament_id
-      @groupF = Team.find_all_by_group_and_tournament_id 'F', @tournament_id
+      @groupE = Team.where(:group => 'E', :tournament_id => @tournament_id)
+      @groupF = Team.where(:group => 'F', :tournament_id => @tournament_id)
       
       @userTeamE = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :E3, @tournament_id
       @userTeamF = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :FA3, @tournament_id
       
       if @tournament.mm
-        @groupG = Team.find_all_by_group_and_tournament_id 'G', @tournament_id
-        @groupH = Team.find_all_by_group_and_tournament_id 'H', @tournament_id
+        @groupG = Team.where(:group => 'G', :tournament_id => @tournament_id)
+        @groupH = Team.where(:group => 'H', :tournament_id => @tournament_id)
         
         @userTeamG = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :G3, @tournament_id
         @userTeamH = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :H3, @tournament_id
@@ -128,16 +128,16 @@ class TeamsController < ApplicationController
   end
   
   def addGroups tournament
-    groupA = Team.find_all_by_group_and_tournament_id 'A', tournament.id
-    groupB = Team.find_all_by_group_and_tournament_id 'B', tournament.id
-    groupC = Team.find_all_by_group_and_tournament_id 'C', tournament.id
-    groupD = Team.find_all_by_group_and_tournament_id 'D', tournament.id
+    groupA = Team.where(:group => 'A', :tournament_id => tournament.id)
+    groupB = Team.where(:group => 'B', :tournament_id => tournament.id)
+    groupC = Team.where(:group => 'C', :tournament_id => tournament.id)
+    groupD = Team.where(:group => 'D', :tournament_id => tournament.id)
     if tournament.mm || tournament.em2016
-      groupE = Team.find_all_by_group_and_tournament_id 'E', tournament.id
-      groupF = Team.find_all_by_group_and_tournament_id 'F', tournament.id
+      groupE = Team.where(:group => 'E', :tournament_id => tournament.id)
+      groupF = Team.where(:group => 'F', :tournament_id => tournament.id)
       if tournament.mm
-        groupG = Team.find_all_by_group_and_tournament_id 'G', tournament.id
-        groupH = Team.find_all_by_group_and_tournament_id 'H', tournament.id
+        groupG = Team.where(:group => 'G', :tournament_id => tournament.id)
+        groupH = Team.where(:group => 'H', :tournament_id => tournament.id)
         @teamsByGroup = [0, 1, 2, 3].collect{|n|[groupA[n], groupB[n], groupC[n], groupD[n], groupE[n], groupF[n], groupG[n], groupH[n]]}
       else
         @teamsByGroup = [0, 1, 2, 3].collect{|n|[groupA[n], groupB[n], groupC[n], groupD[n], groupE[n], groupF[n]]}
@@ -169,7 +169,7 @@ class TeamsController < ApplicationController
   def finals
     @tournament_id = params[:tournament_id]
     @user = User.find_by_id params[:user_id]
-    @teams = Team.find_all_by_tournament_id(@tournament_id).sort! { |a,b| a.name.downcase <=> b.name.downcase }
+    @teams = Team.where(:tournament_id => @tournament_id).sort { |a,b| a.name.downcase <=> b.name.downcase }
     
     @userTeamF1 = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :F1, @tournament_id
     @userTeamF2 = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :F2, @tournament_id

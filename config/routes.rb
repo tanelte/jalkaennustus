@@ -24,16 +24,16 @@ Jalkaennustus::Application.routes.draw do
    # match 'tournaments/:tournament_id/users' => "users#create", :as => 'users', :via => :post
       
    match 'tournaments/:tournament_id/users/:user_id/teams/group' => "teams#group", :as => 'group_teams', :via => :get
-   match 'tournaments/:tournament_id/users/:user_id/teams/group' => "teams#createGroup", :as => 'group_teams', :via => :post
+   match 'tournaments/:tournament_id/users/:user_id/teams/group' => "teams#createGroup", :as => nil, :via => :post
    
    match 'tournaments/:tournament_id/users/:user_id/teams/quarterfinals' => "teams#quarterfinals", :as => 'quarterfinals_teams', :via => :get
-   match 'tournaments/:tournament_id/users/:user_id/teams/quarterfinals' => "teams#createQuarterfinals", :as => 'quarterfinals_teams', :via => :post
+   match 'tournaments/:tournament_id/users/:user_id/teams/quarterfinals' => "teams#createQuarterfinals", :as => nil, :via => :post
    
    match 'tournaments/:tournament_id/users/:user_id/teams/round_of_16' => "teams#roundOf16", :as => 'round_of_16_teams', :via => :get
-   match 'tournaments/:tournament_id/users/:user_id/teams/round_of_16' => "teams#createRoundOf16", :as => 'round_of_16_teams', :via => :post
+   match 'tournaments/:tournament_id/users/:user_id/teams/round_of_16' => "teams#createRoundOf16", :as => nil, :via => :post
    
    match 'tournaments/:tournament_id/users/:user_id/teams/finals' => "teams#finals", :as => 'finals_teams', :via => :get
-   match 'tournaments/:tournament_id/users/:user_id/teams/finals' => "teams#createFinals", :as => 'finals_teams', :via => :post
+   match 'tournaments/:tournament_id/users/:user_id/teams/finals' => "teams#createFinals", :as => nil, :via => :post
 
   # Sample resource route with options:
   #   resources :products do

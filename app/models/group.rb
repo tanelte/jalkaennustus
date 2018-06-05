@@ -12,10 +12,6 @@ class Group < ActiveRecord::Base
     false
   end
 
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :username, :email, :password, :password_confirmation, :remember_me
-  # attr_accessible :title, :body
-  
-  has_many :users, :through => :user_groups
   has_many :user_groups
+  has_many :users, :through => :user_groups
 end

@@ -1,7 +1,5 @@
 # encoding: UTF-8
 class VUserGames < ActiveRecord::Base
-
-   attr_accessible :game_id, :group_id, :user_name, :result, :team1_name, :team2_name
     
   def self.find_by_game_and_group game_id, group_id
     VUserGames.where(:game_id => game_id, :group_id => group_id).order('user_name')

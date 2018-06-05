@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :authenticate_group!
-  before_filter :tournament_name
+  before_action :authenticate_group!
+  before_action :tournament_name
   
   private
   
