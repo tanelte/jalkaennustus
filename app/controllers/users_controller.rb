@@ -24,42 +24,17 @@ end
   end
   
   def destroy
-    # TODO: invalidate user instead of delete
     user_id = params[:id]
-    user_games = UserGame.find_all_by_user_id user_id
-    user_teams = UserTeam.find_all_by_user_id user_id
-    user_questions = UserQuestion.find_all_by_user_id user_id
-    user_groups = UserGroup.find_all_by_user_id user_id
-    if user_games != nil
-      user_games.each do |ug|
-        ug.destroy
-      end
-    end
-    if user_teams != nil
-      user_teams.each do |ut|
-        ut.destroy
-      end
-    end
-    if user_questions != nil
-      user_questions.each do |uq|
-        uq.destroy
-      end
-    end
-    if user_groups != nil
-      user_groups.each do |ug|
-        user_results = UserResult.find_all_by_user_group_id ug.id
-        if user_results != nil
-          user_results.each do |ur|
-            ur.destroy
-          end
-        end
-        ug.destroy
-      end
-    end
-    user = User.find(user_id)
-    user.destroy    
-    flash[:notice] = "Kasutaja '#{user.name}' kustutati."
     @tournament_id = params[:tournament_id]
+    tournament = Tournament.find_by_id @tournament_id
+    user_groups = UserGroup.where(:user_id => user_id, :group_id => current_group.id)
+    if user_groups != nil
+      deleted_at = tournament.created_at - 6.months;
+      user_groups.each do |ug|
+        ug.update_attribute(:deleted_at, deleted_at)
+      end
+    end
+    flash[:notice] = "Kasutaja eemaldati grupist."
     redirect_to tournament_users_path @tournament_id
   end
 

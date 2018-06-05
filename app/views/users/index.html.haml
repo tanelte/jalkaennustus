@@ -12,7 +12,7 @@
       %tr
         %td= link_to "#{user.name}", tournament_user_path(@tournament_id, user.id)
         %td= user.points.round()
-        %td= link_to "Kustuta", tournament_user_path(@tournament_id, user.id), :method => :delete, :confirm => 'Kas oled kindel et soovid kasutaja kustutada?'
+        %td= link_to "Eemalda", tournament_user_path(@tournament_id, user.id), :method => :delete, :data => {:confirm => 'Kas oled kindel, et soovid kasutaja grupist eemaldada? Kasutaja eelmiste turniiride tulemused jäävad alles.'}
 %br
 %br
 = form_tag tournament_users_path(@tournament_id) do
