@@ -8,12 +8,12 @@ def index
 end
 
 def create
-    @user = User.create!(params[:user])
-    @tournament_id = params[:tournament_id]
-    userGroup = UserGroup.create!(:user_id => @user.id, :group_id => current_group.id)
-    UserResult.create!(:user_group_id => userGroup.id, :tournament_id => @tournament_id)
-    flash[:notice] = "Kasutaja #{@user.name} on lisatud."
-    redirect_to tournament_users_path @tournament_id
+  @user = User.create(params.require(:user).permit(:name))
+  @tournament_id = params[:tournament_id]
+  userGroup = UserGroup.create!(:user_id => @user.id, :group_id => current_group.id)
+  UserResult.create!(:user_group_id => userGroup.id, :tournament_id => @tournament_id)
+  flash[:notice] = "Kasutaja #{@user.name} on lisatud."
+  redirect_to tournament_users_path @tournament_id
 end
 
   def show
