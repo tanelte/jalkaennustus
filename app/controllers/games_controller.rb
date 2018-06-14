@@ -21,11 +21,11 @@ class GamesController < ApplicationController
     user_id = params[:user_id]
     tournament_id = params[:tournament_id]
     user = User.find_by_id user_id
-=begin
+
     if user.name != 'tegelikud tulemused'
       raise "Mine pekki!"
     end
-=end
+
     puts result;
     userGames = UserGame.where(:user_id => user_id, :tournament_id => tournament_id)
     result.to_unsafe_h.map do |k,v|
