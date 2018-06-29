@@ -66,7 +66,7 @@ class TeamsController < ApplicationController
     @user = User.find_by_id params[:user_id]
 
     if @tournament.name == 'MM 2018'
-      @teams = ['Uruguay', 'Portugal', 'Hispaania', 'Venemaa', 'Prantsusmaa', 'Argentiina', 'Horvaatia', 'Taani', 'Brasiilia', 'Mehhiko', 'Rootsi', 'Šveits', 'G1', 'H2', 'H1', 'G2']
+      @teams = ['Uruguay', 'Portugal', 'Hispaania', 'Venemaa', 'Prantsusmaa', 'Argentiina', 'Horvaatia', 'Taani', 'Brasiilia', 'Mehhiko', 'Rootsi', 'Šveits', 'Belgia', 'Jaapan', 'Kolumbia', 'Inglismaa']
     elsif @tournament.mm
       @teams = ['A1', 'B2', 'B1', 'A2', 'C1', 'D2', 'D1', 'C2', 'E1', 'F2', 'F1', 'E2', 'G1', 'H2', 'H1', 'G2']
     else
@@ -122,9 +122,9 @@ class TeamsController < ApplicationController
     @team3 = @tournament.em2016 ? 'Wales/Põhja-Iirimaa' : (@tournament.mm ? (@tournament.name == 'MM 2018' ? 'Hispaania/Venemaa' : 'B1/A2') : 'B1')
     @team4 = @tournament.em2016 ? 'Ungari/Belgia' : (@tournament.mm ? (@tournament.name == 'MM 2018' ? 'Horvaatia/Taani' : 'D1/C2') : 'A2')
     @team5 = @tournament.em2016 ? 'Saksamaa/Slovakkia' : (@tournament.mm ? (@tournament.name == 'MM 2018' ? 'Brasiilia/Mehhiko' : 'E1/F2') : 'C1')
-    @team6 = @tournament.em2016 ? 'Itaalia/Hispaania' : (@tournament.mm ? (@tournament.name == 'MM 2018' ? 'G1/H2' : 'G1/H2') : 'D2')
+    @team6 = @tournament.em2016 ? 'Itaalia/Hispaania' : (@tournament.mm ? (@tournament.name == 'MM 2018' ? 'Belgia/Jaapan' : 'G1/H2') : 'D2')
     @team7 = @tournament.em2016 ? 'Prantsusmaa/Iirimaa' : (@tournament.mm ? (@tournament.name == 'MM 2018' ? 'Rootsi/Šveits' : 'F1/E2') : 'D1')
-    @team8 = @tournament.em2016 ? 'Inglismaa/Island' : (@tournament.mm ? (@tournament.name == 'MM 2018' ? 'H1/G2' : 'H1/G2') : 'C2')
+    @team8 = @tournament.em2016 ? 'Inglismaa/Island' : (@tournament.mm ? (@tournament.name == 'MM 2018' ? 'Kolumbia/Inglismaa' : 'H1/G2') : 'C2')
     
     addGroups @tournament
   end
