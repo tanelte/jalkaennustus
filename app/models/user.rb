@@ -122,7 +122,8 @@ class User < ActiveRecord::Base
             if userQuestion.question_id == 5
               userVaravQuestion = userQuestions.select{|t| t.question_id == 4}
               tegelikVaravQuestion = tegelikQuestions.select{|t| t.question_id == 4}
-              if userVaravQuestion != nil && !userVaravQuestion.empty? && tegelikVaravQuestion != nil && !tegelikVaravQuestion.empty? && userVaravQuestion[0].answer == tegelikVaravQuestion[0].answer
+              if userVaravQuestion != nil && !userVaravQuestion.empty? && tegelikVaravQuestion != nil &&
+                  !tegelikVaravQuestion.empty? && userVaravQuestion[0].answer == tegelikVaravQuestion[0].answer
                 points = points + getDifference(userQuestion.answer, tegelikQuestion[0].answer)
               end
             end
@@ -135,13 +136,21 @@ class User < ActiveRecord::Base
   def self.getQuestionPoints userQuestion, tegelikQuestion
     points = 0
     if [1, 2, 4].include?(userQuestion.question_id)
-      if userQuestion.answer == tegelikQuestion.answer
-        points = points + 10
-      end
+      points = getExactAnswerPoints(userQuestion, tegelikQuestion)
     elsif 3 == userQuestion.question_id
       points = getDifference(userQuestion.answer, tegelikQuestion.answer)
     end
     points
+  end
+
+  def self.getExactAnswerPoints userQuestion, tegelikQuestion
+    if tegelikQuestion.answer.blank?
+      return 0
+    end
+    if tegelikQuestion.answer.split(",").any?{ |tegelikAnswer| tegelikAnswer.casecmp(userQuestion.answer) == 0 }
+      return 10
+    end
+    return 0
   end
   
   def self.getDifference num1, num2
