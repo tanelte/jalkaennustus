@@ -61,17 +61,8 @@ class TeamsController < ApplicationController
   end
   
   def roundOf16
-    @tournament_id = params[:tournament_id]
-    @tournament = Tournament.find_by_id @tournament_id
-    @user = User.find_by_id params[:user_id]
-
-    if @tournament.name == 'MM 2018'
-      @teams = ['Uruguay', 'Portugal', 'Hispaania', 'Venemaa', 'Prantsusmaa', 'Argentiina', 'Horvaatia', 'Taani', 'Brasiilia', 'Mehhiko', 'Rootsi', 'Šveits', 'Belgia', 'Jaapan', 'Kolumbia', 'Inglismaa']
-    elsif @tournament.mm
-      @teams = ['A1', 'B2', 'B1', 'A2', 'C1', 'D2', 'D1', 'C2', 'E1', 'F2', 'F1', 'E2', 'G1', 'H2', 'H1', 'G2']
-    else
-      @teams = ['Šveits', 'Poola', 'Horvaatia', 'Portugal', 'Wales', 'Põhja-Iirimaa', 'Ungari', 'Belgia', 'Saksamaa', 'Slovakkia', 'Itaalia', 'Hispaania', 'Prantsusmaa', 'Iirimaa', 'Inglismaa', 'Island']
-    end    
+    initTournamentAndUser()
+    @teams = getRoundOf16Teams()
     
     @userTeamR1 = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :R1, @tournament_id
     @userTeamR2 = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :R2, @tournament_id
@@ -83,6 +74,29 @@ class TeamsController < ApplicationController
     @userTeamR8 = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :R8, @tournament_id
     
     addGroups @tournament
+  end
+
+  def initTournamentAndUser
+    @tournament_id = params[:tournament_id]
+    @tournament = Tournament.find_by_id @tournament_id
+    @user = User.find_by_id params[:user_id]
+  end
+
+  def getRoundOf16Teams
+    if @tournament.name == 'MM 2018'
+      return ['Uruguay', 'Portugal', 'Hispaania', 'Venemaa', 'Prantsusmaa', 'Argentiina', 'Horvaatia', 'Taani', 'Brasiilia', 'Mehhiko', 'Rootsi', 'Šveits', 'Belgia', 'Jaapan', 'Kolumbia', 'Inglismaa']
+    end
+    if @tournament.mm
+      return ['A1', 'B2', 'B1', 'A2', 'C1', 'D2', 'D1', 'C2', 'E1', 'F2', 'F1', 'E2', 'G1', 'H2', 'H1', 'G2']
+    end
+    return ['Šveits', 'Poola', 'Horvaatia', 'Portugal', 'Wales', 'Põhja-Iirimaa', 'Ungari', 'Belgia', 'Saksamaa', 'Slovakkia', 'Itaalia', 'Hispaania', 'Prantsusmaa', 'Iirimaa', 'Inglismaa', 'Island']
+    end
+
+  def roundOf16ShowAll
+    initTournamentAndUser()
+    @team1_name = params[:team1]
+    @team2_name = params[:team2]
+    @userTeams = VUserTeams.find_by_tournament_and_group_and_criteria @tournament_id, current_group.id, params[:criteria]
   end
   
   def createRoundOf16
