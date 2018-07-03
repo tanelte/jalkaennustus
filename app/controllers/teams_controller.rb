@@ -184,14 +184,23 @@ class TeamsController < ApplicationController
   end
   
   def finals
-    @tournament_id = params[:tournament_id]
-    @user = User.find_by_id params[:user_id]
+    initFinals
     @teams = Team.where(:tournament_id => @tournament_id).sort { |a,b| a.name.downcase <=> b.name.downcase }
     
     @userTeamF1 = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :F1, @tournament_id
     @userTeamF2 = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :F2, @tournament_id
     @userTeamF3 = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :F3, @tournament_id
     @userTeamF4 = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :F4, @tournament_id
+  end
+
+  def finalsShowAll
+    initFinals
+    @userTeams = VUserFinalsTeams.find_by_tournament_and_group(@tournament_id, current_group.id)
+  end
+
+  def initFinals
+    @tournament_id = params[:tournament_id]
+    @user = User.find_by_id params[:user_id]
   end
   
   def createFinals

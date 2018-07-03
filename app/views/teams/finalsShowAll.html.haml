@@ -1,0 +1,13 @@
+%h2 Ennustused
+
+%table#teams
+  %thead
+    %tr
+      %th Nimi
+      %th Tulemus
+  %tbody
+    - @userTeams.each do |userTeam|
+      %tr
+        %td= userTeam.user_name
+        %td= userTeam.teams
+= button_to 'Tagasi', finals_teams_path(@tournament_id, @user.id), :method => :get, :class => 'form_btn'

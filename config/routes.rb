@@ -35,6 +35,7 @@ Jalkaennustus::Application.routes.draw do
    
    match 'tournaments/:tournament_id/users/:user_id/teams/finals' => "teams#finals", :as => 'finals_teams', :via => :get
    match 'tournaments/:tournament_id/users/:user_id/teams/finals' => "teams#createFinals", :as => nil, :via => :post
+   match 'tournaments/:tournament_id/users/:user_id/teams/finals/all' => "teams#finalsShowAll", :as => 'finals_show_all', :via => :get
 
   # Sample resource route with options:
   #   resources :products do

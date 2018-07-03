@@ -29,4 +29,5 @@
   - if @user.name == 'tegelikud tulemused'
     = submit_tag 'Salvesta'
   -#= submit_tag 'Salvesta', :class => 'form_btn'
-= button_to 'Tagasi', tournament_user_path(@tournament_id, @user.id), :method => :get, :class => 'form_btn'
+= button_to 'Vaata teiste ennustusi', finals_show_all_path(@tournament_id, @user.id), :method => :get, :class => 'form_btn'
+= button_to 'Tagasi', tournament_user_path(@tournament_id, @user.id), :method => :get, :class => 'form_btn', :style => 'margin-left:5px'
