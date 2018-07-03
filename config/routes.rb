@@ -31,7 +31,7 @@ Jalkaennustus::Application.routes.draw do
    
    match 'tournaments/:tournament_id/users/:user_id/teams/round_of_16' => "teams#roundOf16", :as => 'round_of_16_teams', :via => :get
    match 'tournaments/:tournament_id/users/:user_id/teams/round_of_16' => "teams#createRoundOf16", :as => nil, :via => :post
-   match 'tournaments/:tournament_id/users/:user_id/teams/round_of_16/all/:criteria' => "teams#roundOf16ShowAll", :as => 'round_of_16_show_all', :via => :get
+   match 'tournaments/:tournament_id/users/:user_id/teams/knockout_phase/all/:criteria' => "teams#knockoutPhaseShowAll", :as => 'knockout_phase_show_all', :via => :get
    
    match 'tournaments/:tournament_id/users/:user_id/teams/finals' => "teams#finals", :as => 'finals_teams', :via => :get
    match 'tournaments/:tournament_id/users/:user_id/teams/finals' => "teams#createFinals", :as => nil, :via => :post

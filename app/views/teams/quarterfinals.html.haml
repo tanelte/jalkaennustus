@@ -1,42 +1,17 @@
 %h2 Ennusta veerandfinaalide võitjad
 
 = form_tag quarterfinals_teams_path(@tournament_id, @user.id), :method => :post do
-  #{@team1} - #{@team2}: 
-  =select :result, 'Q1', 
-    [["#{@team1} võidab normaalajal",'1A'],
-    ["#{@team2} võidab normaalajal",'1B'],
-    ["#{@team1} võidab lisaajal või penaltitega",'2A'],
-    ["#{@team2} võidab lisaajal või penaltitega",'2B']], 
-    {:selected => "#{@userTeamQ1 == nil ? nil : @userTeamQ1.result}", :prompt => '- vali -'}
-  %br
-  %br
-  #{@team3} - #{@team4}: 
-  =select :result, 'Q2', 
-    [["#{@team3} võidab normaalajal",'1A'],
-    ["#{@team4} võidab normaalajal",'1B'],
-    ["#{@team3} võidab lisaajal või penaltitega",'2A'],
-    ["#{@team4} võidab lisaajal või penaltitega",'2B']], 
-    {:selected => "#{@userTeamQ2 == nil ? nil : @userTeamQ2.result}", :prompt => '- vali -'}
-  %br
-  %br
-  #{@team5} - #{@team6}: 
-  =select :result, 'Q3', 
-    [["#{@team5} võidab normaalajal",'1A'],
-    ["#{@team6} võidab normaalajal",'1B'],
-    ["#{@team5} võidab lisaajal või penaltitega",'2A'],
-    ["#{@team6} võidab lisaajal või penaltitega",'2B']], 
-    {:selected => "#{@userTeamQ3 == nil ? nil : @userTeamQ3.result}", :prompt => '- vali -'}
-  %br
-  %br
-  #{@team7} - #{@team8}: 
-  =select :result, 'Q4', 
-    [["#{@team7} võidab normaalajal",'1A'],
-    ["#{@team8} võidab normaalajal",'1B'],
-    ["#{@team7} võidab lisaajal või penaltitega",'2A'],
-    ["#{@team8} võidab lisaajal või penaltitega",'2B']], 
-    {:selected => "#{@userTeamQ4 == nil ? nil : @userTeamQ4.result}", :prompt => '- vali -'}
-  %br
-  %br
+  %table#teams
+    %thead
+      %tr
+        %th Mäng
+        %th Tulemus
+        %th
+    %tbody
+      = render 'knockoutPhaseGame', :team1 => @team1, :team2 => @team2, :resultCode => 'Q1', :userTeam => @userTeamQ1
+      = render 'knockoutPhaseGame', :team1 => @team3, :team2 => @team4, :resultCode => 'Q2', :userTeam => @userTeamQ2
+      = render 'knockoutPhaseGame', :team1 => @team5, :team2 => @team6, :resultCode => 'Q3', :userTeam => @userTeamQ3
+      = render 'knockoutPhaseGame', :team1 => @team7, :team2 => @team8, :resultCode => 'Q4', :userTeam => @userTeamQ4
   * Õige vastus annab 10 punkti. Õige võitja aga vale vastus annab 5 punkti.
   %br
   %br

@@ -92,10 +92,11 @@ class TeamsController < ApplicationController
     return ['Šveits', 'Poola', 'Horvaatia', 'Portugal', 'Wales', 'Põhja-Iirimaa', 'Ungari', 'Belgia', 'Saksamaa', 'Slovakkia', 'Itaalia', 'Hispaania', 'Prantsusmaa', 'Iirimaa', 'Inglismaa', 'Island']
     end
 
-  def roundOf16ShowAll
+  def knockoutPhaseShowAll
     initTournamentAndUser()
     @team1_name = params[:team1]
     @team2_name = params[:team2]
+    @criteria = params[:criteria]
     @userTeams = VUserTeams.find_by_tournament_and_group_and_criteria @tournament_id, current_group.id, params[:criteria]
   end
   
