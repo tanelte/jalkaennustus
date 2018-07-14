@@ -85,13 +85,14 @@ class User < ActiveRecord::Base
       elsif 'F2' == userTeam.criteria
         points = points + 30
       end
-      if !tournament.em2016
-        if 'F3' == userTeam.criteria
-          points = points + 25
-        elsif 'F4' == userTeam.criteria
-          points = points + 20
-        end
-      end
+      # if !tournament.em2016
+        # TODO: comment in for next mm and fix double points for F3 and F4
+        # if 'F3' == userTeam.criteria
+        #   points = points + 25
+        # elsif 'F4' == userTeam.criteria
+        #   points = points + 20
+        # end
+      # end
     end
     if userTeam.result != nil
       if ["Q1", "Q2", "Q3", "Q4"].include?(userTeam.criteria)
