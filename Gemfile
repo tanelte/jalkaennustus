@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '5.2.0'
+gem 'rails', '6.1.3'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
@@ -21,9 +21,9 @@ gem 'haml'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 5.0.7'
-  gem 'coffee-rails', '~> 4.2.2'
-  gem 'uglifier', '>= 1.0.3'
+  gem 'sass-rails',   '~> 6.0.0'
+  gem 'coffee-rails', '~> 5.0.0'
+  gem 'uglifier', '>= 4.2.0'
 end
 
 gem 'jquery-rails'
@@ -38,4 +38,4 @@ gem 'tzinfo-data'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
-ruby '2.4.4'
+ruby '2.7.2'
