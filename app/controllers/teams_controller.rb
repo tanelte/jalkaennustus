@@ -15,7 +15,7 @@ class TeamsController < ApplicationController
     @userTeamD = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :D3, @tournament_id
     
     @tournament = Tournament.find_by_id @tournament_id
-    if @tournament.mm || @tournament.em2016
+    if @tournament.mm || @tournament.em2016 || @tournament.em2020
       @groupE = Team.where(:group => 'E', :tournament_id => @tournament_id)
       @groupF = Team.where(:group => 'F', :tournament_id => @tournament_id)
       
@@ -38,15 +38,15 @@ class TeamsController < ApplicationController
     tournament = Tournament.find_by_id tournament_id
     user = User.find_by_id user_id
 
-    if user.name != 'tegelikud tulemused'
-      raise "Mine pekki!"
-    end
+    #if user.name != 'tegelikud tulemused'
+    #  raise "Mine pekki!"
+    #end
 
     add_or_update_user_team params[:result][:A3], :A3, tournament_id
     add_or_update_user_team params[:result][:B3], :B3, tournament_id
     add_or_update_user_team params[:result][:C3], :C3, tournament_id
     add_or_update_user_team params[:result][:D3], :D3, tournament_id
-    if tournament.mm || tournament.em2016
+    if tournament.mm || tournament.em2016 || tournament.em2020
       add_or_update_user_team params[:result][:E3], :E3, tournament_id
       add_or_update_user_team params[:result][:FA3], :FA3, tournament_id
       if tournament.mm
@@ -105,9 +105,9 @@ class TeamsController < ApplicationController
     user_id = params[:user_id]
     user = User.find_by_id user_id
 
-    if user.name != 'tegelikud tulemused'
-      raise "Mine pekki!"
-    end
+    #if user.name != 'tegelikud tulemused'
+    #  raise "Mine pekki!"
+    #end
 
     add_or_update_user_team_with_result params[:result][:R1], :R1, tournament_id
     add_or_update_user_team_with_result params[:result][:R2], :R2, tournament_id
@@ -132,14 +132,14 @@ class TeamsController < ApplicationController
     @userTeamQ4 = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :Q4, @tournament_id
     
     @tournament = Tournament.find_by_id @tournament_id
-    @team1 = @tournament.em2016 ? 'Šveits/Poola' : (@tournament.mm ? (@tournament.name == 'MM 2018' ? 'Uruguay/Portugal' : 'A1/B2') : 'A1')
-    @team2 = @tournament.em2016 ? 'Horvaatia/Portugal' : (@tournament.mm ? (@tournament.name == 'MM 2018' ? 'Prantsusmaa/Argentiina' : 'C1/D2') : 'B2')
-    @team3 = @tournament.em2016 ? 'Wales/Põhja-Iirimaa' : (@tournament.mm ? (@tournament.name == 'MM 2018' ? 'Hispaania/Venemaa' : 'B1/A2') : 'B1')
-    @team4 = @tournament.em2016 ? 'Ungari/Belgia' : (@tournament.mm ? (@tournament.name == 'MM 2018' ? 'Horvaatia/Taani' : 'D1/C2') : 'A2')
-    @team5 = @tournament.em2016 ? 'Saksamaa/Slovakkia' : (@tournament.mm ? (@tournament.name == 'MM 2018' ? 'Brasiilia/Mehhiko' : 'E1/F2') : 'C1')
-    @team6 = @tournament.em2016 ? 'Itaalia/Hispaania' : (@tournament.mm ? (@tournament.name == 'MM 2018' ? 'Belgia/Jaapan' : 'G1/H2') : 'D2')
-    @team7 = @tournament.em2016 ? 'Prantsusmaa/Iirimaa' : (@tournament.mm ? (@tournament.name == 'MM 2018' ? 'Rootsi/Šveits' : 'F1/E2') : 'D1')
-    @team8 = @tournament.em2016 ? 'Inglismaa/Island' : (@tournament.mm ? (@tournament.name == 'MM 2018' ? 'Kolumbia/Inglismaa' : 'H1/G2') : 'C2')
+    @team1 = @tournament.em2020 ? 'TBD' : (@tournament.em2016 ? 'Šveits/Poola' : (@tournament.mm ? (@tournament.name == 'MM 2018' ? 'Uruguay/Portugal' : 'A1/B2') : 'A1'))
+    @team2 = @tournament.em2020 ? 'TBD' : (@tournament.em2016 ? 'Horvaatia/Portugal' : (@tournament.mm ? (@tournament.name == 'MM 2018' ? 'Prantsusmaa/Argentiina' : 'C1/D2') : 'B2'))
+    @team3 = @tournament.em2020 ? 'TBD' : (@tournament.em2016 ? 'Wales/Põhja-Iirimaa' : (@tournament.mm ? (@tournament.name == 'MM 2018' ? 'Hispaania/Venemaa' : 'B1/A2') : 'B1'))
+    @team4 = @tournament.em2020 ? 'TBD' : (@tournament.em2016 ? 'Ungari/Belgia' : (@tournament.mm ? (@tournament.name == 'MM 2018' ? 'Horvaatia/Taani' : 'D1/C2') : 'A2'))
+    @team5 = @tournament.em2020 ? 'TBD' : (@tournament.em2016 ? 'Saksamaa/Slovakkia' : (@tournament.mm ? (@tournament.name == 'MM 2018' ? 'Brasiilia/Mehhiko' : 'E1/F2') : 'C1'))
+    @team6 = @tournament.em2020 ? 'TBD' : (@tournament.em2016 ? 'Itaalia/Hispaania' : (@tournament.mm ? (@tournament.name == 'MM 2018' ? 'Belgia/Jaapan' : 'G1/H2') : 'D2'))
+    @team7 = @tournament.em2020 ? 'TBD' : (@tournament.em2016 ? 'Prantsusmaa/Iirimaa' : (@tournament.mm ? (@tournament.name == 'MM 2018' ? 'Rootsi/Šveits' : 'F1/E2') : 'D1'))
+    @team8 = @tournament.em2020 ? 'TBD' : (@tournament.em2016 ? 'Inglismaa/Island' : (@tournament.mm ? (@tournament.name == 'MM 2018' ? 'Kolumbia/Inglismaa' : 'H1/G2') : 'C2'))
     
     addGroups @tournament
   end
@@ -149,7 +149,7 @@ class TeamsController < ApplicationController
     groupB = Team.where(:group => 'B', :tournament_id => tournament.id)
     groupC = Team.where(:group => 'C', :tournament_id => tournament.id)
     groupD = Team.where(:group => 'D', :tournament_id => tournament.id)
-    if tournament.mm || tournament.em2016
+    if tournament.mm || tournament.em2016 || tournament.em2020
       groupE = Team.where(:group => 'E', :tournament_id => tournament.id)
       groupF = Team.where(:group => 'F', :tournament_id => tournament.id)
       if tournament.mm
@@ -169,9 +169,9 @@ class TeamsController < ApplicationController
     user_id = params[:user_id]
     user = User.find_by_id user_id
 
-    if user.name != 'tegelikud tulemused'
-      raise "Mine pekki!"
-    end
+    #if user.name != 'tegelikud tulemused'
+    #  raise "Mine pekki!"
+    #end
 
     add_or_update_user_team_with_result params[:result][:Q1], :Q1, tournament_id
     add_or_update_user_team_with_result params[:result][:Q2], :Q2, tournament_id
@@ -208,9 +208,9 @@ class TeamsController < ApplicationController
     user_id = params[:user_id]
     user = User.find_by_id user_id
 
-    if user.name != 'tegelikud tulemused'
-      raise "Mine pekki!"
-    end
+    #if user.name != 'tegelikud tulemused'
+    #  raise "Mine pekki!"
+    #end
 
     add_or_update_user_team params[:result][:F1], :F1, tournament_id
     add_or_update_user_team params[:result][:F2], :F2, tournament_id
