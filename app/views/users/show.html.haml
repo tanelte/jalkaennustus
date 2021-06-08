@@ -3,22 +3,28 @@
 %h3 Vali ennustuse osa:
 %br
 = link_to 'Ennusta alagrupimängude tulemused', tournament_user_games_path(@tournament_id, @user.id)
+\- tähtaeg turniiri algus
 %br
 %br
 = link_to 'Ennusta alagruppide kolmandad kohad', group_teams_path(@tournament_id, @user.id)
+\- tähtaeg turniiri algus
 %br
 %br
 - if @tournament.mm || @tournament.em2016 || @tournament.em2020
   = link_to 'Ennusta kaheksandikfinaalide võitjad', round_of_16_teams_path(@tournament_id, @user.id)
+  \- tähtaeg kaheksandikfinaalide algus
   %br
   %br
 = link_to 'Ennusta veerandfinaalide võitjad', quarterfinals_teams_path(@tournament_id, @user.id)
+\- tähtaeg veerandfinaalide algus
 %br
 %br
 = link_to 'Ennusta neli parimat', finals_teams_path(@tournament_id, @user.id)
+\- tähtaeg poolfinaalide algus
 %br
 %br
 = link_to 'Lisaküsimused', tournament_user_user_questions_path(@tournament_id, @user.id)
+\- tähtaeg alagrupiturniiri teise vooru algus
 %br
 %br
 %br
