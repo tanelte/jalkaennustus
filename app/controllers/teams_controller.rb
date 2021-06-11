@@ -83,6 +83,9 @@ class TeamsController < ApplicationController
   end
 
   def getRoundOf16Teams
+    if @tournament.name == 'EM 2020'
+      return ['TBD', 'TBD', 'TBD', 'TBD', 'TBD', 'TBD', 'TBD', 'TBD', 'TBD', 'TBD', 'TBD', 'TBD', 'TBD', 'TBD', 'TBD', 'TBD']
+    end
     if @tournament.name == 'MM 2018'
       return ['Uruguay', 'Portugal', 'Hispaania', 'Venemaa', 'Prantsusmaa', 'Argentiina', 'Horvaatia', 'Taani', 'Brasiilia', 'Mehhiko', 'Rootsi', 'Šveits', 'Belgia', 'Jaapan', 'Kolumbia', 'Inglismaa']
     end
