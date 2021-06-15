@@ -29,6 +29,7 @@ end
 gem 'jquery-rails'
 gem 'devise'
 gem 'tzinfo-data'
+gem 'chartkick'
 
 # Use unicorn as the web server
 # gem 'unicorn'

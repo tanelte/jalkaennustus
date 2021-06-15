@@ -4,3 +4,7 @@
   = link_to tournament.name, tournament_users_path(tournament.id)
   %br
   %br
+= line_chart @points_by_tournament_chart_data
+%br
+%br
+= line_chart @points_total_chart_data
