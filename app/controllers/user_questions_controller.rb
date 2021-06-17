@@ -3,7 +3,7 @@ class UserQuestionsController < ApplicationController
   def index
     @tournament_id = params[:tournament_id]
     @user = User.find_by_id params[:user_id]
-    @questions = Question.all
+    @questions = Question.order(:id).all
     @user_questions = UserQuestion.where(:user_id => @user.id, :tournament_id => @tournament_id)
   end
 
