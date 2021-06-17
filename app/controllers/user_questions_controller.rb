@@ -12,9 +12,9 @@ class UserQuestionsController < ApplicationController
     user_id = params[:user_id]    
     user = User.find_by_id user_id
 
-    #if user.name != 'tegelikud tulemused'
-    #  raise "Mine pekki!"
-    #end
+    if user.name != 'tegelikud tulemused'
+      raise "Mine pekki!"
+    end
 
     
     existing_user_questions = UserQuestion.where(:user_id => user_id, :tournament_id => tournament_id)
