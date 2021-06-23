@@ -10,7 +10,7 @@
 \- tähtaeg turniiri algus
 %br
 %br
-- if @tournament.mm || @tournament.em2016 || @tournament.em2020
+- if !@tournament.em2012
   = link_to 'Ennusta kaheksandikfinaalide võitjad', round_of_16_teams_path(@tournament_id, @user.id)
   \- tähtaeg kaheksandikfinaalide algus
   %br

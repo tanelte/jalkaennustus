@@ -25,7 +25,7 @@
     {:class=>"group"}
   %br
   %br
-  - if @tournament.mm || @tournament.em2016 || @tournament.em2020
+  - if !@tournament.em2012
     Grupp E: 
     =select :result, 'E3', @groupE.collect{|p| [p.name, p.id]}, 
       {:selected => "#{@userTeamE == nil ? nil : @userTeamE.team_id}", :prompt => '- vali -'}, 

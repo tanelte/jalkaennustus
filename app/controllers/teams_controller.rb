@@ -15,7 +15,7 @@ class TeamsController < ApplicationController
     @userTeamD = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :D3, @tournament_id
     
     @tournament = Tournament.find_by_id @tournament_id
-    if @tournament.mm || @tournament.em2016 || @tournament.em2020
+    if !@tournament.em2012
       @groupE = Team.where(:group => 'E', :tournament_id => @tournament_id)
       @groupF = Team.where(:group => 'F', :tournament_id => @tournament_id)
       
@@ -46,7 +46,7 @@ class TeamsController < ApplicationController
     add_or_update_user_team params[:result][:B3], :B3, tournament_id
     add_or_update_user_team params[:result][:C3], :C3, tournament_id
     add_or_update_user_team params[:result][:D3], :D3, tournament_id
-    if tournament.mm || tournament.em2016 || tournament.em2020
+    if !@tournament.em2012
       add_or_update_user_team params[:result][:E3], :E3, tournament_id
       add_or_update_user_team params[:result][:FA3], :FA3, tournament_id
       if tournament.mm
@@ -62,7 +62,7 @@ class TeamsController < ApplicationController
   
   def roundOf16
     initTournamentAndUser()
-    @teams = getRoundOf16Teams()
+    @teams = Team.get_round_of_16_teams @tournament.name
     
     @userTeamR1 = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :R1, @tournament_id
     @userTeamR2 = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :R2, @tournament_id
@@ -81,19 +81,6 @@ class TeamsController < ApplicationController
     @tournament = Tournament.find_by_id @tournament_id
     @user = User.find_by_id params[:user_id]
   end
-
-  def getRoundOf16Teams
-    if @tournament.name == 'EM 2020'
-      return ['TBD', 'TBD', 'TBD', 'TBD', 'TBD', 'TBD', 'TBD', 'TBD', 'TBD', 'TBD', 'TBD', 'TBD', 'TBD', 'TBD', 'TBD', 'TBD']
-    end
-    if @tournament.name == 'MM 2018'
-      return ['Uruguay', 'Portugal', 'Hispaania', 'Venemaa', 'Prantsusmaa', 'Argentiina', 'Horvaatia', 'Taani', 'Brasiilia', 'Mehhiko', 'Rootsi', 'Šveits', 'Belgia', 'Jaapan', 'Kolumbia', 'Inglismaa']
-    end
-    if @tournament.mm
-      return ['A1', 'B2', 'B1', 'A2', 'C1', 'D2', 'D1', 'C2', 'E1', 'F2', 'F1', 'E2', 'G1', 'H2', 'H1', 'G2']
-    end
-    return ['Šveits', 'Poola', 'Horvaatia', 'Portugal', 'Wales', 'Põhja-Iirimaa', 'Ungari', 'Belgia', 'Saksamaa', 'Slovakkia', 'Itaalia', 'Hispaania', 'Prantsusmaa', 'Iirimaa', 'Inglismaa', 'Island']
-    end
 
   def knockoutPhaseShowAll
     initTournamentAndUser()
@@ -152,7 +139,7 @@ class TeamsController < ApplicationController
     groupB = Team.where(:group => 'B', :tournament_id => tournament.id)
     groupC = Team.where(:group => 'C', :tournament_id => tournament.id)
     groupD = Team.where(:group => 'D', :tournament_id => tournament.id)
-    if tournament.mm || tournament.em2016 || tournament.em2020
+    if !@tournament.em2012
       groupE = Team.where(:group => 'E', :tournament_id => tournament.id)
       groupF = Team.where(:group => 'F', :tournament_id => tournament.id)
       if tournament.mm
