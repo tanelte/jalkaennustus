@@ -46,7 +46,7 @@ class TeamsController < ApplicationController
     add_or_update_user_team params[:result][:B3], :B3, tournament_id
     add_or_update_user_team params[:result][:C3], :C3, tournament_id
     add_or_update_user_team params[:result][:D3], :D3, tournament_id
-    if !@tournament.em2012
+    unless tournament.em2012
       add_or_update_user_team params[:result][:E3], :E3, tournament_id
       add_or_update_user_team params[:result][:FA3], :FA3, tournament_id
       if tournament.mm
@@ -139,7 +139,7 @@ class TeamsController < ApplicationController
     groupB = Team.where(:group => 'B', :tournament_id => tournament.id)
     groupC = Team.where(:group => 'C', :tournament_id => tournament.id)
     groupD = Team.where(:group => 'D', :tournament_id => tournament.id)
-    if !@tournament.em2012
+    if !tournament.em2012
       groupE = Team.where(:group => 'E', :tournament_id => tournament.id)
       groupF = Team.where(:group => 'F', :tournament_id => tournament.id)
       if tournament.mm

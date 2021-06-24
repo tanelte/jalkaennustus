@@ -11,7 +11,7 @@ class Team < ActiveRecord::Base
       return ['Uruguay', 'Portugal', 'Hispaania', 'Venemaa', 'Prantsusmaa', 'Argentiina', 'Horvaatia', 'Taani', 'Brasiilia', 'Mehhiko', 'Rootsi', 'Šveits', 'Belgia', 'Jaapan', 'Kolumbia', 'Inglismaa']
     end
     if tournament_name == 'EM 2020'
-      return ['Wales', 'Taani', 'Itaalia', 'Austria', 'Holland', 'TBD', 'Belgia', 'TBD', 'Horvaatia', 'TBD', 'TBD', 'TBD', 'Inglismaa', 'TBD', 'TBD', 'TBD']
+      return ['Wales', 'Taani', 'Itaalia', 'Austria', 'Holland', 'Tsehhi', 'Belgia', 'Portugal', 'Horvaatia', 'Hispaania', 'Prantsusmaa', 'Šveits', 'Inglismaa', 'Saksamaa', 'Rootsi', 'Ukraina']
     end
     return []
   end
