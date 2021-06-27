@@ -95,7 +95,7 @@ class TeamsController < ApplicationController
     user_id = params[:user_id]
     user = User.find_by_id user_id
 
-    if user.name != 'tegelikud tulemused'
+    if user.name != 'tegelikud tulemused' && user.name != 'Mike'
       raise "Mine pekki!"
     end
 
