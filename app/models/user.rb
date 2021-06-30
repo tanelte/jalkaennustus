@@ -64,9 +64,11 @@ class User < ActiveRecord::Base
       if tegelikTeam != nil && !tegelikTeam.empty?
         points = points + getTeamPoints(userTeam, tegelikTeam[0], tournament)
       end
-      if ["F1", "F2", "F3", "F4"].include?(userTeam.criteria) && userTeam.team_id != nil && 
-        (tegelikTeam == nil || tegelikTeam.empty? || userTeam.team_id != tegelikTeam[0].team_id || ["F3", "F4"].include?(userTeam.criteria))
-        pakutud = tegelikTeams.select{|t| ["F1", "F2", "F3", "F4"].include?(t.criteria) && t.team_id == userTeam.team_id}
+      # if semifinal result was predicted correctly, but final not correctly, then give 15 points
+      # TODO: reconsider for mm
+      if ["F1", "F2"].include?(userTeam.criteria) && userTeam.team_id != nil &&
+        (tegelikTeam == nil || tegelikTeam.empty? || userTeam.team_id != tegelikTeam[0].team_id)
+        pakutud = tegelikTeams.select{|t| ["F1", "F2"].include?(t.criteria) && t.team_id == userTeam.team_id}
         if pakutud != nil && !pakutud.empty?
           points = points + 15
         end
@@ -86,7 +88,7 @@ class User < ActiveRecord::Base
         points = points + 30
       end
       # if !tournament.em2016
-        # TODO: comment in for next mm and fix double points for F3 and F4
+        # TODO: comment in for next mm and fix double points for F3 and F4. Also change help text in template
         # if 'F3' == userTeam.criteria
         #   points = points + 25
         # elsif 'F4' == userTeam.criteria
