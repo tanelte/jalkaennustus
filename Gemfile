@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '6.1.3'
+gem 'rails', '7.0.4'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
@@ -30,6 +30,7 @@ gem 'jquery-rails'
 gem 'devise'
 gem 'tzinfo-data'
 gem 'chartkick'
+gem 'webrick'
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -39,4 +40,4 @@ gem 'chartkick'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
-ruby '2.7.2'
+ruby '3.1.2'
