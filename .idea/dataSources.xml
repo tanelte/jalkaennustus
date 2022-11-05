@@ -7,7 +7,7 @@
       <imported>true</imported>
       <remarks>$PROJECT_DIR$/config/database.yml</remarks>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://ec2-23-21-160-80.compute-1.amazonaws.com:5432/d5v782eplcahlj?ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory</jdbc-url>
+      <jdbc-url>jdbc:postgresql://ec2-18-205-197-167.compute-1.amazonaws.com:5432/d6uerapcsuvbk8?ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory</jdbc-url>
       <driver-properties>
         <property name="ApplicationName" value="DataGrip" />
         <property name="ssl" value="true " />
@@ -24,6 +24,13 @@
       <driver-properties>
         <property name="ApplicationName" value="DataGrip" />
       </driver-properties>
+    </data-source>
+    <data-source source="LOCAL" name="jalkaennustus@localhost" uuid="ce79e5d2-d403-432d-87d3-bf514a6d14b5">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/jalkaennustus</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
 </project>
