@@ -21,13 +21,16 @@
     {:selected => "#{@userTeamF4 == nil ? nil : @userTeamF4.team_id}", :prompt => '- vali -'}
   %br
   %br
-  * Esimese ja teise koha Õiged vastused annavad vastavalt 50 ja 30 punkti. Kui ennustad finaalis osaleva võistkonna õigesti, aga koht on vale, siis saad 15 punkti.
+  - if @tournament.mm
+    Õiged vastused annavad vastavalt 50, 30, 25 ja 20 punkti.
+  - else
+    * Esimese ja teise koha õiged vastused annavad vastavalt 50 ja 30 punkti. Kui ennustad finaalis osaleva võistkonna õigesti, aga koht on vale, siis saad 15 punkti.
   %br
   %br
   = hidden_field_tag "user_id", @user.id
   = hidden_field_tag "tournament_id", @tournament_id
-  - if @user.name == 'tegelikud tulemused'
-    = submit_tag 'Salvesta'
-  -#= submit_tag 'Salvesta', :class => 'form_btn'
+  -# - if @user.name == 'tegelikud tulemused'
+  -#   = submit_tag 'Salvesta'
+  = submit_tag 'Salvesta', :class => 'form_btn'
 = button_to 'Vaata teiste ennustusi', finals_show_all_path(@tournament_id, @user.id), :method => :get, :class => 'form_btn'
 = button_to 'Tagasi', tournament_user_path(@tournament_id, @user.id), :method => :get, :class => 'form_btn', :style => 'margin-left:5px'

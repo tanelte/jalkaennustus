@@ -38,9 +38,9 @@ class TeamsController < ApplicationController
     tournament = Tournament.find_by_id tournament_id
     user = User.find_by_id user_id
 
-    if user.name != 'tegelikud tulemused'
-      raise "Mine pekki!"
-    end
+    # if user.name != 'tegelikud tulemused'
+    #   raise "Mine pekki!"
+    # end
 
     add_or_update_user_team params[:result][:A3], :A3, tournament_id
     add_or_update_user_team params[:result][:B3], :B3, tournament_id
@@ -95,9 +95,9 @@ class TeamsController < ApplicationController
     user_id = params[:user_id]
     user = User.find_by_id user_id
 
-    if user.name != 'tegelikud tulemused'
-      raise "Mine pekki!"
-    end
+    # if user.name != 'tegelikud tulemused'
+    #   raise "Mine pekki!"
+    # end
 
     add_or_update_user_team_with_result params[:result][:R1], :R1, tournament_id
     add_or_update_user_team_with_result params[:result][:R2], :R2, tournament_id
@@ -159,9 +159,9 @@ class TeamsController < ApplicationController
     user_id = params[:user_id]
     user = User.find_by_id user_id
 
-    if user.name != 'tegelikud tulemused'
-      raise "Mine pekki!"
-    end
+    # if user.name != 'tegelikud tulemused'
+    #   raise "Mine pekki!"
+    # end
 
     add_or_update_user_team_with_result params[:result][:Q1], :Q1, tournament_id
     add_or_update_user_team_with_result params[:result][:Q2], :Q2, tournament_id
@@ -176,6 +176,7 @@ class TeamsController < ApplicationController
   def finals
     initFinals
     @teams = Team.where(:tournament_id => @tournament_id).sort { |a,b| a.name.downcase <=> b.name.downcase }
+    @tournament = Tournament.find_by_id @tournament_id
     
     @userTeamF1 = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :F1, @tournament_id
     @userTeamF2 = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :F2, @tournament_id
@@ -198,9 +199,9 @@ class TeamsController < ApplicationController
     user_id = params[:user_id]
     user = User.find_by_id user_id
 
-    if user.name != 'tegelikud tulemused'
-      raise "Mine pekki!"
-    end
+    # if user.name != 'tegelikud tulemused'
+    #   raise "Mine pekki!"
+    # end
 
     add_or_update_user_team params[:result][:F1], :F1, tournament_id
     add_or_update_user_team params[:result][:F2], :F2, tournament_id

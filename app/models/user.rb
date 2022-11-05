@@ -62,16 +62,10 @@ class User < ActiveRecord::Base
     userTeams.each do |userTeam|
       tegelikTeam = tegelikTeams.select{|t| t.criteria == userTeam.criteria}
       if tegelikTeam != nil && !tegelikTeam.empty?
-        points = points + getTeamPoints(userTeam, tegelikTeam[0], tournament)
+        points += getTeamPoints(userTeam, tegelikTeam[0], tournament)
       end
-      # if semifinal result was predicted correctly, but final not correctly, then give 15 points
-      # TODO: reconsider for mm
-      if ["F1", "F2"].include?(userTeam.criteria) && userTeam.team_id != nil &&
-        (tegelikTeam == nil || tegelikTeam.empty? || userTeam.team_id != tegelikTeam[0].team_id)
-        pakutud = tegelikTeams.select{|t| ["F1", "F2"].include?(t.criteria) && t.team_id == userTeam.team_id}
-        if pakutud != nil && !pakutud.empty?
-          points = points + 15
-        end
+      unless tournament.mm
+        points += getFinalsPoints(tegelikTeam, tegelikTeams, userTeam)
       end
     end
     points
@@ -87,14 +81,13 @@ class User < ActiveRecord::Base
       elsif 'F2' == userTeam.criteria
         points = points + 30
       end
-      # if !tournament.em2016
-        # TODO: comment in for next mm and fix double points for F3 and F4. Also change help text in template
-        # if 'F3' == userTeam.criteria
-        #   points = points + 25
-        # elsif 'F4' == userTeam.criteria
-        #   points = points + 20
-        # end
-      # end
+      if tournament.mm
+        if 'F3' == userTeam.criteria
+          points = points + 25
+        elsif 'F4' == userTeam.criteria
+          points = points + 20
+        end
+      end
     end
     if userTeam.result != nil
       if ["Q1", "Q2", "Q3", "Q4"].include?(userTeam.criteria)
@@ -109,6 +102,19 @@ class User < ActiveRecord::Base
         elsif userTeam.result[1] == tegelikTeam.result[1]
           points = points + 4
         end
+      end
+    end
+    points
+  end
+
+  # if semifinal result was predicted correctly, but final not correctly, then give 15 points
+  def self.getFinalsPoints(tegelikTeam, tegelikTeams, userTeam)
+    points = 0
+    if ["F1", "F2"].include?(userTeam.criteria) && userTeam.team_id != nil &&
+      (tegelikTeam == nil || tegelikTeam.empty? || userTeam.team_id != tegelikTeam[0].team_id)
+      pakutud = tegelikTeams.select { |t| ["F1", "F2"].include?(t.criteria) && t.team_id == userTeam.team_id }
+      if pakutud != nil && !pakutud.empty?
+        points = points + 15
       end
     end
     points
@@ -174,5 +180,5 @@ class User < ActiveRecord::Base
   def self.is_a_number?(s)
     s.to_s.match(/\A[+-]?\d+?(\.\d+)?\Z/) == nil ? false : true 
   end
-  
+
 end
