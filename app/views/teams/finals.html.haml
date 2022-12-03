@@ -29,8 +29,8 @@
   %br
   = hidden_field_tag "user_id", @user.id
   = hidden_field_tag "tournament_id", @tournament_id
-  -# - if @user.name == 'tegelikud tulemused'
-  -#   = submit_tag 'Salvesta'
-  = submit_tag 'Salvesta', :class => 'form_btn'
+  - if @tournament_open == true
+    - if @user.name == 'tegelikud tulemused' || @sys_params.find{|param| param.code == 'FINALS_ENABLED'}.value.to_i == 1
+      = submit_tag 'Salvesta'
 = button_to 'Vaata teiste ennustusi', finals_show_all_path(@tournament_id, @user.id), :method => :get, :class => 'form_btn'
 = button_to 'Tagasi', tournament_user_path(@tournament_id, @user.id), :method => :get, :class => 'form_btn', :style => 'margin-left:5px'

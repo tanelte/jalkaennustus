@@ -38,7 +38,7 @@ class TeamsController < ApplicationController
     tournament = Tournament.find_by_id tournament_id
     user = User.find_by_id user_id
 
-    if user.name != 'tegelikud tulemused'
+    unless is_change_enabled 'GROUP_THIRD_PLACE_ENABLED', user
       raise "Mine pekki!"
     end
 
@@ -95,7 +95,7 @@ class TeamsController < ApplicationController
     user_id = params[:user_id]
     user = User.find_by_id user_id
 
-    if user.name != 'tegelikud tulemused'
+    unless is_change_enabled 'ROUND16_ENABLED', user
       raise "Mine pekki!"
     end
 
@@ -159,9 +159,9 @@ class TeamsController < ApplicationController
     user_id = params[:user_id]
     user = User.find_by_id user_id
 
-    # if user.name != 'tegelikud tulemused'
-    #   raise "Mine pekki!"
-    # end
+    unless is_change_enabled 'QUARTERFINALS_ENABLED', user
+      raise "Mine pekki!"
+    end
 
     add_or_update_user_team_with_result params[:result][:Q1], :Q1, tournament_id
     add_or_update_user_team_with_result params[:result][:Q2], :Q2, tournament_id
@@ -199,9 +199,9 @@ class TeamsController < ApplicationController
     user_id = params[:user_id]
     user = User.find_by_id user_id
 
-    # if user.name != 'tegelikud tulemused'
-    #   raise "Mine pekki!"
-    # end
+    unless is_change_enabled 'FINALS_ENABLED', user
+      raise "Mine pekki!"
+    end
 
     add_or_update_user_team params[:result][:F1], :F1, tournament_id
     add_or_update_user_team params[:result][:F2], :F2, tournament_id

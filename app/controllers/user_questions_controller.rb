@@ -12,10 +12,9 @@ class UserQuestionsController < ApplicationController
     user_id = params[:user_id]    
     user = User.find_by_id user_id
 
-    if user.name != 'tegelikud tulemused'
+    unless is_change_enabled 'QUESTIONS_ENABLED', user
       raise "Mine pekki!"
     end
-
     
     existing_user_questions = UserQuestion.where(:user_id => user_id, :tournament_id => tournament_id)
     answers = params[:answers]

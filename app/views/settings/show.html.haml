@@ -1,0 +1,10 @@
+%h2 Parameetrid
+%br
+= form_tag settings_path do
+  - @params.each do |param|
+    = fields_for "params[#{param.code}]", param do |p|
+      = "#{param.code}"
+      = p.text_field :value
+    %br
+  %br
+  = submit_tag 'Salvesta'
