@@ -18,5 +18,24 @@ class Team < ActiveRecord::Base
     end
     return []
   end
+
+  def self.get_quarterfinals_teams tournament_name
+    if tournament_name == 'MM 2014'
+      return ['Prantsusmaa', 'Saksamaa', 'Brasiilia', 'Kolumbia', 'Argentiina', 'Belgia', 'Holland', 'Costa Rica']
+    end
+    if tournament_name == 'EM 2016'
+      return ['Poola', 'Portugal', 'Wales', 'Belgia', 'Saksamaa', 'Itaalia', 'Prantsusmaa', 'Island']
+    end
+    if tournament_name == 'MM 2018'
+      return ['Uruguay', 'Prantsusmaa', 'Brasiilia', 'Belgia', 'Rootsi', 'Inglismaa', 'Venemaa', 'Horvaatia']
+    end
+    if tournament_name == 'EM 2020'
+      return ['Šveits', 'Hispaania', 'Belgia', 'Itaalia', 'Tsehhi', 'Taani', 'Ukraina', 'Inglismaa']
+    end
+    if tournament_name == 'MM 2022'
+      return ['Horvaatia', 'Brasiilia', 'Holland', 'Argentina', 'Maroko', 'Portugal', 'Inglismaa', 'Prantsusmaa']
+    end
+    return []
+  end
   
 end

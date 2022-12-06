@@ -8,10 +8,10 @@
         %th Tulemus
         %th
     %tbody
-      = render 'knockoutPhaseGame', :team1 => @team1, :team2 => @team2, :resultCode => 'Q1', :userTeam => @userTeamQ1
-      = render 'knockoutPhaseGame', :team1 => @team3, :team2 => @team4, :resultCode => 'Q2', :userTeam => @userTeamQ2
-      = render 'knockoutPhaseGame', :team1 => @team5, :team2 => @team6, :resultCode => 'Q3', :userTeam => @userTeamQ3
-      = render 'knockoutPhaseGame', :team1 => @team7, :team2 => @team8, :resultCode => 'Q4', :userTeam => @userTeamQ4
+      = render 'knockoutPhaseGame', :team1 => @teams[0], :team2 => @teams[1], :resultCode => 'Q1', :userTeam => @userTeamQ1
+      = render 'knockoutPhaseGame', :team1 => @teams[2], :team2 => @teams[3], :resultCode => 'Q2', :userTeam => @userTeamQ2
+      = render 'knockoutPhaseGame', :team1 => @teams[4], :team2 => @teams[5], :resultCode => 'Q3', :userTeam => @userTeamQ3
+      = render 'knockoutPhaseGame', :team1 => @teams[6], :team2 => @teams[7], :resultCode => 'Q4', :userTeam => @userTeamQ4
   * Õige vastus annab 10 punkti. Õige võitja aga vale vastus annab 5 punkti.
   %br
   %br

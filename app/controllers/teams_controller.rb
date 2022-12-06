@@ -122,15 +122,7 @@ class TeamsController < ApplicationController
     @userTeamQ4 = UserTeam.find_by_user_id_and_criteria_and_tournament_id @user.id, :Q4, @tournament_id
     
     @tournament = Tournament.find_by_id @tournament_id
-    @team1 = @tournament.em2020 ? 'Šveits' : (@tournament.em2016 ? 'Šveits/Poola' : (@tournament.mm ? (@tournament.name == 'MM 2018' ? 'Uruguay/Portugal' : 'A1/B2') : 'A1'))
-    @team2 = @tournament.em2020 ? 'Hispaania' : (@tournament.em2016 ? 'Horvaatia/Portugal' : (@tournament.mm ? (@tournament.name == 'MM 2018' ? 'Prantsusmaa/Argentiina' : 'C1/D2') : 'B2'))
-    @team3 = @tournament.em2020 ? 'Belgia' : (@tournament.em2016 ? 'Wales/Põhja-Iirimaa' : (@tournament.mm ? (@tournament.name == 'MM 2018' ? 'Hispaania/Venemaa' : 'B1/A2') : 'B1'))
-    @team4 = @tournament.em2020 ? 'Itaalia' : (@tournament.em2016 ? 'Ungari/Belgia' : (@tournament.mm ? (@tournament.name == 'MM 2018' ? 'Horvaatia/Taani' : 'D1/C2') : 'A2'))
-    @team5 = @tournament.em2020 ? 'Tsehhi' : (@tournament.em2016 ? 'Saksamaa/Slovakkia' : (@tournament.mm ? (@tournament.name == 'MM 2018' ? 'Brasiilia/Mehhiko' : 'E1/F2') : 'C1'))
-    @team6 = @tournament.em2020 ? 'Taani' : (@tournament.em2016 ? 'Itaalia/Hispaania' : (@tournament.mm ? (@tournament.name == 'MM 2018' ? 'Belgia/Jaapan' : 'G1/H2') : 'D2'))
-    @team7 = @tournament.em2020 ? 'Ukraina' : (@tournament.em2016 ? 'Prantsusmaa/Iirimaa' : (@tournament.mm ? (@tournament.name == 'MM 2018' ? 'Rootsi/Šveits' : 'F1/E2') : 'D1'))
-    @team8 = @tournament.em2020 ? 'Inglismaa' : (@tournament.em2016 ? 'Inglismaa/Island' : (@tournament.mm ? (@tournament.name == 'MM 2018' ? 'Kolumbia/Inglismaa' : 'H1/G2') : 'C2'))
-    
+    @teams = Team.get_quarterfinals_teams @tournament_name
     addGroups @tournament
   end
   
