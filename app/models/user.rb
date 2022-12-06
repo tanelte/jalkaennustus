@@ -92,9 +92,9 @@ class User < ActiveRecord::Base
     if userTeam.result != nil
       if ["Q1", "Q2", "Q3", "Q4"].include?(userTeam.criteria)
         if userTeam.result == tegelikTeam.result
-          points = points + 10
+          points = points + 14
         elsif userTeam.result[1] == tegelikTeam.result[1]
-          points = points + 5
+          points = points + 7
         end
       else
         if userTeam.result == tegelikTeam.result
