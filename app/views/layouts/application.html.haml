@@ -2,14 +2,16 @@
 %html
   %head
     %title jalkaennustus
-    = stylesheet_link_tag 'application'
-    = javascript_include_tag 'application'
+    %meta{charset: "utf-8"}
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1.0"}
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
     = csrf_meta_tags
 
   %body.bg-light
+    .bg-primary.text-white.p-3.mb-3
+      %h1.text-center.title Jalkaennustus #{@tournament_name}
     .container
-      .bg-primary.text-white.p-3.mb-3
-        %h1.title Jalkaennustus #{@tournament_name}
       #main
         - if flash[:notice]
           .alert.alert-success= flash[:notice]
