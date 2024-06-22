@@ -27,7 +27,5 @@
   = link_to 'Lisaküsimused', tournament_user_user_questions_path(@tournament_id, @user.id)
   \- ennustamise tähtaeg alagrupiturniiri teise vooru algus
 %br
-%br
-%br
 = button_to 'Kasutajate nimekirja', tournament_users_path(@tournament_id), :method => :get, :class => 'btn btn-secondary responsive-button'
 /= button_to 'Kustuta kasutaja', tournament_user_path(@tournament_id, @user.id), :method => :delete, :confirm => 'Kas oled kindel et soovid kasutaja kustutada?'

@@ -33,7 +33,6 @@
           %tr
             %td Grupp H:
             %td= select :result, 'H3', @groupH.collect{|p| [p.name, p.id]}, {selected: "#{@userTeamH == nil ? nil : @userTeamH.team_id}", prompt: '- vali -'}, {class: "form-control"}
-  %br
   * Iga õige vastus annab 10 punkti.
   %br
   = hidden_field_tag "user_id", @user.id
