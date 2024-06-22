@@ -1,0 +1,34 @@
+$primary: #4caf50; // Green color for the primary theme
+$success: #81c784; // A lighter green for success messages
+$info: #4caf50;
+
+@import "bootstrap";
+
+.btn-primary {
+  color: #fff !important;
+}
+.custom-row {
+  margin-bottom: 5px;
+}
+
+.bold-text {
+  font-weight: bold;
+}
+
+@media (max-width: 576px) {
+  .btn.btn-responsive {
+    padding: 10px 20px;
+    font-size: 2.5rem;
+  }
+}
+
+.responsive-button {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .responsive-button {
+    width: auto;
+    display: inline-block;
+  }
+}

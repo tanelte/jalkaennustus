@@ -1,62 +1,45 @@
 %h2 Ennusta alagruppide kolmandad kohad
 
 = form_tag group_teams_path(@tournament_id, @user.id), :method => :post do
-  Grupp A: 
-  =select :result, 'A3', @groupA.collect{|p| [p.name, p.id]}, 
-    {:selected => "#{@userTeamA == nil ? nil : @userTeamA.team_id}", :prompt => '- vali -'}, 
-    {:class=>"group"}
-  %br
-  %br
-  Grupp B: 
-  =select :result, 'B3', @groupB.collect{|p| [p.name, p.id]}, 
-    {:selected => "#{@userTeamB == nil ? nil : @userTeamB.team_id}", :prompt => '- vali -'}, 
-    {:class=>"group"}
-  %br
-  %br
-  Grupp C: 
-  =select :result, 'C3', @groupC.collect{|p| [p.name, p.id]}, 
-    {:selected => "#{@userTeamC == nil ? nil : @userTeamC.team_id}", :prompt => '- vali -'}, 
-    {:class=>"group"}
-  %br
-  %br
-  Grupp D: 
-  =select :result, 'D3', @groupD.collect{|p| [p.name, p.id]}, 
-    {:selected => "#{@userTeamD == nil ? nil : @userTeamD.team_id}", :prompt => '- vali -'}, 
-    {:class=>"group"}
-  %br
-  %br
-  - if !@tournament.em2012
-    Grupp E: 
-    =select :result, 'E3', @groupE.collect{|p| [p.name, p.id]}, 
-      {:selected => "#{@userTeamE == nil ? nil : @userTeamE.team_id}", :prompt => '- vali -'}, 
-      {:class=>"group"}
-    %br
-    %br
-    Grupp F: 
-    =select :result, 'FA3', @groupF.collect{|p| [p.name, p.id]}, 
-      {:selected => "#{@userTeamF == nil ? nil : @userTeamF.team_id}", :prompt => '- vali -'}, 
-      {:class=>"group"}
-    %br
-    %br
-    - if @tournament.mm
-      Grupp G: 
-      =select :result, 'G3', @groupG.collect{|p| [p.name, p.id]}, 
-        {:selected => "#{@userTeamG == nil ? nil : @userTeamG.team_id}", :prompt => '- vali -'}, 
-        {:class=>"group"}
-      %br
-      %br
-      Grupp H: 
-      =select :result, 'H3', @groupH.collect{|p| [p.name, p.id]}, 
-        {:selected => "#{@userTeamH == nil ? nil : @userTeamH.team_id}", :prompt => '- vali -'}, 
-        {:class=>"group"}
-  %br
+  %table.table.table-striped.table-hover.table-responsive
+    %thead
+      %tr
+        %th Grupp
+        %th Valik
+    %tbody
+      %tr
+        %td Grupp A:
+        %td= select :result, 'A3', @groupA.collect{|p| [p.name, p.id]}, {selected: "#{@userTeamA == nil ? nil : @userTeamA.team_id}", prompt: '- vali -'}, {class: "form-control"}
+      %tr
+        %td Grupp B:
+        %td= select :result, 'B3', @groupB.collect{|p| [p.name, p.id]}, {selected: "#{@userTeamB == nil ? nil : @userTeamB.team_id}", prompt: '- vali -'}, {class: "form-control"}
+      %tr
+        %td Grupp C:
+        %td= select :result, 'C3', @groupC.collect{|p| [p.name, p.id]}, {selected: "#{@userTeamC == nil ? nil : @userTeamC.team_id}", prompt: '- vali -'}, {class: "form-control"}
+      %tr
+        %td Grupp D:
+        %td= select :result, 'D3', @groupD.collect{|p| [p.name, p.id]}, {selected: "#{@userTeamD == nil ? nil : @userTeamD.team_id}", prompt: '- vali -'}, {class: "form-control"}
+      - if !@tournament.em2012
+        %tr
+          %td Grupp E:
+          %td= select :result, 'E3', @groupE.collect{|p| [p.name, p.id]}, {selected: "#{@userTeamE == nil ? nil : @userTeamE.team_id}", prompt: '- vali -'}, {class: "form-control"}
+        %tr
+          %td Grupp F:
+          %td= select :result, 'F3', @groupF.collect{|p| [p.name, p.id]}, {selected: "#{@userTeamF == nil ? nil : @userTeamF.team_id}", prompt: '- vali -'}, {class: "form-control"}
+        - if @tournament.mm
+          %tr
+            %td Grupp G:
+            %td= select :result, 'G3', @groupG.collect{|p| [p.name, p.id]}, {selected: "#{@userTeamG == nil ? nil : @userTeamG.team_id}", prompt: '- vali -'}, {class: "form-control"}
+          %tr
+            %td Grupp H:
+            %td= select :result, 'H3', @groupH.collect{|p| [p.name, p.id]}, {selected: "#{@userTeamH == nil ? nil : @userTeamH.team_id}", prompt: '- vali -'}, {class: "form-control"}
   %br
   * Iga õige vastus annab 10 punkti.
   %br
-  %br
   = hidden_field_tag "user_id", @user.id
   = hidden_field_tag "tournament_id", @tournament_id
-  - if @tournament_open == true
-    - if @user.name == 'tegelikud tulemused' || @sys_params.find{|param| param.code == 'GROUP_THIRD_PLACE_ENABLED'}.value.to_i == 1
-      = submit_tag 'Salvesta', :class => 'form_btn'
-= button_to 'Tagasi', tournament_user_path(@tournament_id, @user.id), :method => :get, :class => 'form_btn'
+  .d-flex.justify-content-start
+    -if @tournament_open == true
+      - if @user.name == 'tegelikud tulemused' || @sys_params.find{|param| param.code == 'GROUP_THIRD_PLACE_ENABLED'}.value.to_i == 1
+        = submit_tag 'Salvesta', :class => 'btn btn-primary mt-3 me-3 responsive-button'
+    = link_to 'Tagasi', tournament_user_path(@tournament_id, @user.id), :method => :get, :class => 'btn btn-secondary mt-3 responsive-button'

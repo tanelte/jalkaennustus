@@ -40,4 +40,7 @@ gem 'webrick'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
-ruby '3.1.2'
+ruby '3.1.5'
+
+gem 'dartsass-sprockets', '~> 3.1.0'
+gem 'bootstrap', '~> 5.3.3'

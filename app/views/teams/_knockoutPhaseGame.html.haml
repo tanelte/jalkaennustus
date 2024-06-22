@@ -5,5 +5,6 @@
     ["#{team2} võidab normaalajal",'1B'],
     ["#{team1} võidab lisaajal või penaltitega",'2A'],
     ["#{team2} võidab lisaajal või penaltitega",'2B']],
-    {:selected => "#{userTeam == nil ? nil : userTeam.result}", :prompt => '- vali -'}
-  %td= link_to 'Vaata teiste ennustusi', knockout_phase_show_all_path(@tournament_id, @user.id, resultCode, team1: team1, team2: team2)
+    {:selected => "#{userTeam == nil ? nil : userTeam.result}", :prompt => '- vali -'}, 
+    {:class=>"form-control"}
+  %td= link_to 'Vaata teiste ennustusi', knockout_phase_show_all_path(@tournament_id, @user.id, resultCode, team1: team1, team2: team2), class: 'btn btn-info', style: 'color: white;'

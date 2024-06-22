@@ -1,6 +1,6 @@
 %h2 Ennustused
 
-%table#teams
+%table#teams.table.table-striped.table-hover
   %thead
     %tr
       %th Nimi
@@ -10,4 +10,4 @@
       %tr
         %td= userTeam.user_name
         %td= userTeam.teams
-= button_to 'Tagasi', finals_teams_path(@tournament_id, @user.id), :method => :get, :class => 'form_btn'
+= button_to 'Tagasi', finals_teams_path(@tournament_id, @user.id), :method => :get, :class => 'btn btn-secondary mt-3'

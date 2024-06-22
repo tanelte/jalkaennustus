@@ -1,36 +1,34 @@
 %h2 Ennusta turniiri neli parimat meeskonda
 
 = form_tag finals_teams_path(@tournament_id, @user.id), :method => :post do
-  Võitja: 
-  =select :result, 'F1', @teams.collect{|p| [p.name, p.id]}, 
-    {:selected => "#{@userTeamF1 == nil ? nil : @userTeamF1.team_id}", :prompt => '- vali -'}
-  %br
-  %br
-  Teine koht: 
-  =select :result, 'F2', @teams.collect{|p| [p.name, p.id]}, 
-    {:selected => "#{@userTeamF2 == nil ? nil : @userTeamF2.team_id}", :prompt => '- vali -'}
-  %br
-  %br
-  Kolmas koht: 
-  =select :result, 'F3', @teams.collect{|p| [p.name, p.id]}, 
-    {:selected => "#{@userTeamF3 == nil ? nil : @userTeamF3.team_id}", :prompt => '- vali -'}
-  %br
-  %br
-  Neljas koht: 
-  =select :result, 'F4', @teams.collect{|p| [p.name, p.id]}, 
-    {:selected => "#{@userTeamF4 == nil ? nil : @userTeamF4.team_id}", :prompt => '- vali -'}
-  %br
+  %table.table.table-striped.table-hover
+    %tbody
+      %tr
+        %td Võitja:
+        %td= select :result, 'F1', @teams.collect{|p| [p.name, p.id]}, {:selected => "#{@userTeamF1 == nil ? nil : @userTeamF1.team_id}", :prompt => '- vali -'}, class: 'form-control'
+      %tr
+        %td Teine koht:
+        %td= select :result, 'F2', @teams.collect{|p| [p.name, p.id]}, {:selected => "#{@userTeamF2 == nil ? nil : @userTeamF2.team_id}", :prompt => '- vali -'}, class: 'form-control'
+      %tr
+        %td Kolmas koht:
+        %td= select :result, 'F3', @teams.collect{|p| [p.name, p.id]}, {:selected => "#{@userTeamF3 == nil ? nil : @userTeamF3.team_id}", :prompt => '- vali -'}, class: 'form-control'
+      %tr
+        %td Neljas koht:
+        %td= select :result, 'F4', @teams.collect{|p| [p.name, p.id]}, {:selected => "#{@userTeamF4 == nil ? nil : @userTeamF4.team_id}", :prompt => '- vali -'}, class: 'form-control'
   %br
   - if @tournament.mm
-    Õiged vastused annavad vastavalt 50, 30, 25 ja 20 punkti.
+    %tr
+      %td Õiged vastused annavad vastavalt 50, 30, 25 ja 20 punkti.
   - else
-    * Esimese ja teise koha õiged vastused annavad vastavalt 50 ja 30 punkti. Kui ennustad finaalis osaleva võistkonna õigesti, aga koht on vale, siis saad 15 punkti.
-  %br
+    %tr
+      %td
+        * Esimese ja teise koha õiged vastused annavad vastavalt 50 ja 30 punkti. Kui ennustad finaalis osaleva võistkonna õigesti, aga koht on vale, siis saad 15 punkti.
   %br
   = hidden_field_tag "user_id", @user.id
   = hidden_field_tag "tournament_id", @tournament_id
-  - if @tournament_open == true
-    - if @user.name == 'tegelikud tulemused' || @sys_params.find{|param| param.code == 'FINALS_ENABLED'}.value.to_i == 1
-      = submit_tag 'Salvesta'
-= button_to 'Vaata teiste ennustusi', finals_show_all_path(@tournament_id, @user.id), :method => :get, :class => 'form_btn'
-= button_to 'Tagasi', tournament_user_path(@tournament_id, @user.id), :method => :get, :class => 'form_btn', :style => 'margin-left:5px'
+  .d-flex.justify-content-start
+    - if @tournament_open == true
+      - if @user.name == 'tegelikud tulemused' || @sys_params.find{|param| param.code == 'FINALS_ENABLED'}.value.to_i == 1
+        = submit_tag 'Salvesta', :class => 'btn btn-primary mt-3 me-3 responsive-button'
+    = link_to 'Vaata teiste ennustusi', finals_show_all_path(@tournament_id, @user.id), :method => :get, :class => 'btn btn-primary mt-3 me-3 responsive-button'
+    = link_to 'Tagasi', tournament_user_path(@tournament_id, @user.id), :method => :get, :class => 'btn btn-secondary mt-3 responsive-button'

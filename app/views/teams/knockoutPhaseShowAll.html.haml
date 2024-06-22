@@ -11,6 +11,6 @@
         %td= userTeam.user_name
         %td= userTeam.get_result_text @team1_name, @team2_name
 - if ['Q1', 'Q2', 'Q3', 'Q4'].include?(@criteria)
-  = button_to 'Tagasi', quarterfinals_teams_path(@tournament_id, @user.id), :method => :get, :class => 'form_btn'
+  = button_to 'Tagasi', quarterfinals_teams_path(@tournament_id, @user.id), :method => :get, :class => 'btn btn-secondary mt-3'
 - else
-  = button_to 'Tagasi', round_of_16_teams_path(@tournament_id, @user.id), :method => :get, :class => 'form_btn'
+  = button_to 'Tagasi', round_of_16_teams_path(@tournament_id, @user.id), :method => :get, :class => 'btn btn-secondary mt-3'

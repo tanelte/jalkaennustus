@@ -1,7 +1,7 @@
 %h2 Ennusta veerandfinaalide võitjad
 
 = form_tag quarterfinals_teams_path(@tournament_id, @user.id), :method => :post do
-  %table#teams
+  %table#teams.table.table-striped.table-hover
     %thead
       %tr
         %th Mäng
@@ -17,16 +17,17 @@
   %br
   = hidden_field_tag "user_id", @user.id
   = hidden_field_tag "tournament_id", @tournament_id
-  - if @tournament_open == true
-    - if @user.name == 'tegelikud tulemused' || @sys_params.find{|param| param.code == 'QUARTERFINALS_ENABLED'}.value.to_i == 1
-      = submit_tag 'Salvesta', :class => 'form_btn'
-= button_to 'Tagasi', tournament_user_path(@tournament_id, @user.id), :method => :get, :class => 'form_btn'
+  .d-flex.justify-content-start
+    - if @tournament_open == true
+      - if @user.name == 'tegelikud tulemused' || @sys_params.find{|param| param.code == 'QUARTERFINALS_ENABLED'}.value.to_i == 1
+        = submit_tag 'Salvesta', :class => 'btn btn-primary me-3 responsive-button'
+    = link_to 'Tagasi', tournament_user_path(@tournament_id, @user.id), :method => :get, :class => 'btn btn-secondary responsive-button'
 
 %br
 %br
 %br
 %h2 Alagrupid
-%table#groups
+%table#groups.table.table-striped.table-hover
   %thead
     %tr
       %th A
