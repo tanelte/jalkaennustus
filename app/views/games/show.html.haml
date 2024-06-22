@@ -10,4 +10,4 @@
       %tr
         %td= userGame.user_name
         %td= userGame.get_result_text
-= button_to 'Tagasi', tournament_user_games_path(@tournament_id, @user_id), :method => :get, :class => 'form_btn'
+= link_to 'Tagasi', tournament_user_games_path(@tournament_id, @user_id), :method => :get, :class => 'btn btn-secondary responsive-button'
