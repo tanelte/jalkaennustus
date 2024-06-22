@@ -31,7 +31,6 @@ gem 'devise'
 gem 'tzinfo-data'
 gem 'chartkick'
 gem 'webrick'
-gem "net-http"
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -43,5 +42,5 @@ gem "net-http"
 # gem 'ruby-debug19', :require => 'ruby-debug'
 ruby '3.1.5'
 
-gem 'dartsass-sprockets', '~> 3.1.0'
+#gem 'dartsass-sprockets', '~> 3.1.0'
 gem 'bootstrap', '~> 5.3.3'
