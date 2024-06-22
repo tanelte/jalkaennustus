@@ -1,25 +1,24 @@
-.container
-  %h2.mb-3 Kasutajad
+%h2.mb-3 Kasutajad
 
-  %table#users.table.table-responsive-sm.table-striped
-    %thead
+%table#users.table.table-responsive-sm.table-striped
+  %thead
+    %tr
+      %th Nimi
+      %th Punktid
+      %th
+  %tbody
+    - @users.each do |user|
       %tr
-        %th Nimi
-        %th Punktid
-        %th
-    %tbody
-      - @users.each do |user|
-        %tr
-          %td= link_to "#{user.name}", tournament_user_path(@tournament_id, user.id), class: 'btn btn-link'
-          %td= user.points.round()
-          %td= link_to "Eemalda", tournament_user_path(@tournament_id, user.id), :method => :delete, :data => {:confirm => 'Kas oled kindel, et soovid kasutaja grupist eemaldada? Kasutaja eelmiste turniiride tulemused jäävad alles.'}, class: 'btn btn-link'
-  .mt-4
-    %br
-    %br
-    = form_tag tournament_users_path(@tournament_id) do
-      .d-flex.justify-content-start.align-items-center
-        = text_field :user, 'name', class: 'form-control', placeholder: 'Sisesta kasutaja nimi'
-        = submit_tag 'Lisa uus kasutaja', class: 'btn btn-primary ms-2'
-    %br
-    %br
-    = link_to "Turniiride nimekirja", tournaments_path, :method => :get, :class => 'btn btn-secondary mt-3 responsive-button'
+        %td= link_to "#{user.name}", tournament_user_path(@tournament_id, user.id), class: 'btn btn-link'
+        %td= user.points.round()
+        %td= link_to "Eemalda", tournament_user_path(@tournament_id, user.id), :method => :delete, :data => {:confirm => 'Kas oled kindel, et soovid kasutaja grupist eemaldada? Kasutaja eelmiste turniiride tulemused jäävad alles.'}, class: 'btn btn-link'
+.mt-4
+  %br
+  %br
+  = form_tag tournament_users_path(@tournament_id) do
+    .d-flex.justify-content-start.align-items-center
+      = text_field :user, 'name', class: 'form-control', placeholder: 'Sisesta kasutaja nimi'
+      = submit_tag 'Lisa uus kasutaja', class: 'btn btn-primary ms-2'
+  %br
+  %br
+  = link_to "Turniiride nimekirja", tournaments_path, :method => :get, :class => 'btn btn-secondary mt-3 responsive-button'

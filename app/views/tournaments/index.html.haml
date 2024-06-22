@@ -1,17 +1,16 @@
-.container
-  %h2.mb-3 Turniiride nimekiri
-  %table.table.table-hover.table-striped.mb-3
-    %thead
+%h2.mb-3 Turniiride nimekiri
+%table.table.table-hover.table-striped.mb-3
+  %thead
+    %tr
+      %th Turniiri nimi
+      %th Tegevused
+  %tbody
+    - @tournaments.each do |tournament|
       %tr
-        %th Turniiri nimi
-        %th Tegevused
-    %tbody
-      - @tournaments.each do |tournament|
-        %tr
-          %td= tournament.name
-          %td
-            = link_to 'Ava turniiri ennustused', tournament_users_path(tournament.id), class: 'btn btn-primary', style: 'color: white;'
-  .chart
-    = line_chart @points_by_tournament_chart_data, class: 'mb-3'
-  .chart
-    = line_chart @points_total_chart_data
+        %td= tournament.name
+        %td
+          = link_to 'Ava turniiri ennustused', tournament_users_path(tournament.id), class: 'btn btn-primary', style: 'color: white;'
+.chart
+  = line_chart @points_by_tournament_chart_data, class: 'mb-3'
+.chart
+  = line_chart @points_total_chart_data

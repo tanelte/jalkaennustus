@@ -1,38 +1,37 @@
-.container
-  %h2.mb-4 Ennusta alagrupimängude tulemused
+%h2.mb-4 Ennusta alagrupimängude tulemused
 
-  = form_tag tournament_user_games_path(@tournament_id, @user.id), :method => :post do
-    .table-responsive
-      %table.table.table-striped.table-bordered
-        %tbody
-          - @games.each do |game|
-            = fields_for :game, game do |g|
-              %tr
-                %td
-                  %span{class: "#{game.double_points == 1 ? 'fw-bold' : ''}"}
-                    .mb-2
-                      Alagrupp:
-                      = game.group
-                    Mäng: 
-                    = "#{@teams.select{|team| team.id == game.team1_id}[0].name} - #{@teams.select{|team| team.id == game.team2_id}[0].name}"
-                    %br
-                    .d-flex.justify-content-start.align-items-center
-                      Ennustus:
-                      = select :result, "#{game.id}",
-                        [["#{@teams.select{|team| team.id == game.team1_id}[0].name} võidab kuni kahe väravaga",'1A'],
-                        ["#{@teams.select{|team| team.id == game.team1_id}[0].name} võidab vähemalt kolme väravaga",'1B'],
-                        ["#{@teams.select{|team| team.id == game.team2_id}[0].name} võidab kuni kahe väravaga",'2A'],
-                        ["#{@teams.select{|team| team.id == game.team2_id}[0].name} võidab vähemalt kolme väravaga",'2B'],
-                        ['Mäng lõppeb viigiga','X']], 
-                        {:selected => "#{@userGames == nil || @userGames.empty? || @userGames.select{|userGame| game.id == userGame.game_id}.empty? ? '' : @userGames.select{|userGame| game.id == userGame.game_id}[0].result}", 
-                        :prompt => '- vali -'}, 
-                        {:class=>"form-control mt-2 ms-2"}
-                %td= link_to 'Vaata teiste ennustusi', tournament_user_game_path(@tournament_id, @user.id, game.id), class: 'btn btn-info', style: 'color: white;'
-      %p Õige vastus annab 5 punkti. Õige võitja aga vale vastus annab 3 punkti. Boldiga tähistatud mängude ennustamine annab topeltpunktid.
-    = hidden_field_tag "user_id", @user.id
-    = hidden_field_tag "tournament_id", @tournament_id
-    .d-flex.justify-content-start
-      - if @tournament_open == true
-        - if @user.name == 'tegelikud tulemused' || @sys_params.find{|param| param.code == 'GROUP_ENABLED'}.value.to_i == 1
-          = submit_tag 'Salvesta', class: 'btn btn-primary me-3 responsive-button'
-      = link_to 'Tagasi', tournament_user_path(@tournament_id, @user.id), :method => :get, :class => 'btn btn-secondary responsive-button'
+= form_tag tournament_user_games_path(@tournament_id, @user.id), :method => :post do
+  .table-responsive
+    %table.table.table-striped.table-bordered
+      %tbody
+        - @games.each do |game|
+          = fields_for :game, game do |g|
+            %tr
+              %td
+                %span{class: "#{game.double_points == 1 ? 'fw-bold' : ''}"}
+                  .mb-2
+                    Alagrupp:
+                    = game.group
+                  Mäng: 
+                  = "#{@teams.select{|team| team.id == game.team1_id}[0].name} - #{@teams.select{|team| team.id == game.team2_id}[0].name}"
+                  %br
+                  .d-flex.justify-content-start.align-items-center
+                    Ennustus:
+                    = select :result, "#{game.id}",
+                      [["#{@teams.select{|team| team.id == game.team1_id}[0].name} võidab kuni kahe väravaga",'1A'],
+                      ["#{@teams.select{|team| team.id == game.team1_id}[0].name} võidab vähemalt kolme väravaga",'1B'],
+                      ["#{@teams.select{|team| team.id == game.team2_id}[0].name} võidab kuni kahe väravaga",'2A'],
+                      ["#{@teams.select{|team| team.id == game.team2_id}[0].name} võidab vähemalt kolme väravaga",'2B'],
+                      ['Mäng lõppeb viigiga','X']], 
+                      {:selected => "#{@userGames == nil || @userGames.empty? || @userGames.select{|userGame| game.id == userGame.game_id}.empty? ? '' : @userGames.select{|userGame| game.id == userGame.game_id}[0].result}", 
+                      :prompt => '- vali -'}, 
+                      {:class=>"form-control mt-2 ms-2"}
+              %td= link_to 'Vaata teiste ennustusi', tournament_user_game_path(@tournament_id, @user.id, game.id), class: 'btn btn-info', style: 'color: white;'
+    %p Õige vastus annab 5 punkti. Õige võitja aga vale vastus annab 3 punkti. Boldiga tähistatud mängude ennustamine annab topeltpunktid.
+  = hidden_field_tag "user_id", @user.id
+  = hidden_field_tag "tournament_id", @tournament_id
+  .d-flex.justify-content-start
+    - if @tournament_open == true
+      - if @user.name == 'tegelikud tulemused' || @sys_params.find{|param| param.code == 'GROUP_ENABLED'}.value.to_i == 1
+        = submit_tag 'Salvesta', class: 'btn btn-primary me-3 responsive-button'
+    = link_to 'Tagasi', tournament_user_path(@tournament_id, @user.id), :method => :get, :class => 'btn btn-secondary responsive-button'
