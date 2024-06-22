@@ -31,6 +31,7 @@ gem 'devise'
 gem 'tzinfo-data'
 gem 'chartkick'
 gem 'webrick'
+gem "net-http"
 
 # Use unicorn as the web server
 # gem 'unicorn'
