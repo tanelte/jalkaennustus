@@ -25,7 +25,7 @@
           %td= select :result, 'E3', @groupE.collect{|p| [p.name, p.id]}, {selected: "#{@userTeamE == nil ? nil : @userTeamE.team_id}", prompt: '- vali -'}, {class: "form-control"}
         %tr
           %td Grupp F:
-          %td= select :result, 'F3', @groupF.collect{|p| [p.name, p.id]}, {selected: "#{@userTeamF == nil ? nil : @userTeamF.team_id}", prompt: '- vali -'}, {class: "form-control"}
+          %td= select :result, 'FA3', @groupF.collect{|p| [p.name, p.id]}, {selected: "#{@userTeamF == nil ? nil : @userTeamF.team_id}", prompt: '- vali -'}, {class: "form-control"}
         - if @tournament.mm
           %tr
             %td Grupp G:
