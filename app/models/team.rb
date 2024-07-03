@@ -38,6 +38,9 @@ class Team < ActiveRecord::Base
     if tournament_name == 'MM 2022'
       return ['Horvaatia', 'Brasiilia', 'Holland', 'Argentina', 'Maroko', 'Portugal', 'Inglismaa', 'Prantsusmaa']
     end
+    if tournament_name == 'EM 2024'
+      return ['Hispaania', 'Saksamaa', 'Portugal', 'Prantsusmaa', 'Inglismaa', 'Šveits', 'Holland', 'Türgi']
+    end
     return []
   end
   
